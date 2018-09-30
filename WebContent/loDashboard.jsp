@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Welcome Page</title>
+<title>Leasing Office - Home page</title>
 </head>
 <body>
-<h1> ${message} !!! </h1>
-
-	<a href="logout.jsp">logout</a>
 
 </body>
 </html>

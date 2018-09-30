@@ -1,28 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register</title>
+<title>HousingBoard</title>
 
 </head>
 <body>
 <form name="regform" action="LoginController" method="post" onsubmit="return regValidate()">
-	<br>${message}<br>
+	${message}
+	<h2>Registration</h2>
+	<p>Select user type:</p>
+	<input type="radio" name="user_type" value="member" />Member
 	
-	Username: <input type="text" name="username"> <br>
-	<div id="username_error"></div><br>
-	Customer name: <input type="text" name="name"><br>
+	<input type="radio" name="user_type" value="leasing_office" />Leasing Office <br>
 	
-	Password: <input type="password" name="password" id="password"> 
-	<br>
-	Re-Type Password: <input type="password" name="retry-password" id="retry-password"> 
-	<br>
-	<div id="password_error"></div><br>
-	<input type="submit" name="submit" value="register" >
-	<input type="reset" name="reset">
+	<input type="email" name="email_id" placeholder="Email-ID" required/><br>
+	
+	<input type="text" name="full_name" placeholder="Full Name" required><br>
+	
+	<input type="password" name="password" id="password" placeholder="Password" required><br>
+	
+	<input type="password" name="confirm_password" id="retry-password" placeholder="Confirm Password" required/><br>
+	
+	<input type="text" name="phone_no" placeholder="Phone Number" required/><br>
+	
+	<input type="text" name="email_id" placeholder="Email-ID" required/><br>
+	
+	<input type="text" name="address" placeholder="Address" required/><br>
+	
+	<input type="text" name="zipcode" placeholder="Zipcode" required/><br>
+	
+	<input type="text" name="city" placeholder="City" required/><br>
+
+	<input type="text" name="state" placeholder="State" required/><br>	
+	
+	<input type="text" name="country" placeholder="Country" required/><br>
+	
+	<input type="submit" name="submit" value="Register" >
+	<input type="reset" name="Reset">
 	
 	</form>
 	

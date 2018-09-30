@@ -4,13 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>logout page</title>
+<title>Member - Home Page</title>
 </head>
 <body>
-<%
-	session.invalidate();
-	response.sendRedirect("login.jsp");
-%>
 
 </body>
 </html>
