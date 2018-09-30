@@ -51,13 +51,13 @@ public class LoginController extends HttpServlet {
 //			Member
 			System.out.println("Member User");
 			UserDao memberUser = new MemberDaoImpl();
-			Member memberModel = (Member) memberUser.loginUser(loginModel);
+//			Member memberModel = (Member) memberUser.loginUser(loginModel);
 			
 		}else {
 //			Leasing Office 
 			System.out.println("Leasing Office User");
 			UserDao loUser = new LeasingOfficeDaoImpl();
-			LeasingOffice loModel = (LeasingOffice) loUser.loginUser(loginModel);
+//			LeasingOffice loModel = (LeasingOffice) loUser.loginUser(loginModel);
 		}
 	}
 
