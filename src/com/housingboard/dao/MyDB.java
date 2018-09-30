@@ -1,12 +1,5 @@
-package db;
-/**
- * 
- * @author mehra
- * MYSQL database schema :coursedatabase
- * user :coursedatabase_admin
- * pass :Test1234
- * 
- */
+package com.housingboard.dao;
+
 public interface MyDB {
 
 	String USER="root";
