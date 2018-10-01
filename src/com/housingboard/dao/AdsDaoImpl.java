@@ -58,4 +58,54 @@ public class AdsDaoImpl implements AdsDao {
 		return null;
 	}
 
+	@Override
+	public List<Ads> getSearchResultsByPage(String searchFieldController, int pageid, int total) {
+		String searchField = searchFieldController;
+		List<Ads> listOfAds = new ArrayList<>();
+		String sql = "select * from Ads";
+		 // String sql="select * from product_details";
+		/*  if(searchField.equals("")){
+			//  sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
+		  }
+		  else*/ 
+		  if(searchField.equals("*")) {
+			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
+			  sql = "select * from Ads";
+		  }else if(!searchField.equals("")){
+			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_title like '%"+searchField+"%'";
+		  }
+		  sql = sql + " limit "+(pageid-1)+","+total;  
+		
+
+			try {
+				conn = db.getConnection();
+				//ToDO: Make changes for better search Results
+				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+						+ "%' OR  ads_description like '%" +searchField+ "%';");
+				
+				System.out.println("Conn : " + ps);
+				
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					Ads adsModel = new Ads();
+					adsModel.setId(Integer.parseInt(rs.getString("ads_id")));
+					adsModel.setTitle(rs.getString("ads_title"));
+					adsModel.setImageUrl(rs.getString("ads_image_url"));
+					adsModel.setUserId(Integer.parseInt(rs.getString("ads_user_id")));
+					adsModel.setAvailable(rs.getBoolean("ads_is_available"));
+					adsModel.setDescription(rs.getString("ads_description"));
+					adsModel.setCommunity(rs.getString("ads_community"));
+					
+					System.out.println("ADSMODEL : " + adsModel.isAvailable());
+					
+					listOfAds.add(adsModel);
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			return listOfAds;
+		}
+	
 }
