@@ -60,6 +60,7 @@ public class LoginController extends HttpServlet {
 			Member memberModel = (Member) memberUser.loginUser(loginModel);
 			viewUrl = "/memberDashboard.jsp";
 			session.setAttribute("user", memberModel);
+			session.setAttribute("userAuthToken",memberModel.getId());
 			
 		}else {
 //			Leasing Office 
@@ -68,6 +69,7 @@ public class LoginController extends HttpServlet {
 			LeasingOffice loModel = (LeasingOffice) loUser.loginUser(loginModel);
 			viewUrl = "/loDashboard.jsp";
 			session.setAttribute("user", loModel);
+			session.setAttribute("userAuthToken",loModel.getId());
 		}
 		
 		
