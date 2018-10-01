@@ -14,4 +14,8 @@ public interface AdsDao {
 	
 	public List<Ads> getSearchResults(String searchField);
 
+	public List<Ads> getSearchResultsByPage(String searchFieldController, int pageid, int total);
+
+	public boolean createNewAd(Ads adModel);
+
 }

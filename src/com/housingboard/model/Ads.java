@@ -12,6 +12,24 @@ public class Ads {
 	private String description;
 	private String community;
 	
+	public Ads(String title, String imageUrl, int userId, boolean isAvailable, String description,
+			String community) {
+		super();
+		//this.id = id;
+		this.title = title;
+		this.imageUrl = imageUrl;
+		this.userId = userId;
+		this.isAvailable = isAvailable;
+		this.description = description;
+		this.community = community;
+	}
+	
+	
+	public Ads() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getId() {
 		return id;
 	}

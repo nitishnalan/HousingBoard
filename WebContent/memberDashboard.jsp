@@ -8,5 +8,9 @@
 </head>
 <body>
 	Hello Member User - ${user.name},
+	
+	<br/>
+	If you would like to created an Ad please click this button: <a href="/HousingBoard/createAds.jsp">Create an AD</a>
+	
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.housingboard.dao;
 
+import com.housingboard.model.LeasingOffice;
 import com.housingboard.model.Login;
 import com.housingboard.model.Member;
 import com.housingboard.model.Register;
@@ -27,19 +28,28 @@ public class MemberDaoImpl implements UserDao{
 					login.getEmailId() + "' and password = '" + login.getPassword() +"'");
 			System.out.println("Connection: " +ps);
 			ResultSet rs = ps.executeQuery();
-			Member member = new Member();
-			member.setAddress(rs.getString("user_address"));
-			member.setCity(rs.getString("user_city"));
-			member.setCountry(rs.getString("user_country"));
-			member.setEmailId(rs.getString("user_email_id"));
-			member.setId(rs.getInt("user_id"));
-			member.setName(rs.getString("user_name"));
-			member.setPhoneNumb(rs.getString("user_phone_no"));
-			member.setRegistrationDate(rs.getString("user_registration_date"));
-			member.setState(rs.getString("user_state"));
-			member.setUserType(rs.getInt("user_type_id"));
-			member.setZipcode(rs.getString("user_zipcode"));
-			return member;
+			
+			rs.next();
+			int rowCount = Integer.parseInt(rs.getString("CountRow"));
+			
+			System.out.println("rowCount : " + rs.getRow() );
+			if(rowCount == 1) {
+				Member member = new Member();
+				member.setAddress(rs.getString("user_address"));
+				member.setCity(rs.getString("user_city"));
+				member.setCountry(rs.getString("user_country"));
+				member.setEmailId(rs.getString("user_email_id"));
+				member.setId(rs.getInt("user_id"));
+				member.setName(rs.getString("user_name"));
+				member.setPhoneNumb(rs.getString("user_phone_no"));
+				//member.setRegistrationDate(rs.getString("user_registration_date"));
+				member.setState(rs.getString("user_state"));
+				member.setUserType(rs.getInt("user_type_id"));
+				member.setZipcode(rs.getString("user_zipcode"));
+				return member;
+			}else {
+				System.out.println("USERNAME and Password does not match!");
+			}
 		}catch(Exception e) {
 			System.out.println(e);
 		}

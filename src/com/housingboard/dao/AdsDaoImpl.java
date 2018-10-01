@@ -107,5 +107,35 @@ public class AdsDaoImpl implements AdsDao {
 			
 			return listOfAds;
 		}
+
+	@Override
+	public boolean createNewAd(Ads adModel) {
+		// TODO Auto-generated method stub
+		try {
+			conn = db.getConnection();
+//			ps = conn.prepareStatement("insert into ads (title, imageUrl, userId, isAvailable, description, community)"
+//					+ " values ('"+adModel.getTitle()+"', '"+adModel.getImageUrl()+"',"++")");
+					
+					
+			ps = conn.prepareStatement("insert into ads (ads_title, ads_image_url,ads_user_id,ads_is_available, ads_description,ads_community) "
+					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"')");
+			
+//			ps.setString(1, adModel.getTitle());
+//			ps.setString(2, adModel.getImageUrl());
+//			ps.setInt(3, adModel.getUserId());
+//			ps.setBoolean(4, (adModel.isAvailable() ? 1 :0));
+//			ps.setString(5, adModel.getDescription());
+//			ps.setString(6, adModel.getCommunity());
+			System.out.println("Connection: "+ps);
+			ps.executeUpdate();
+			conn.close();
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 }
