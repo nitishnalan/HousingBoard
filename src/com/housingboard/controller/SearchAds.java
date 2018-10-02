@@ -51,7 +51,7 @@ public class SearchAds extends HttpServlet {
 		//int pageid = Integer.parseInt(request.getParameter("page"));
 		AdsDao searchResultsOfAds = new AdsDaoImpl();
 		List<Ads> listOfAds = new ArrayList<Ads>();
-		
+		List<Ads> totalListOfAds = new ArrayList<Ads>();
 		
 		
 		//pagination logic
@@ -66,10 +66,11 @@ public class SearchAds extends HttpServlet {
 		} 
 		
 		//listOfAds = searchResultsOfAds.getSearchResults(searchFieldController);
-	
+		
+		System.out.println("Inside searchAds Controller : calling DAO");
 		listOfAds = searchResultsOfAds.getSearchResultsByPage(searchFieldController, pageid, total);
 			
-		
+		totalListOfAds = searchResultsOfAds.getSearchResults(searchFieldController);
 		request.setAttribute("searchResultsOfAds", listOfAds);
 		
 		HttpSession session = request.getSession(false);
@@ -81,7 +82,7 @@ public class SearchAds extends HttpServlet {
 			session.setAttribute("foundResults", "false");
 		}
 		
-		double resultSetSize = (double) listOfAds.size();
+		double resultSetSize = (double) totalListOfAds.size();
 		double totalPagesRequired = Math.round(resultSetSize/totalD);
 		int totalPages = (int) totalPagesRequired;
 		session.setAttribute("totalPages", totalPages);

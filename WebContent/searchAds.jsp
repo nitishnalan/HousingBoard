@@ -55,7 +55,7 @@
 				</c:choose>
 				
 			</c:forEach>
-			
+		</table>
 			<%
 				if(session.getAttribute("searchField") != null){
 					String searchFieldValue = (String) session.getAttribute("searchField");
@@ -66,18 +66,19 @@
 					
 					while(pageCounter!=0){
 						//strBuild.append("<li><a href='/apnidukaan/product/search/"+pageNo+"?categoryId="+searchFieldValue+"&searchfield="+searchFieldValue+"' class='btn btn-warning'>	"+pageNo+"</a></li> &nbsp");
-						strBuild.append("<li><a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a></li> &nbsp");
+						//strBuild.append("<li><a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a></li> &nbsp");
+						
+						strBuild.append("<a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a> &nbsp");
 						++pageNo;
 						--pageCounter;
 					}
 					
-					out.print("<br/>");
-					out.print("<ul class='pagination'>");
+					//out.print("<ul class='pagination'>");
 					out.print(strBuild.toString());
-					out.print("</ul>");
+					//out.print("</ul>");
 				}
 			%>
-		</table>
+
 	</form>
 </body>
 </html>

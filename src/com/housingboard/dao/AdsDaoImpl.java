@@ -76,12 +76,15 @@ public class AdsDaoImpl implements AdsDao {
 		  }
 		  sql = sql + " limit "+(pageid-1)+","+total;  
 		
+		  System.out.println("SQL inside getResults page : " + sql);
 
 			try {
 				conn = db.getConnection();
 				//ToDO: Make changes for better search Results
-				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
-						+ "%' OR  ads_description like '%" +searchField+ "%';");
+//				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+//						+ "%' OR  ads_description like '%" +searchField+ "%';");
+				
+				ps = conn.prepareStatement(sql);
 				
 				System.out.println("Conn : " + ps);
 				
