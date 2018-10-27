@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.housingboard.dao.AdsDao;
 import com.housingboard.dao.AdsDaoImpl;
 import com.housingboard.model.Ads;
+import com.housingboard.model.Filters;
 
 /**
  * Servlet implementation class SearchAds
@@ -48,7 +49,44 @@ public class SearchAds extends HttpServlet {
 		
 		String searchFieldController = request.getParameter("searchfield"); 
 		
+		//////////////FILTERS/////////////////////
+		
+		String leasingTypeFilter = request.getParameter("leasingType");
+		
+		String[] preferencesFilter = request.getParameterValues("preferences");
+		
+		String ifSharing = request.getParameter("nonsharing");
+		
+		System.out.println("ifSharing : " + ifSharing);
+		
+		boolean sharingFilter = Boolean.parseBoolean(ifSharing);
+		
+		String[] apartmentTypeFilter = request.getParameterValues("apartmentType");
+		
+		
+		
+		System.out.println("leasingTypeFilter : " + leasingTypeFilter);
+		
+		System.out.println("sharing : " + sharingFilter);
+		
+		if(preferencesFilter != null) {
+			for( String s : preferencesFilter) {
+				System.out.println("preferencesFilter : " + s);
+			}
+		}
+		
+		if(apartmentTypeFilter != null) {
+			for( String s : apartmentTypeFilter) {
+				System.out.println("apartmentTypeFilter : " + s);
+			}
+		}
+		
+		Filters filterObj = new Filters(leasingTypeFilter, apartmentTypeFilter, preferencesFilter, sharingFilter);
+		
+		/////////////////////////////////////////
 		//int pageid = Integer.parseInt(request.getParameter("page"));
+		
+		
 		AdsDao searchResultsOfAds = new AdsDaoImpl();
 		List<Ads> listOfAds = new ArrayList<Ads>();
 		List<Ads> totalListOfAds = new ArrayList<Ads>();
@@ -65,10 +103,14 @@ public class SearchAds extends HttpServlet {
 			pageid = (int) pageID2;
 		} 
 		
+		//ToDo: delete
 		//listOfAds = searchResultsOfAds.getSearchResults(searchFieldController);
 		
 		System.out.println("Inside searchAds Controller : calling DAO");
-		listOfAds = searchResultsOfAds.getSearchResultsByPage(searchFieldController, pageid, total);
+		
+		listOfAds = searchResultsOfAds.getSearchResultsByPageByFilter(searchFieldController, pageid, total, filterObj);
+		
+//		listOfAds = searchResultsOfAds.getSearchResultsByPage(searchFieldController, pageid, total);
 			
 		totalListOfAds = searchResultsOfAds.getSearchResults(searchFieldController);
 		request.setAttribute("searchResultsOfAds", listOfAds);

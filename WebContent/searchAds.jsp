@@ -9,15 +9,54 @@
 <title>Search Results</title>
 </head>
 <body>
+<!-- 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get">
+		Apply Filters
+		
+		<button type ='submit' class='btn'>Apply Filters on Ads!</button>	
+	</form> -->
+
 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get"> 
+	
+		Apply Filters
+		
+		<br/>
+		Leasing Type
+			<br/>
+			<input type="radio" name="leasingType" value="New Lease"> New Lease<br>
+  			<input type="radio" name="leasingType" value="Sub Lease"> Sub Lease<br>
+  			
+  		Preferences
+  			<br/>
+  			<input type="checkbox" name="preferences" value="1"> Parking Space Included<br>
+  			<input type="checkbox" name="preferences" value="2"> Gender Inclusive<br>
+  			<input type="checkbox" name="preferences" value="3"> Pets Allowed<br>
+
+		Sharing
+  			<br/>
+  			<input type="checkbox" name="nonsharing" value="true"> Non-Sharing<br>
+		
+		  		
+  		Apartment Type
+  			<br/>
+  			<input type="checkbox" name="apartmentType" value="1"> 1BR<br>
+  			<input type="checkbox" name="apartmentType" value="2"> 2BR<br>
+  			<input type="checkbox" name="apartmentType" value="3"> 3BR<br>
+  			<input type="checkbox" name="apartmentType" value="4"> Studio<br>
+  			<input type="checkbox" name="apartmentType" value="5"> Duplex<br>
+  			<input type="checkbox" name="apartmentType" value="6"> Penthouse<br>
+
+		<button type ='submit' class='btn'>Apply Filters on Ads!</button>	
+		<br/>
+		--------------------------------------------------------------------
+	
 		<p>Enter Text you would like to Search: </p>
 		<%
 			if(session.getAttribute("searchField") != null){
 				String searchFieldValue = (String) session.getAttribute("searchField");
-				out.print("<input type ='text'  class='form-control' name='searchfield' value="+searchFieldValue+">");
+				out.print("<input type ='text'  class='form-control' name='searchfield' value="+searchFieldValue+" required>");
 			}else
 			{
-				out.print("<input type ='text' class='form-control' name='searchfield'/>");
+				out.print("<input type ='text' class='form-control' name='searchfield' required/>");
 			}
 		
 		%>

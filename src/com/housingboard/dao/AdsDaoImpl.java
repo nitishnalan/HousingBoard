@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.housingboard.model.Ads;
-import com.housingboard.dao.DbManager;
+import com.housingboard.model.Filters;
+import com.housingboard.model.SearchFilters;
 
 
 /**
@@ -28,7 +29,7 @@ public class AdsDaoImpl implements AdsDao {
 			try {
 				conn = db.getConnection();
 				//ToDO: Make changes for better search Results
-				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+				ps = conn.prepareStatement("Select * from housingboard.Ads where ads_title like '%" + searchField +""
 						+ "%' OR  ads_description like '%" +searchField+ "%';");
 				
 				System.out.println("Conn : " + ps);
@@ -72,7 +73,7 @@ public class AdsDaoImpl implements AdsDao {
 			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
 			  sql = "select * from Ads";
 		  }else if(!searchField.equals("")){
-			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_title like '%"+searchField+"%'";
+			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
 		  }
 		  sql = sql + " limit "+(pageid-1)+","+total;  
 		
@@ -139,6 +140,140 @@ public class AdsDaoImpl implements AdsDao {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public List<Ads> getSearchResultsByPageByFilter(String searchKey, int pageid, int total,
+			Filters filterObj) {
+		String searchField = searchKey;
+		List<Ads> listOfAds = new ArrayList<>();
+		String sql = "select * from Ads";
+		
+		String filterApplied = getFilterApplied(filterObj);
+		  if(searchField.equals("*")) {
+			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
+			  sql = "select * from Ads";
+		  }else if(!searchField.equals("")){
+			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
+		  }
+		  
+		  if(filterApplied != "") {
+			  sql += " AND " + filterApplied;
+		  }
+		  
+		  sql = sql + " limit "+(pageid-1)+","+total;  
+		
+		  System.out.println("SQL inside getResults page : " + sql);
+
+			try {
+				conn = db.getConnection();
+				//ToDO: Make changes for better search Results
+//				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+//						+ "%' OR  ads_description like '%" +searchField+ "%';");
+				
+				ps = conn.prepareStatement(sql);
+				
+				System.out.println("Conn : " + ps);
+				
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					Ads adsModel = new Ads();
+					adsModel.setId(Integer.parseInt(rs.getString("ads_id")));
+					adsModel.setTitle(rs.getString("ads_title"));
+					adsModel.setImageUrl(rs.getString("ads_image_url"));
+					adsModel.setUserId(Integer.parseInt(rs.getString("ads_user_id")));
+					adsModel.setAvailable(rs.getBoolean("ads_is_available"));
+					adsModel.setDescription(rs.getString("ads_description"));
+					adsModel.setCommunity(rs.getString("ads_community"));
+					
+					System.out.println("ADSMODEL : " + adsModel.isAvailable());
+					
+					listOfAds.add(adsModel);
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			return listOfAds;
+	}
+
+	private String getFilterApplied(Filters filterObj) {
+		
+		StringBuilder filterSql = new StringBuilder("");
+		boolean initFilterSet = false;
+		String tempSql = "";
+		final String andStr = "AND";
+		
+		//filter for leasing type
+		if(filterObj.getAdsLeasingType()!=null) {
+			initFilterSet = true;
+			tempSql = "ads_leasing_type IN (" + filterObj.getAdsLeasingType() + ")";
+			filterSql.append("ads_leasing_type IN ('" + filterObj.getAdsLeasingType() + "')");
+		}
+		
+		
+		//filter for preferences
+		if(filterObj.getAdsPreferences() != null) {
+			String preferenceSql = "";
+			
+			for(String eachPreferences : filterObj.getAdsPreferences()) {
+				if(preferenceSql == "") {
+					preferenceSql = eachPreferences;
+				}else {
+					preferenceSql += "," + eachPreferences;
+				}
+			}
+
+			if(filterSql.toString().equals("")) {
+				filterSql.append("ads_preferences like ('%" + preferenceSql + "%')");
+			}else
+			{
+				filterSql.append(" ");
+				filterSql.append(andStr).append(" ").append("ads_preferences like ('%" + preferenceSql + "%')");
+				
+			}
+		}
+		
+		//filter for sharing
+		if(filterObj.isAdsSharing()) {
+			
+			if(filterSql.toString().equals("")) {
+				filterSql.append("ads_sharing is false");
+			}else
+			{
+				filterSql.append(" ");
+				filterSql.append(andStr).append(" ").append("ads_sharing is false");
+				
+			}
+			
+		}
+		
+		//filter for apartment type
+		if(filterObj.getAdsApartmentType() != null) {
+			String apartmentTypeSql = "";
+			
+			for(String eachType : filterObj.getAdsApartmentType()) {
+				if(apartmentTypeSql == "") {
+					apartmentTypeSql = eachType;
+				}else {
+					apartmentTypeSql += "," + eachType;
+				}
+			}
+
+			if(filterSql.toString().equals("")) {
+				filterSql.append("ads_apartment_type_id IN (" + apartmentTypeSql + ")");
+			}else
+			{
+				filterSql.append(" ");
+				filterSql.append(andStr).append(" ").append("ads_apartment_type_id IN (" + apartmentTypeSql + ")");
+				
+			}
+		}
+		
+		System.out.println("Filter SQL : " + filterSql.toString());
+		
+		return filterSql.toString();
 	}
 	
 }

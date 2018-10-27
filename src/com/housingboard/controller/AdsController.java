@@ -46,7 +46,7 @@ public class AdsController extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		System.out.println("Session userAuthToken : " + session.getAttribute("userAuthToken"));
-		if(session.getAttribute("userAuthToken").equals("")) {
+		if(session.getAttribute("userAuthToken") == null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		}else {
@@ -63,7 +63,7 @@ public class AdsController extends HttpServlet {
 			boolean adCreated = adDao.createNewAd(adModel);
 			
 			if(adCreated) {
-				session.setAttribute("message", "AD has been posted successfully but the USER!");
+				session.setAttribute("message", "AD has been posted successfully by the USER!");
 			}else {
 				session.setAttribute("message", "Something went wrong. Please try again later.");
 			}
