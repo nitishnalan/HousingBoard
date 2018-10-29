@@ -5,7 +5,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>HousingBoard</title>
+<title>HousingBoard Login</title>
 </head>
 <body>
 	<form name="loginform" action="/HousingBoard/login" method="post">
@@ -18,7 +18,7 @@
 	<input type="password" name="password" id="password" placeholder="Password" required/><br>
 	
 	<input type="submit" name="submit" value="Login"><br>
-	<p>Not a User ?<a href="register.jsp"> Register Here !</a></p>
+	<p>Not a User ?<a id="register" href="register.jsp"> Register Here !</a></p>
 	
 	</form>
 </body>

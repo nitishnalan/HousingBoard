@@ -3,7 +3,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>HousingBoard</title>
+<title>HousingBoard Registration</title>
 
 </head>
 <body>

@@ -13,6 +13,14 @@ function showMyInterests(){
 	document.getElementById("memberDashboard").method = "POST";
 	document.getElementById("memberDashboard").submit();
 }
+
+function checkRequest(){
+	alert("checkRequest called : ");
+	console.log("calling from checkRequest : ");
+	document.getElementById("memberDashboard").action = "/HousingBoard/checkAdRequest/reviewInterests";
+	document.getElementById("memberDashboard").method = "POST";
+	document.getElementById("memberDashboard").submit();
+}
 </script>
 </head>
 <body>
@@ -30,6 +38,10 @@ function showMyInterests(){
 	<br/>
 	
 	<a href="#" onclick="showMyInterests()">Show My Interest Page</a>
+	
+	<br/>
+	
+	<a href="#" onclick="checkRequest()">Check Interest on my AD Request </a>
 </form>	
 </body>
 </html>
