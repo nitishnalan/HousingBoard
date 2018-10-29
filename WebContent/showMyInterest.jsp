@@ -6,20 +6,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Show My Interest Page</title>
+
 <script type="text/javascript">
-function getDetails(usrID){
-	alert("declineInterest called@ : " + usrID);
-	console.log("calling from declineInterest : " + usrID);
+function getDetails(adID){
+	alert("getDetails called@ : " + adID);
+	console.log("calling from getDetails : " + adID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
-	document.getElementById("reviewInterests").action = "/HousingBoard/checkAdRequest/decline/"+usrID+"/"+inteID;
-	document.getElementById("reviewInterests").method = "POST";
-	document.getElementById("reviewInterests").submit();
+	document.getElementById("moreDetails").action = "/HousingBoard/adDetails/"+adID;
+	document.getElementById("moreDetails").method = "GET";
+	document.getElementById("moreDetails").submit();
 }
 </script>
+<title>Show My Interest Page</title>
+
+
 </head>
 <body>
-<form>
+<form id="moreDetails">
 	<table border=1>
 		<c:forEach items="${userInterests}" var="userAdInt">
 			<tr>
@@ -31,7 +34,7 @@ function getDetails(usrID){
 				
 				<c:choose>
 					<c:when test="${userAdInt.statusOfInterest eq 'Approved'}">
-						<td><button type ='button' class='btn' onclick="getDetails(${userAdInt.postedUserId});">Get Contact Details</button></td>
+						<td><button type ='button' onclick="getDetails(${userAdInt.postedUserId});">Get Contact Details</button></td>
 						
 					</c:when>
 					<c:otherwise>

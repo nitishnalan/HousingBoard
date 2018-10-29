@@ -12,6 +12,7 @@ import com.housingboard.main.CreateConfigProperties;
 import com.housingboard.model.Ads;
 import com.housingboard.model.Filters;
 import com.housingboard.model.Member;
+import com.housingboard.model.UserAdDetails;
 
 
 /**
@@ -352,6 +353,57 @@ public class AdsDaoImpl implements AdsDao {
 		
 		return adPrefStr.toString();
 
+	}
+
+	@Override
+	public UserAdDetails getDetailsOfUserAndAd(int adID) {
+		String sql = "SELECT * FROM housingboard.ads T1, housingboard.apartment_type T2, housingboard.user T3 " + 
+				"WHERE T1.ads_apartment_type_id = T2.apartment_id AND T1.ads_user_id = T3.user_id AND "
+				+ "T1.ads_user_id = " + adID +" limit 1";
+		UserAdDetails adUserSummaryObj = new UserAdDetails();
+		try {
+			
+			conn = db.getConnection();
+			ps = conn.prepareStatement(sql);
+			System.out.println("Connection: " +ps);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+//			int rowCount = Integer.parseInt(rs.getString("CountRow"));
+//			
+//			System.out.println("rowCount : " + rs.getRow() );
+//			if(rowCount == 1) {
+				adUserSummaryObj.setId(rs.getInt("ads_id"));
+				adUserSummaryObj.setTitle(rs.getString("ads_title"));
+				adUserSummaryObj.setImageUrl(rs.getString("ads_image_url"));
+				adUserSummaryObj.setUserId(rs.getInt("ads_user_id"));
+				adUserSummaryObj.setDescription(rs.getString("ads_description"));
+				adUserSummaryObj.setCommunity(rs.getString("ads_community"));
+				adUserSummaryObj.setAvailable((rs.getString("ads_is_available")=="1" ? true : false));
+				
+				String adPreferenceStr = getValuesForEachPreferences(rs.getString("ads_preferences"));
+				if(adPreferenceStr.equals("")) {
+					return null;
+				}else {
+					adUserSummaryObj.setPreferences(adPreferenceStr);
+				}
+				
+				adUserSummaryObj.setLeaseType(rs.getString("ads_leasing_type"));
+				adUserSummaryObj.setApartmentType(rs.getString("apartment_type"));
+				
+				adUserSummaryObj.setSharing((rs.getString("ads_sharing")=="1" ? true : false));
+				
+				adUserSummaryObj.setEmailId(rs.getString("user_email_id"));
+				
+				adUserSummaryObj.setPhoneNumb(rs.getString("user_phone_no"));
+//			}else {
+//				System.out.println("COULD NOT FIND THIS AD IN THE DB : " + adID);
+//			}
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return adUserSummaryObj;
 	}
 	
 }

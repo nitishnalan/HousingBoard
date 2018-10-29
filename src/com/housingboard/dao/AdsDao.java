@@ -5,6 +5,7 @@ import java.util.List;
 import com.housingboard.model.Ads;
 import com.housingboard.model.Filters;
 import com.housingboard.model.SearchFilters;
+import com.housingboard.model.UserAdDetails;
 
 /**
  * @author nitish
@@ -24,5 +25,7 @@ public interface AdsDao {
 			Filters filterObj);
 
 	public Ads getDetailsOfAd(int adID);
+
+	public UserAdDetails getDetailsOfUserAndAd(int adID);
 
 }
