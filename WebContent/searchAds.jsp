@@ -6,6 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript">
+function fetchAdDetails(adID){
+	alert("fetchAdDetails called@ : " + adID);
+	console.log("calling from fetchAdDetails : " + adID);
+	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
+	document.getElementById("search").action = "/HousingBoard/adDetails/"+adID;
+	document.getElementById("search").method = "POST";
+	document.getElementById("search").submit();
+}
+</script>
 <title>Search Results</title>
 </head>
 <body>
@@ -78,6 +88,7 @@
 							<td> ${adPost.userId}</td>
 							<td> ${adPost.description}</td>
 							<td> ${adPost.community}</td>
+							<td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
 						</tr>
 					</c:when>
 					
@@ -89,6 +100,7 @@
 							<td> ${adPost.userId}</td>
 							<td> ${adPost.description}</td>
 							<td> ${adPost.community}</td>
+							<td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
