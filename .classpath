@@ -19,5 +19,35 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/College/Fall 2018/OOAD/Project/jwebunit-core-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/College/Fall 2018/OOAD/Project/jwebunit-htmlunit-plugin-3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/htmlunit-2.18.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/htmlunit-core-js-2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/cssparser-0.9.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/httpclient-4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/httpmime-4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/jcl-over-slf4j-1.6.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/jetty-io-9.2.12.v20150709.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/jetty-util-9.2.12.v20150709.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/jwebunit-core-3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/logback-classic-1.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/logback-core-1.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/nekohtml-1.9.22.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/regexp-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/sac-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/serializer-2.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/websocket-api-9.2.12.v20150709.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/websocket-client-9.2.12.v20150709.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/websocket-common-9.2.12.v20150709.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/xalan-2.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/xercesImpl-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tushar Chemburkar/Desktop/jwebunit-3.3-release/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
