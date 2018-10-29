@@ -1,14 +1,17 @@
 package com.housingboard.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import com.housingboard.main.CreateConfigProperties;
 import com.housingboard.model.Ads;
 import com.housingboard.model.Filters;
-import com.housingboard.model.SearchFilters;
+import com.housingboard.model.Member;
 
 
 /**
@@ -117,19 +120,10 @@ public class AdsDaoImpl implements AdsDao {
 		// TODO Auto-generated method stub
 		try {
 			conn = db.getConnection();
-//			ps = conn.prepareStatement("insert into ads (title, imageUrl, userId, isAvailable, description, community)"
-//					+ " values ('"+adModel.getTitle()+"', '"+adModel.getImageUrl()+"',"++")");
-					
-					
+				
 			ps = conn.prepareStatement("insert into ads (ads_title, ads_image_url,ads_user_id,ads_is_available, ads_description,ads_community) "
 					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"')");
 			
-//			ps.setString(1, adModel.getTitle());
-//			ps.setString(2, adModel.getImageUrl());
-//			ps.setInt(3, adModel.getUserId());
-//			ps.setBoolean(4, (adModel.isAvailable() ? 1 :0));
-//			ps.setString(5, adModel.getDescription());
-//			ps.setString(6, adModel.getCommunity());
 			System.out.println("Connection: "+ps);
 			ps.executeUpdate();
 			conn.close();
@@ -150,6 +144,8 @@ public class AdsDaoImpl implements AdsDao {
 		String sql = "select * from Ads";
 		
 		String filterApplied = getFilterApplied(filterObj);
+		
+		System.out.println("filterApplied : " + filterApplied);
 		  if(searchField.equals("*")) {
 			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
 			  sql = "select * from Ads";
@@ -157,7 +153,7 @@ public class AdsDaoImpl implements AdsDao {
 			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
 		  }
 		  
-		  if(filterApplied != "") {
+		  if(!filterApplied.equals("")) {
 			  sql += " AND " + filterApplied;
 		  }
 		  
@@ -274,6 +270,88 @@ public class AdsDaoImpl implements AdsDao {
 		System.out.println("Filter SQL : " + filterSql.toString());
 		
 		return filterSql.toString();
+	}
+
+	@Override
+	public Ads getDetailsOfAd(int adID) {
+		String sql = "SELECT *,count(*) as CountRow FROM housingboard.ads T1 JOIN housingboard.apartment_type T2 WHERE T1.ads_apartment_type_id = T2.apartment_id AND "
+				+ "ads_id = " + adID;
+		Ads adSummaryObj = new Ads();
+		try {
+			
+			conn = db.getConnection();
+			ps = conn.prepareStatement(sql);
+			System.out.println("Connection: " +ps);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			int rowCount = Integer.parseInt(rs.getString("CountRow"));
+			
+			System.out.println("rowCount : " + rs.getRow() );
+			if(rowCount == 1) {
+				adSummaryObj.setId(rs.getInt("ads_id"));
+				adSummaryObj.setTitle(rs.getString("ads_title"));
+				adSummaryObj.setImageUrl(rs.getString("ads_image_url"));
+				adSummaryObj.setUserId(rs.getInt("ads_user_id"));
+				adSummaryObj.setDescription(rs.getString("ads_description"));
+				adSummaryObj.setCommunity(rs.getString("ads_community"));
+				adSummaryObj.setAvailable((rs.getString("ads_is_available")=="1" ? true : false));
+				
+				String adPreferenceStr = getValuesForEachPreferences(rs.getString("ads_preferences"));
+				if(adPreferenceStr.equals("")) {
+					return null;
+				}else {
+					adSummaryObj.setPreferences(adPreferenceStr);
+				}
+				
+				adSummaryObj.setLeaseType(rs.getString("ads_leasing_type"));
+				adSummaryObj.setApartmentType(rs.getString("apartment_type"));
+				
+				adSummaryObj.setSharing((rs.getString("ads_sharing")=="1" ? true : false));
+				
+			}else {
+				System.out.println("COULD NOT FIND THIS AD IN THE DB : " + adID);
+			}
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return adSummaryObj;
+	}
+
+	private String getValuesForEachPreferences(String resultSetStr) {
+		
+		StringBuilder adPrefStr = new StringBuilder(""); 
+		String[] tempStr = resultSetStr.split(",");
+		
+		try {
+			Properties propFile = new Properties();
+			InputStream input = null;
+			String filename = "config-properties";
+			input = CreateConfigProperties.class.getClassLoader().getResourceAsStream(filename);
+			if(input==null){
+		            System.out.println("Sorry, unable to find " + filename);
+			    return null;
+			}
+			
+			propFile.load(input);
+			
+			for(String s : tempStr) {
+				if(adPrefStr.toString().equals("")) {
+					adPrefStr.append(propFile.getProperty("preferences-"+s.trim()));
+				}else {
+					adPrefStr.append(",");
+					adPrefStr.append(propFile.getProperty("preferences-"+s.trim()));
+				}
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return adPrefStr.toString();
+
 	}
 	
 }

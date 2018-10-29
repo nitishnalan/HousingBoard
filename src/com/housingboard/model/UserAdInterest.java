@@ -2,12 +2,15 @@ package com.housingboard.model;
 /**
  * @author nitish
  */
-public class Ads {
+public class UserAdInterest {
 	
 	private int id;
 	private String title;
 	private String imageUrl;
+	
+	//ToDo: to be deleted
 	private int userId;
+	
 	private boolean isAvailable;
 	private String description;
 	private String community;
@@ -17,24 +20,21 @@ public class Ads {
 	private boolean sharing;
 	private String apartmentType;
 	
-	public Ads(String title, String imageUrl, int userId, boolean isAvailable, String description,
-			String community) {
-		super();
-		//this.id = id;
-		this.title = title;
-		this.imageUrl = imageUrl;
-		this.userId = userId;
-		this.isAvailable = isAvailable;
-		this.description = description;
-		this.community = community;
-	}
+	private int interestId;
+	private int postedUserId;
+	private int adId;
+	private int interestUserId;
 	
+	private boolean isApproved;
+	private boolean isPending;
+	private String statusOfInterest;
 	
-	public Ads() {
-		// TODO Auto-generated constructor stub
+	public String getStatusOfInterest() {
+		return statusOfInterest;
 	}
-
-
+	public void setStatusOfInterest(String statusOfInterest) {
+		this.statusOfInterest = statusOfInterest;
+	}
 	public int getId() {
 		return id;
 	}
@@ -52,12 +52,6 @@ public class Ads {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 	public boolean isAvailable() {
 		return isAvailable;
@@ -77,43 +71,68 @@ public class Ads {
 	public void setCommunity(String community) {
 		this.community = community;
 	}
-	
 	public String getPreferences() {
 		return preferences;
 	}
-
-
 	public void setPreferences(String preferences) {
 		this.preferences = preferences;
 	}
-
-
 	public String getLeaseType() {
 		return leaseType;
 	}
-
-
 	public void setLeaseType(String leaseType) {
 		this.leaseType = leaseType;
 	}
-
-
 	public boolean isSharing() {
 		return sharing;
 	}
-
-
 	public void setSharing(boolean sharing) {
 		this.sharing = sharing;
 	}
-	
 	public String getApartmentType() {
 		return apartmentType;
 	}
-
-
 	public void setApartmentType(String apartmentType) {
 		this.apartmentType = apartmentType;
 	}
+
+	
+	public int getInterestId() {
+		return interestId;
+	}
+	public void setInterestId(int interestId) {
+		this.interestId = interestId;
+	}
+	public int getPostedUserId() {
+		return postedUserId;
+	}
+	public void setPostedUserId(int postedUserId) {
+		this.postedUserId = postedUserId;
+	}
+	public int getAdId() {
+		return adId;
+	}
+	public void setAdId(int adId) {
+		this.adId = adId;
+	}
+	public int getInterestUserId() {
+		return interestUserId;
+	}
+	public void setInterestUserId(int interestUserId) {
+		this.interestUserId = interestUserId;
+	}
+	public boolean isApproved() {
+		return isApproved;
+	}
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
+	}
+	public boolean isPending() {
+		return isPending;
+	}
+	public void setPending(boolean isPending) {
+		this.isPending = isPending;
+	}
+	
 	
 }

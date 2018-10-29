@@ -5,12 +5,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member - Home Page</title>
+<script type="text/javascript">
+function showMyInterests(){
+	alert("showMyInterests called : ");
+	console.log("calling from showMyInterests : ");
+	document.getElementById("memberDashboard").action = "/HousingBoard/showAdInterest/myInterests";
+	document.getElementById("memberDashboard").method = "POST";
+	document.getElementById("memberDashboard").submit();
+}
+</script>
 </head>
 <body>
+<form id="memberDashboard" name="memberDashboard">
+
 	Hello Member User - ${user.name},
 	
 	<br/>
 	If you would like to created an Ad please click this button: <a href="/HousingBoard/createAds.jsp">Create an AD</a>
 	
+	<br/>
+	
+	<a href="/HousingBoard/searchAds.jsp">Search ADs</a>
+	
+	<br/>
+	
+	<a href="#" onclick="showMyInterests()">Show My Interest Page</a>
+</form>	
 </body>
 </html>
