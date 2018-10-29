@@ -4,12 +4,14 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import com.housingboard.main.CreateConfigProperties;
 import com.housingboard.model.Ads;
+import com.housingboard.model.CheckAdInterest;
 import com.housingboard.model.UserAdInterest;
 
 /**
@@ -54,11 +56,11 @@ public class InterestDaoImpl {
 //				+ "AND interest_shower_id ="+userId;
 		
 		String sql = "SELECT * FROM housingboard.ads T1, housingboard.apartment_type T2," + 
-				"housingboard.user_ad_interests T3, housingboard.interest_status T4" + 
-				"WHERE T1.ads_id = T3.ad_id AND" + 
-				"T1.ads_apartment_type_id = T2.apartment_id AND" + 
-				"ads_is_available is true AND" + 
-				"T4.status_id = T3.status AND" + 
+				"housingboard.user_ad_interests T3, housingboard.interest_status T4 " + 
+				"WHERE T1.ads_id = T3.ad_id AND " + 
+				"T1.ads_apartment_type_id = T2.apartment_id AND " + 
+				"ads_is_available is true AND " + 
+				"T4.status_id = T3.status AND " + 
 				"interest_shower_id ="+userId;
 		
 		List<UserAdInterest>  listUserAdInterest = new ArrayList<>();
@@ -136,6 +138,76 @@ public class InterestDaoImpl {
 		
 		return adPrefStr.toString();
 
+	}
+
+	public List<CheckAdInterest> getAllShowInterestsForAdBySingleUser(int userId) {
+		
+		String sql = "SELECT * FROM housingboard.user T1, housingboard.user_ad_interests T2, "
+				+ "housingboard.interest_status T3 " + 
+				"WHERE T1.user_id = T2.interest_shower_id "
+				+ "AND T2.status = T3.status_id AND T3.status_value != 'Declined'" + 
+				"AND T2.posted_user_id ="+userId;
+		
+		List<CheckAdInterest>  listCheckAdInterest = new ArrayList<>();
+		
+		try {
+			
+			conn = db.getConnection();
+			ps = conn.prepareStatement(sql);
+			System.out.println("Connection: " +ps);
+			ResultSet rs = ps.executeQuery();
+						
+			while(rs.next()) {
+				CheckAdInterest checkAdInterestObj = new CheckAdInterest();
+				
+				checkAdInterestObj.setInterestShowerUserId(rs.getInt("interest_shower_id"));
+				checkAdInterestObj.setUserName(rs.getString("user_name"));
+				checkAdInterestObj.setUserPhoneNo(rs.getString("user_phone_no"));
+				checkAdInterestObj.setUserEmailId(rs.getString("user_email_id"));
+				checkAdInterestObj.setStatusValue(rs.getString("status_value"));
+				checkAdInterestObj.setAd_id(rs.getInt("ad_id"));
+				checkAdInterestObj.setInterestID(rs.getInt("interest_id"));
+				
+				listCheckAdInterest.add(checkAdInterestObj);
+			}
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return listCheckAdInterest;
+	}
+
+	public boolean approveUserInterest(int userId, int interestId) {
+		String sql = "UPDATE housingboard.user_ad_interests SET status ="+2+" WHERE"
+				+ " interest_shower_id = "+userId+" AND interest_id = "+interestId+"";
+		PreparedStatement stmt; 
+		try {
+			stmt = conn.prepareStatement(sql);
+									
+			stmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean declineUserInterest(int userId, int interestId) {
+		String sql = "UPDATE housingboard.user_ad_interests SET status ="+3+" WHERE"
+				+ " interest_shower_id = "+userId+" AND interest_id = "+interestId+"";
+		PreparedStatement stmt; 
+		try {
+			stmt = conn.prepareStatement(sql);
+									
+			stmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

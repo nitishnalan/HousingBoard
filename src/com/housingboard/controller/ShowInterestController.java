@@ -48,8 +48,7 @@ public class ShowInterestController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		String pathInfo = request.getPathInfo();
-		String[] pathParts = pathInfo.split("/");
-		int adID = Integer.parseInt(pathParts[1].toString());
+		String[] pathParts = pathInfo.split("/");	
 		
 		String tempStr = pathParts[1].toString();
 		
@@ -60,6 +59,7 @@ public class ShowInterestController extends HttpServlet {
 				break;
 				
 			default:
+				int adID = Integer.parseInt(pathParts[1].toString());
 				showInterestForAd(adID, request,response);
 				break;
 		}
@@ -78,6 +78,11 @@ public class ShowInterestController extends HttpServlet {
 			InterestDaoImpl myInterestObj  = new InterestDaoImpl();
 			List<UserAdInterest> eachUsersInterests = new ArrayList<>(); 
 			eachUsersInterests = myInterestObj.getEachUserInterest(userId);
+			
+			request.setAttribute("userInterests", eachUsersInterests);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/showMyInterest.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 	}

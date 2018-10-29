@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.housingboard.dao.AdsDao;
 import com.housingboard.dao.AdsDaoImpl;
 import com.housingboard.model.Ads;
+import com.housingboard.model.UserAdDetails;
 
 /**
  * Servlet implementation class AdsSummary
@@ -43,20 +44,21 @@ public class AdsSummary extends HttpServlet {
 		
 		AdsDao summaryOfAd = new AdsDaoImpl();
 		HttpSession session = request.getSession(false);
-		Ads adDetails = summaryOfAd.getDetailsOfAd(adID);
+		//Ads adDetails = summaryOfAd.getDetailsOfAd(adID);
 		
+		UserAdDetails userAdDetails = summaryOfAd.getDetailsOfUserAndAd(adID);
 		String viewName = "";
-		if(adDetails == null) {
+		if(userAdDetails == null) {
 			session.setAttribute("message", "Something went wrong. Please try to login again.");
 			viewName = "/suMessage.jsp";
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
-//			dispatcher.forward(request, response);
+
 		}else {
-			request.setAttribute("summaryOfAd", adDetails);
-			viewName = "/adsSummary.jsp";		
+			//request.setAttribute("summaryOfAd", adDetails);
+			request.setAttribute("summaryOfAdAndUser", userAdDetails);
+			viewName = "/adSummaryMoreDetails.jsp";		
 
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/adsSummary.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewName);
 		dispatcher.forward(request, response);
 	}
 
