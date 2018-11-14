@@ -57,7 +57,7 @@
 </body>
 <script type="text/javascript">
 function deleteAds(adID){
-	alert("fetchAdDetails called@ : " + adID);
+	alert("Delete Ads is called by the AD with the id: " + adID);
 	console.log("calling from Delete Ad : " + adID);
 	document.getElementById("search").action = "/HousingBoard/ads/delete?id="+adID;
 	document.getElementById("search").method = "POST";
@@ -65,7 +65,7 @@ function deleteAds(adID){
 }
 
 function updateAds(adID){
-	alert("fetchAdDetails called@ : " +adID);
+	alert("Update Ads is called by the ADs with the id: " +adID);
 	console.log("calling from Update Ad : " + adID);
 	document.getElementById("search").action = "/HousingBoard/ads/edit?id="+adID;
 	document.getElementById("search").method = "POST";

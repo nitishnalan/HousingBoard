@@ -40,7 +40,22 @@ public class Ads {
 		
 	}
 	
-	public Ads(int id, String title, String imageUrl, int userId,String description,
+	public Ads(String title, String imageUrl, String description,
+			String community, String preferences, String leasingType, boolean sharing, int apartmentTypeId) {
+		super();
+		//this.id = id;
+		this.title = title;
+		this.imageUrl = imageUrl;
+		this.description = description;
+		this.community = community;
+		this.preferences = preferences;
+		this.leasingType = leasingType;
+		this.sharing = sharing;
+		this.apartmentTypeId = apartmentTypeId;
+		
+	}
+	
+	public Ads(int id, String title, String imageUrl, int userId, boolean isAvailable,String description,
 			String community, String preferences, String leasingType, boolean sharing, int apartmentTypeId) {
 		super();
 		this.id = id;

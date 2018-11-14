@@ -13,13 +13,9 @@
          </form>
     </center>
     <div align="center">
-        <c:if test="${ads == null}">
         <form action="/HousingBoard/ads/update" method="post">
-        </c:if>
         <table border="1" cellpadding="5">
-         	<c:if test="${ad != null}">
-                    <input type="hidden" name="id" value="<c:out value='${ad.id}' />" />
-          	</c:if>           
+        <input type="text" name="id" value="<c:out value='${ads.id}' />" />   
             <tr>
                 <th>Title: </th>
                 <td>
@@ -53,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <th>preferences </th>
+                <th>preferences</th>
                 <td>
                     <input type="text" name="preferences" size="15"
                             value="<c:out value="${ad.preferences}" />"
@@ -64,7 +60,7 @@
                 <th>leasingtype </th>
                 <td>
                     <input type="text" name="leasingtype" size="15"
-                            value="<c:out value="${ads.leasingtype}" />"
+                            value="<c:out value="${ads.leasingType}" />"
                     />
                 </td>
             </tr>

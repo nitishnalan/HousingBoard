@@ -18,7 +18,7 @@ import com.housingboard.model.Ads;
 @WebServlet(urlPatterns = "/ads/*")
 public class AdsController extends HttpServlet {
 	
-	int userId;
+	int userId, idToUpdate = 0;
 	private static final long serialVersionUID = 1L;
 	
 	private AdsDaoImpl adsDao = new AdsDaoImpl();
@@ -82,26 +82,30 @@ public class AdsController extends HttpServlet {
 	    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, ServletException, IOException {
 	    	int id = Integer.parseInt(request.getParameter("id"));
+	    	idToUpdate = id;
+	    	System.out.println(idToUpdate);
 	        Ads ads = adsDao.getAd(id);
 	        request.setAttribute("ads", ads);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/AdUpdateForm.jsp");
 	        dispatcher.forward(request, response);
+	        System.out.println("Hello");
 	 
 	    }
 	 
 	    private void insertAds(HttpServletRequest request, HttpServletResponse response, int userId)
 	            throws SQLException, IOException {
 	    	System.out.println("Inside ads");
+	    	
 	        String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");	        
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
 	        String preferences = request.getParameter("preferences");
-	        String leasingtype = request.getParameter("leasingtype");
+	        String leasingtype = request.getParameter("leasingType");
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        
-	        Ads ads = new Ads(title, imageUrl, userId,  true, description,
+	        Ads ads = new Ads(title, imageUrl, userId, true, description,
 	    		community, preferences, leasingtype, sharing, apartmentTypeId);
 	   
 	        if(adsDao.insertAds(ads)) {
@@ -111,29 +115,29 @@ public class AdsController extends HttpServlet {
 	        
 	    }
 	 
+
 	    private void updateAds(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {
 	    	System.out.println("Updating AD");
-	    	int id = Integer.parseInt(request.getParameter("id"));
-	        int userId = Integer.parseInt(request.getParameter("userId"));
+	    	System.out.println(idToUpdate);
 	    	String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
 	        String preferences = request.getParameter("preferences");
-	        String leasingtype = request.getParameter("leasingtype");
+	        String leasingtype = request.getParameter("leasingYType");
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
-	        String is = request.getParameter(String.valueOf("isAvailable"));
-	        boolean isAvailable = Boolean.valueOf(is);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
-	        Ads ads = new Ads(title, imageUrl, userId,isAvailable ,description,
+	        Ads ads = new Ads(title, imageUrl, description,
 	    			          community, preferences, leasingtype, sharing, apartmentTypeId);
-	        boolean answer = adsDao.updateAdsFromDatabase(ads, id);
+	        boolean answer = adsDao.updateAdsFromDatabase(ads, idToUpdate);
+	        System.out.println("Updated ADS in Model");
 	        if(answer) {
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
 		        dispatcher.forward(request, response);
 	        }
-	    }	 
+	    }
+	    
 	    
 	    private void deleteAds(HttpServletRequest request, HttpServletResponse response, int id)
 	            throws SQLException, IOException, ServletException {

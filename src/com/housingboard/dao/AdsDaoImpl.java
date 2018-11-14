@@ -108,7 +108,7 @@ public class AdsDaoImpl implements AdsDao {
 		}
 
 	
-	//Crud Ads
+	//CRUD Ads
 	
 	//CREATE
 	@Override
@@ -132,6 +132,7 @@ public class AdsDaoImpl implements AdsDao {
     public List<Ads> listAllAds(int userId) {
         List<Ads> ads_list = new ArrayList<>();
         try {
+        	
         	String sql = "SELECT ads_id, ads_title, ads_image_url, ads_description, ads_community  FROM ads where ads_user_id="+userId+" and ads_is_available=1;";
         	
             conn = db.getConnection();					
@@ -182,12 +183,19 @@ public class AdsDaoImpl implements AdsDao {
 			System.out.println("In update");
 			conn = db.getConnection();
 					
-			ps = conn.prepareStatement("update ads SET ads_title = ?,ads_image_url=? ,ads_user_id= ? ,ads_is_available= ? , ads_description = ? ,ads_community = ?,ads_preferences = ? ,ads_leasing_type= ? ,ads_sharing= ? ,ads_apartment_type_id=? where where ads_id = "+usId);
+			ps = conn.prepareStatement("update ads SET ads_title = ?, ads_image_url=?, ads_description = ? ,ads_community = ?,ads_preferences = ? ,ads_leasing_type= ? ,ads_sharing= ? ,ads_apartment_type_id=? where ads_id = "+usId+";");
+			ps.setString(1, adModel.getTitle());
+			ps.setString(2, adModel.getImageUrl());
+			ps.setString(3, adModel.getDescription());
+			ps.setString(4, adModel.getCommunity());
+			ps.setString(5, adModel.getPreferences());
+			ps.setString(6, adModel.getLeasingType());
+			ps.setBoolean(7, adModel.isSharing());
+			ps.setInt(8, adModel.getApartmentTypeId());
 			System.out.println("Connection: "+ps);
-			ps.executeUpdate();
-			conn.close();
-			
-			return true;
+			boolean rowUpdated = ps.executeUpdate() > 0;
+			conn.close();			
+			return rowUpdated;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -196,22 +204,24 @@ public class AdsDaoImpl implements AdsDao {
     }
      
     public Ads getAd(int id){
-        Ads ads = null;
+        Ads ads = new Ads();
         try {
             
         	
-        	String sql = "SELECT ads_title, ads_image_url, ads_user_id, ads_description, ads_community, ads_preferences, ads_leasing_type, ads_sharing, ads_apartment_type_id FROM ads WHERE ads_id ="+id+"and ads_is_available=1;";
+        	String sql = "SELECT ads_title, ads_image_url, ads_user_id, ads_description, ads_community, ads_preferences, ads_leasing_type, ads_sharing, ads_apartment_type_id FROM ads WHERE ads_id ="+id+" and ads_is_available=1;";
 
+                	
             conn = db.getConnection();
+            
+            System.out.println(conn + " " + sql);
             
             ps = conn.prepareStatement(sql);
             
-            ps.setInt(1, id);
              
             ResultSet resultSet = ps.executeQuery();
              
-            if (resultSet.next()) {
-                String title = resultSet.getString("title");
+            if (resultSet.next()) {            	
+                String title = resultSet.getString("ads_title");
                 String imageUrl = resultSet.getString("ads_image_url");
                 int userId = resultSet.getInt("ads_user_id"); 
                 String description = resultSet.getString("ads_description");
@@ -220,13 +230,15 @@ public class AdsDaoImpl implements AdsDao {
                 String leasingType = resultSet.getString("ads_leasing_type");
                 boolean sharing = resultSet.getString("ads_sharing") != null;
                 int apartmentTypeId = resultSet.getInt("ads_apartment_type_id"); 
-                
+                System.out.println(title);
+                System.out.println(imageUrl);
+                System.out.println(apartmentTypeId);
                  ads = new Ads(title, imageUrl, userId,  description,
      	    			community, preferences, leasingType, sharing, apartmentTypeId);
             }
             resultSet.close();
             ps.close();
-        }catch(Exception e)
+        }catch(SQLException e)
         {
         	e.printStackTrace();
         }
