@@ -7,6 +7,6 @@
 <title>Success</title>
 </head>
 <body>
-${message}
+<h3>Successfully Inserted</h3>
 </body>
 </html>

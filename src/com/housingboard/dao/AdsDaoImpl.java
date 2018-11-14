@@ -20,7 +20,9 @@ import com.housingboard.model.SearchFilters;
 public class AdsDaoImpl implements AdsDao {
 
 	static Connection conn;
+	
 	static PreparedStatement ps;
+	
 	DbManager db = new DbManager();
 	
 	@Override
@@ -118,12 +120,11 @@ public class AdsDaoImpl implements AdsDao {
 					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"','"+adModel.getPreferences()+"','"+adModel.getLeasingType()+"',"+(adModel.isSharing() ? 1 :0)+",'"+adModel.getApartmentTypeID()+"')");
 			System.out.println("Connection: "+ps);
 			ps.executeUpdate();
-			conn.close();			
-			return true;
+			conn.close();						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return false;
+		return true;
     }
     
 	
@@ -131,39 +132,22 @@ public class AdsDaoImpl implements AdsDao {
     public List<Ads> listAllAds(int userId) {
         List<Ads> ads_list = new ArrayList<>();
         try {
-        	String sql = "SELECT * FROM ads where ads_user_id="+userId+" and ads_is_available=1";
+        	String sql = "SELECT ads_id, ads_title, ads_image_url, ads_description, ads_community  FROM ads where ads_user_id="+userId+" and ads_is_available=1;";
         	
             conn = db.getConnection();					
     		ps =   conn.prepareStatement(sql);
-    		
-//    		HttpSession session = request.getSession(false);
-//    		
-//    		int x=(int) session.getAttribute("userAuthToken");
-    		ResultSet resultSet = ps.executeQuery(sql);
-    		
+    		ResultSet resultSet = ps.executeQuery(sql);   		
     		System.out.println("Connection: "+ps);
     		
     		while (resultSet.next()) {
-//                int id = resultSet.getInt("id");
-//                String title = resultSet.getString("title");
-//                String imageUrl = resultSet.getString("imageUrl");
-//                String description = resultSet.getString("description");
-//                String community = resultSet.getString("community");
-//                String preferences = resultSet.getString("preferences");
-//                String leasingType = resultSet.getString("leasingType");
-////                boolean sharing = resultSet.getString("") != null;
-//                int apartmentTypeId = resultSet.getInt("aparsharingtmentTypeId"); 
-                
+        
                 Ads adsModel = new Ads();
 				adsModel.setId(Integer.parseInt(resultSet.getString("ads_id")));
 				adsModel.setTitle(resultSet.getString("ads_title"));
 				adsModel.setImageUrl(resultSet.getString("ads_image_url"));
-				//adsModel.setUserId(Integer.parseInt(resultSet.getString("ads_user_id")));
-				//adsModel.setAvailable(resultSet.getBoolean("ads_is_available"));
 				adsModel.setDescription(resultSet.getString("ads_description"));
 				adsModel.setCommunity(resultSet.getString("ads_community"));
-               
-                 ads_list.add(adsModel);
+				ads_list.add(adsModel);
             }
              
             resultSet.close();
@@ -177,24 +161,22 @@ public class AdsDaoImpl implements AdsDao {
     }
      
 	@Override
-    public boolean deleteAds(Ads adsModel,int adID) {
+    public boolean deleteAdsFromDatabase(Ads adsModel,int adID) {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("IN DELETE");
 			conn = db.getConnection();	
-			//bhai code dekh and flo
-			ps = conn.prepareStatement("update ads SET ads_is_available=0 where ads_id = "+adID);
+			ps = conn.prepareStatement("update ads SET ads_is_available=0 where ads_id = "+adID+";");
 			System.out.println("Connection: "+ps);
 			ps.executeUpdate();
 			conn.close();
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
-		return false;   
+		return true;   
     }
      
-    public boolean updateAds(Ads adModel, int usId) {
+    public boolean updateAdsFromDatabase(Ads adModel, int usId) {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("In update");
@@ -215,7 +197,6 @@ public class AdsDaoImpl implements AdsDao {
      
     public Ads getAd(int id){
         Ads ads = null;
-
         try {
             
         	
@@ -386,8 +367,4 @@ public class AdsDaoImpl implements AdsDao {
 		return filterSql.toString();
 	}
 
-//	public List<Ads> listAllAds(int userId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }

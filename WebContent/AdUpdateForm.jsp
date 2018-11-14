@@ -7,17 +7,14 @@
 </head>
 <body>
     <center>
-        <h1>Ads Management</h1>
+        <h1>Update Ads here</h1>
         <form action="/HousingBoard/ads/listAds" method="post">
 			<input type="submit" value="List of ADS" />
          </form>
     </center>
     <div align="center">
-                <c:if test="${ads != null}">
-        <form action="/HousingBoard/ads/update" method="post">
-        </c:if>
         <c:if test="${ads == null}">
-        <form action="/HousingBoard/ads/insert" method="post">
+        <form action="/HousingBoard/ads/update" method="post">
         </c:if>
         <table border="1" cellpadding="5">
          	<c:if test="${ad != null}">
@@ -90,7 +87,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="Add an AD" />
+                    <input type="submit" value="Update AD"/>
                 </td>
             </tr>
         </table>

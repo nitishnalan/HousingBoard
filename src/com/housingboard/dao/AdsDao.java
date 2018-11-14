@@ -25,9 +25,9 @@ public interface AdsDao {
 
 	public boolean insertAds(Ads adModel);
 	
-	public boolean updateAds(Ads adModel, int usId);
+	public boolean updateAdsFromDatabase(Ads adModel, int usId);
 	
-	public boolean deleteAds(Ads adModel,int usId);
+	public boolean deleteAdsFromDatabase(Ads adModel,int usId);
 	
 	public List<Ads> listAllAds(int userId);
 

@@ -17,30 +17,25 @@ import com.housingboard.model.Ads;
 
 @WebServlet(urlPatterns = "/ads/*")
 public class AdsController extends HttpServlet {
+	
 	int userId;
 	private static final long serialVersionUID = 1L;
 	
 	private AdsDaoImpl adsDao = new AdsDaoImpl();
-	
-	public AdsController() 
-	{
-		super();
-		
-	}
 
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
+	            throws ServletException, IOException, NumberFormatException {			
 			doGet(request, response);
-			HttpSession session = request.getSession(false);			
+			int id = 0;
+			HttpSession session = request.getSession(false);
 	        if(session.getAttribute("userAuthToken") == null) {
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 				dispatcher.forward(request, response);
 	        }else {
 	        	 try {
 	        		userId = Integer.parseInt(session.getAttribute("userAuthToken").toString());
-	    			String[] values = request.getRequestURI().split("/");
-	    	        System.out.print(values); 
-	    	        System.out.print(values[3]); 
+	    			System.out.println(userId);
+	        		String[] values = request.getRequestURI().split("/");
 	        		switch (values[3]) {
 			            case "listAds":
 			            	listAds(request, response, userId);
@@ -48,19 +43,17 @@ public class AdsController extends HttpServlet {
 			            case "insert":
 			                insertAds(request, response, userId);
 			                break;
-			            case "delete":
-			            	System.out.println("in delete");
-			            	int id = Integer.parseInt(request.getParameter("id"));
-			                deleteAds(request, response,id);
+			            case "delete":	
+			            	id = Integer.parseInt(request.getParameter("id"));
+			                deleteAds(request, response, id);
 			                break;
-//			            case "edit":
-//			                showEditForm(request, response);
-//			                break;
+		    			case "edit":
+		    				showEditForm(request, response);
+			                break;
 			            case "update":
-			                updateAds(request, response, userId);
-			                break;
+			            	updateAds(request, response);
 			            default:
-			                listAds(request, response, userId);
+			            	listAds(request, response, userId);
 			                break;
 			            }
 			        } catch (SQLException ex) {
@@ -69,34 +62,29 @@ public class AdsController extends HttpServlet {
 	        }
 
 	    }
-	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-	    }
 	 
-	    private void listAds(HttpServletRequest request, HttpServletResponse response,int userId)
+	 @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	}
+	 
+	 private void listAds(HttpServletRequest request, HttpServletResponse response,int userId)
 	            throws SQLException, IOException, ServletException {
-	        List<Ads> listAds = adsDao.listAllAds(userId);
-	        request.setAttribute("listAds", listAds);
+	        HttpSession session = request.getSession(false);
+	    	List<Ads> listAds = adsDao.listAllAds(userId);
+	        session.setAttribute("listAds", listAds);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
 	        dispatcher.forward(request, response);
 	    }
-//	 
-//	    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-//	            throws ServletException, IOException {
-//	    	System.out.println("In New");
-//	        RequestDispatcher dispatcher = request.getRequestDispatcher("AdForm.jsp");
-//	        dispatcher.forward(request, response);
-//	    }
 	 
-//	    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-//	            throws SQLException, ServletException, IOException {
-//	        int id = Integer.parseInt(request.getParameter("id"));
-//	        Ads ads = adsDao.getAd(id);
-//	        RequestDispatcher dispatcher = request.getRequestDispatcher("AdList.jsp");
-//	        request.setAttribute("ads", ads);
-//	        dispatcher.forward(request, response);
-//	 
-//	    }
+	    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, ServletException, IOException {
+	    	int id = Integer.parseInt(request.getParameter("id"));
+	        Ads ads = adsDao.getAd(id);
+	        request.setAttribute("ads", ads);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/AdUpdateForm.jsp");
+	        dispatcher.forward(request, response);
+	 
+	    }
 	 
 	    private void insertAds(HttpServletRequest request, HttpServletResponse response, int userId)
 	            throws SQLException, IOException {
@@ -109,19 +97,22 @@ public class AdsController extends HttpServlet {
 	        String leasingtype = request.getParameter("leasingtype");
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
+	        
 	        Ads ads = new Ads(title, imageUrl, userId,  true, description,
 	    		community, preferences, leasingtype, sharing, apartmentTypeId);
+	   
+	        if(adsDao.insertAds(ads)) {
+		        String redirectURL = "http://localhost:8080/HousingBoard/suMessage.jsp";
+		        response.sendRedirect(redirectURL);
+	        }
 	        
-	        boolean flag = adsDao.insertAds(ads);
-	        
-	        String redirectURL = "http://localhost:8080/HousingBoard/AdList.jsp";
-	        response.sendRedirect(redirectURL);
-	       // response.sendRedirect("listads");
 	    }
 	 
-	    private void updateAds(HttpServletRequest request, HttpServletResponse response, int usId)
-	            throws SQLException, IOException {
-	        String title = request.getParameter("title");
+	    private void updateAds(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	    	HttpSession session = request.getSession(false);
+	    	int id = Integer.parseInt(request.getParameter("id"));
+	    	String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");
 	        int userId = Integer.parseInt(request.getParameter("userId"));
 	        String description = request.getParameter("description");
@@ -134,16 +125,26 @@ public class AdsController extends HttpServlet {
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        Ads ads = new Ads(title, imageUrl, userId,isAvailable , description,
 	    			          community, preferences, leasingtype, sharing, apartmentTypeId);
-	        adsDao.updateAds(ads, usId);
-	        response.sendRedirect("list");
+	        if(adsDao.updateAdsFromDatabase(ads, id)) {
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
+		        dispatcher.forward(request, response);
+	        }
 	    }	 
+	    
 	    private void deleteAds(HttpServletRequest request, HttpServletResponse response, int id)
-	            throws SQLException, IOException {
-	       // int id = Integer.parseInt(request.getParameter("id"));
+	            throws SQLException, IOException, ServletException {
 	    	System.out.println("in delete");
+	    	String viewUrl = "/suMessage1.jsp";
 	        Ads ads = new Ads(id);
-	        adsDao.deleteAds(ads, id);
-	        response.sendRedirect("/listAds");
+	        boolean value = adsDao.deleteAdsFromDatabase(ads, id);
+	        HttpSession session = request.getSession(false);
+	        if(value) {        	 	        	
+	        	session.setAttribute("message", "Deleted Successfully");
+	        }else {
+	        	session.setAttribute("message", "Something went wrong while deleting the Ad!");
+	        }	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher(viewUrl);
+			dispatcher.forward(request, response);
 	    }
 }
 
