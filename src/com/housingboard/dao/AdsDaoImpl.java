@@ -200,7 +200,7 @@ public class AdsDaoImpl implements AdsDao {
         try {
             
         	
-        	String sql = "SELECT * FROM ads WHERE ads_id = ?";
+        	String sql = "SELECT ads_title, ads_image_url, ads_user_id, ads_description, ads_community, ads_preferences, ads_leasing_type, ads_sharing, ads_apartment_type_id FROM ads WHERE ads_id ="+id+"and ads_is_available=1;";
 
             conn = db.getConnection();
             
@@ -211,16 +211,15 @@ public class AdsDaoImpl implements AdsDao {
             ResultSet resultSet = ps.executeQuery();
              
             if (resultSet.next()) {
-                //int id1 = resultSet.getInt("id");
                 String title = resultSet.getString("title");
-                String imageUrl = resultSet.getString("imageUrl");
-                int userId = resultSet.getInt("userId"); 
-                String description = resultSet.getString("description");
-                String community = resultSet.getString("community");
-                String preferences = resultSet.getString("preferences");
-                String leasingType = resultSet.getString("leasingType");
-                boolean sharing = resultSet.getString("sharing") != null;
-                int apartmentTypeId = resultSet.getInt("apartmentTypeId"); 
+                String imageUrl = resultSet.getString("ads_image_url");
+                int userId = resultSet.getInt("ads_user_id"); 
+                String description = resultSet.getString("ads_description");
+                String community = resultSet.getString("ads_community");
+                String preferences = resultSet.getString("ads_preferences");
+                String leasingType = resultSet.getString("ads_leasing_type");
+                boolean sharing = resultSet.getString("ads_sharing") != null;
+                int apartmentTypeId = resultSet.getInt("ads_apartment_type_id"); 
                 
                  ads = new Ads(title, imageUrl, userId,  description,
      	    			community, preferences, leasingType, sharing, apartmentTypeId);

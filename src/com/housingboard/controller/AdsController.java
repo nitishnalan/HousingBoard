@@ -23,6 +23,12 @@ public class AdsController extends HttpServlet {
 	
 	private AdsDaoImpl adsDao = new AdsDaoImpl();
 
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	}
+	 
+	 @Override	
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException, NumberFormatException {			
 			doGet(request, response);
@@ -63,10 +69,7 @@ public class AdsController extends HttpServlet {
 
 	    }
 	 
-	 @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-	}
-	 
+
 	 private void listAds(HttpServletRequest request, HttpServletResponse response,int userId)
 	            throws SQLException, IOException, ServletException {
 	        HttpSession session = request.getSession(false);
@@ -110,11 +113,11 @@ public class AdsController extends HttpServlet {
 	 
 	    private void updateAds(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {
-	    	HttpSession session = request.getSession(false);
+	    	System.out.println("Updating AD");
 	    	int id = Integer.parseInt(request.getParameter("id"));
+	        int userId = Integer.parseInt(request.getParameter("userId"));
 	    	String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");
-	        int userId = Integer.parseInt(request.getParameter("userId"));
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
 	        String preferences = request.getParameter("preferences");
@@ -123,9 +126,10 @@ public class AdsController extends HttpServlet {
 	        String is = request.getParameter(String.valueOf("isAvailable"));
 	        boolean isAvailable = Boolean.valueOf(is);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
-	        Ads ads = new Ads(title, imageUrl, userId,isAvailable , description,
+	        Ads ads = new Ads(title, imageUrl, userId,isAvailable ,description,
 	    			          community, preferences, leasingtype, sharing, apartmentTypeId);
-	        if(adsDao.updateAdsFromDatabase(ads, id)) {
+	        boolean answer = adsDao.updateAdsFromDatabase(ads, id);
+	        if(answer) {
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
 		        dispatcher.forward(request, response);
 	        }

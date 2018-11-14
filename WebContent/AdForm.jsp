@@ -13,12 +13,8 @@
          </form>
     </center>
     <div align="center">
-                <c:if test="${ads != null}">
-        <form action="/HousingBoard/ads/update" method="post">
-        </c:if>
-        <c:if test="${ads == null}">
-        <form action="/HousingBoard/ads/insert" method="post">
-        </c:if>
+    	<form action="/HousingBoard/ads/insert" method="post">
+
         <table border="1" cellpadding="5">
          	<c:if test="${ad != null}">
                     <input type="hidden" name="id" value="<c:out value='${ad.id}' />" />
@@ -94,7 +90,7 @@
                 </td>
             </tr>
         </table>
-        </form>
+    	</form>
     </div>   
 </body>
 </html>
