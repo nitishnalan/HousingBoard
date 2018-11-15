@@ -28,4 +28,5 @@ public interface AdsDao {
 
 	public UserAdDetails getDetailsOfUserAndAd(int adID);
 
+
 }

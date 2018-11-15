@@ -25,6 +25,7 @@ This is a ADs Summary Page:
 
 	<table border=1>
 		<c:set var = "adSummaryModel" value = "${summaryOfAd}"/>
+		<c:set var = "userAdAssoc" value = "${userAdAssociation}"/>
 		<tr>
 			<td>
 				<img src="${summaryOfAd.imageUrl}" alt="Smiley face" width="500" height="500" />
@@ -52,7 +53,14 @@ This is a ADs Summary Page:
 				${adSummaryModel.preferences}
 			</td>
 		</tr>
-		<button type ='submit' class='btn' onclick=addInterest(${adSummaryModel.id})>I am Interested</button>	
+		<c:choose>
+			<c:when test="${userAdAssoc eq true}">
+				<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
+			</c:when>
+			<c:otherwise>
+				<button disabled="disabled" class='btn'>Interest Shown Already</button>
+			</c:otherwise>
+		</c:choose>	
 	</table>
 </form>	
 </body>

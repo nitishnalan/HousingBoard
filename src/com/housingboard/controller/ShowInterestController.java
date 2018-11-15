@@ -101,6 +101,9 @@ public class ShowInterestController extends HttpServlet {
 			int userId= Integer.parseInt(session.getAttribute("userAuthToken").toString());
 			AdsDao interestForAd = new AdsDaoImpl();
 			Ads adDetails = null; 
+			
+			//ToDo: add check if the ads_id and user_id already exists
+			
 			adDetails = interestForAd.getDetailsOfAd(adID);
 			
 			

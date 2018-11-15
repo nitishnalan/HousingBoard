@@ -210,4 +210,29 @@ public class InterestDaoImpl {
 		return false;
 	}
 
+	public boolean checkAssociationOfUserWithAd(int userId, int adID) {
+		String sql = "SELECT count(*) as row_count FROM "
+				+ "where interest_shower_id = "+userId+" AND ad_id = "+adID+" limit 1";
+		
+		try {
+			conn = db.getConnection();
+			ps = conn.prepareStatement(sql);
+			System.out.println("Connection: " +ps);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			int userAdAssoc = Integer.parseInt(rs.getString("row_count"));
+			
+			if(userAdAssoc == 1) {
+				return true;
+			}else {
+				System.out.println("ERROR : Association between user and Ads is NOT 1");
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return false;
+	}
+
 }
