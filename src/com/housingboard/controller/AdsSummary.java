@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.housingboard.dao.AdsDao;
 import com.housingboard.dao.AdsDaoImpl;
+import com.housingboard.dao.InterestDaoImpl;
 import com.housingboard.model.Ads;
 import com.housingboard.model.UserAdDetails;
 
@@ -74,22 +75,33 @@ public class AdsSummary extends HttpServlet {
 		System.out.println("adID " + adID);
 		
 		AdsDao summaryOfAd = new AdsDaoImpl();
+		InterestDaoImpl interestForAd = new InterestDaoImpl();
 		HttpSession session = request.getSession(false);
-		Ads adDetails = summaryOfAd.getDetailsOfAd(adID);
-		
-		String viewName = "";
-		if(adDetails == null) {
-			session.setAttribute("message", "Something went wrong. Please try to login again.");
-			viewName = "/suMessage.jsp";
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
-//			dispatcher.forward(request, response);
+		if(session.getAttribute("userAuthToken") == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+			dispatcher.forward(request, response);
 		}else {
-			request.setAttribute("summaryOfAd", adDetails);
-			viewName = "/adsSummary.jsp";		
+			
+			int userId= Integer.parseInt(session.getAttribute("userAuthToken").toString());
+			Ads adDetails = summaryOfAd.getDetailsOfAd(adID); 
+			boolean userAdAssociation = interestForAd.checkAssociationOfUserWithAd(userId, adID);	
 
+				
+			String viewName = "";
+			if(adDetails == null) {
+				session.setAttribute("message", "Something went wrong. Please try to login again.");
+				viewName = "/suMessage.jsp";
+				//			RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
+				//			dispatcher.forward(request, response);
+			}else {
+				request.setAttribute("summaryOfAd", adDetails);
+				request.setAttribute("userAdAssociation", userAdAssociation);
+				viewName = "/adsSummary.jsp";		
+
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewName);
+			dispatcher.forward(request, response);
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewName);
-		dispatcher.forward(request, response);
 	}
 
 }
