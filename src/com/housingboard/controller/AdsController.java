@@ -59,7 +59,7 @@ public class AdsController extends HttpServlet {
 			            case "update":
 			            	updateAds(request, response);
 			            default:
-			            	listAds(request, response, userId);
+			            	//listAds(request, response, userId);
 			                break;
 			            }
 			        } catch (SQLException ex) {
@@ -133,12 +133,11 @@ public class AdsController extends HttpServlet {
 	        boolean answer = adsDao.updateAdsFromDatabase(ads, idToUpdate);
 	        System.out.println("Updated ADS in Model");
 	        if(answer) {
-	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
-		        dispatcher.forward(request, response);
+	        	String redirectURL = "http://localhost:8080/HousingBoard/suMessage2.jsp";
+		        response.sendRedirect(redirectURL);
 	        }
 	    }
-	    
-	    
+	    	    
 	    private void deleteAds(HttpServletRequest request, HttpServletResponse response, int id)
 	            throws SQLException, IOException, ServletException {
 	    	System.out.println("in delete");
