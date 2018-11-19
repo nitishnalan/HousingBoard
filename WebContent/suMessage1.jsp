@@ -10,6 +10,7 @@
 <h1>Deleted The Ad Successfully</h1>
 <h5>The user who created the ad is as follows</h5>
 <label>Created By:</label><p>${user.name}</p>
-<h5>Please Go Back and Refresh the Page View your Current Ads</h5>
+<h5>Please Go Back to the Member Dashboard homepage/h5>
+<h4><a href ="memberDashboard.jsp"><button>Ad List</button></a></h4><br/><br/>
 </body>
 </html>

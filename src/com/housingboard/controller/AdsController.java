@@ -59,7 +59,7 @@ public class AdsController extends HttpServlet {
 			            case "update":
 			            	updateAds(request, response);
 			            default:
-			            	//listAds(request, response, userId);
+			            	listAds(request, response, userId);
 			                break;
 			            }
 			        } catch (SQLException ex) {
@@ -101,12 +101,12 @@ public class AdsController extends HttpServlet {
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
 	        String preferences = request.getParameter("preferences");
-	        String leasingtype = request.getParameter("leasingType");
+	        String leasingType = request.getParameter("leasingType");
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        
 	        Ads ads = new Ads(title, imageUrl, userId, true, description,
-	    		community, preferences, leasingtype, sharing, apartmentTypeId);
+	    		community, preferences, leasingType, sharing, apartmentTypeId);
 	   
 	        if(adsDao.insertAds(ads)) {
 		        String redirectURL = "http://localhost:8080/HousingBoard/suMessage.jsp";
@@ -125,7 +125,7 @@ public class AdsController extends HttpServlet {
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
 	        String preferences = request.getParameter("preferences");
-	        String leasingtype = request.getParameter("leasingYType");
+	        String leasingtype = request.getParameter("leasingType");
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        Ads ads = new Ads(title, imageUrl, description,
@@ -133,8 +133,9 @@ public class AdsController extends HttpServlet {
 	        boolean answer = adsDao.updateAdsFromDatabase(ads, idToUpdate);
 	        System.out.println("Updated ADS in Model");
 	        if(answer) {
-	        	String redirectURL = "http://localhost:8080/HousingBoard/suMessage2.jsp";
-		        response.sendRedirect(redirectURL);
+	        	System.out.print("Reached");
+/*	        	String redirectURL = "http://localhost:8080/HousingBoard/suMessage2.jsp";
+		        response.sendRedirect(redirectURL);*/
 	        }
 	    }
 	    	    

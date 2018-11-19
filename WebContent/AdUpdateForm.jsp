@@ -7,21 +7,19 @@
 </head>
 <body>
     <center>
-        <h1>Update Ads here</h1>
-        <form action="/HousingBoard/ads/listAds" method="post">
-			<input type="submit" value="List of ADS" />
-         </form>
+        <h1>Update Ads here</h1><br/><br/>
+        <h3>Please make sure to enter all fields</h3><br/><br/>
     </center>
     <div align="center">
-        <form action="/HousingBoard/ads/update" method="post">
+        <form action="/HousingBoard/ads/update" method="post" required>
         <table border="1" cellpadding="5">
-        <input type="text" name="id" value="<c:out value='${ads.id}' />" />   
+        <input type="hidden" name="id" value="<c:out value='${ads.id}' />" required/>   
             <tr>
                 <th>Title: </th>
                 <td>
                     <input type="text" name="title" size="45"
                             value="<c:out value="${ads.title}" />"
-                        />
+                       required />
                 </td>
             </tr>
             <tr>
@@ -29,7 +27,7 @@
                 <td>
                     <input type="text" name="imageUrl" size="45"
                             value="<c:out value="${ads.imageUrl}" />"
-                    />
+                    required/>
                 </td>
             </tr>
             <tr>
@@ -37,7 +35,7 @@
                 <td>
                     <input type="text" name="description" size="45"
                             value="<c:out value="${ads.description}" />"
-                    />
+                    required/>
                 </td>
             </tr>
             <tr>
@@ -45,30 +43,30 @@
                 <td>
                     <input type="text" name="community" size="25"
                             value="<c:out value='${ads.community}' />"
-                    />
+                    required/>
                 </td>
             </tr>
             <tr>
                 <th>preferences</th>
                 <td>
                     <input type="text" name="preferences" size="15"
-                            value="<c:out value="${ad.preferences}" />"
-                    />
+                            value="<c:out value="${ads.preferences}" />"
+                   required />
                 </td>
             </tr>
               <tr>
                 <th>leasingtype </th>
                 <td>
-                    <input type="text" name="leasingtype" size="15"
+                    <input type="text" name="leasingType" size="15"
                             value="<c:out value="${ads.leasingType}" />"
-                    />
+                    required/>
                 </td>
             </tr>
              <tr>
                 <th>Sharing</th>
                 <td>
                     <select type="select" name="sharing" size="5"
-                            value="<c:out value="${ads.sharing}" />">
+                            value="<c:out value="${ads.sharing}" />" required>
                     <option>YES</option>
                     <option>NO</option>
                     </select>
@@ -78,7 +76,7 @@
                 <th>Apartment ID</th>
                 <td>
                     <input type="text" name="apartmentTypeId" size="15"
-                            value="<c:out value="${ads.apartmentTypeId}" />" />
+                            value="<c:out value="${ads.apartmentTypeId}" />" required/>
                 </td>
             </tr>
             <tr>

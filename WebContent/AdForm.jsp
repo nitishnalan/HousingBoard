@@ -60,10 +60,10 @@
                 </td>
             </tr>
               <tr>
-                <th>leasingtype </th>
+                <th>leasing Type </th>
                 <td>
-                    <input type="text" name="leasingtype" size="15"
-                            value="<c:out value="${ads.leasingtype}" />"
+                    <input type="text" name="leasingType" size="15"
+                            value="<c:out value="${ads.leasingType}" />"
                     />
                 </td>
             </tr>
