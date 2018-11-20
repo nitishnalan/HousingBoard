@@ -11,7 +11,7 @@
 	${message}
 	<h2>Registration</h2>
 	<p>Select user type:</p>
-	<input type="radio" name="user_type" value="member" />Member
+	<input type="radio" name="user_type" value="member" id="type-member"/>Member
 	
 	<input type="radio" name="user_type" value="leasing_office" />Leasing Office <br>
 	

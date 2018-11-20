@@ -11,13 +11,13 @@
 	<form name="loginform" action="/HousingBoard/login" method="post">
 	<%-- ${message} &nbsp; ${successMessage} --%>
 	<h2>Login</h2>
-	<input type="radio" name="user_type" value="member" />Member
+	<input type="radio" name="user_type" value="member" id="type-member"/>Member
 	<input type="radio" name="user_type" value="leasing_office" />Leasing Office <br>
 	<input type="text" name="email_id" id="email_id" placeholder="Email-ID" required/><br>
 	
 	<input type="password" name="password" id="password" placeholder="Password" required/><br>
 	
-	<input type="submit" name="submit" value="Login"><br>
+	<input type="submit" name="submit" value="Login" ><br>
 	<p>Not a User ?<a id="register" href="register.jsp"> Register Here !</a></p>
 	
 	</form>
