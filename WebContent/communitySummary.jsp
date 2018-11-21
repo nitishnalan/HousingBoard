@@ -12,7 +12,7 @@ function addReviewForCommunity(communityPgID){
 	alert("addReviewForCommunity called : " + communityPgID);
 	console.log("addReviewForCommunity from communityPgID : " + communityPgID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
-	document.getElementById("communitySummary").action = "/HousingBoard/addReviewForCommunity/"+communityPgID;
+	document.getElementById("communitySummary").action = "/HousingBoard/review/addReview/"+communityPgID;
 	document.getElementById("communitySummary").method = "POST";
 	document.getElementById("communitySummary").submit();
 }
@@ -73,6 +73,11 @@ function addReviewForCommunity(communityPgID){
 		<tr>
 			<td>
 				<c:forEach items="${communityPg.getReviewsCommunity()}" var="communityPgReviews">
+				<tr>
+					<td>
+						${communityPgReviews.userName} : ${communityPgReviews.description}
+					</td>					
+				</tr>
 					
 				</c:forEach>
 			</td>

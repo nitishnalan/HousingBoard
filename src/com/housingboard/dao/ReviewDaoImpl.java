@@ -28,11 +28,12 @@ public class ReviewDaoImpl {
 			conn = db.getConnection();
 			ps = conn.prepareStatement(sql);
 			
-			System.out.println("Conn : " + ps);
+			System.out.println("Get Reviews for a community page : " + ps);
 			
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				while(rs.next()) {
+			
+			boolean flag = false;
+			while(rs.next()) {
 					Review reviewObj = new Review();
 					reviewObj.setId(rs.getInt("review_id"));
 					reviewObj.setTargetUserId(rs.getInt("review_target_user_id"));
@@ -41,15 +42,39 @@ public class ReviewDaoImpl {
 					reviewObj.setUserName(rs.getString("user_name"));
 					
 					listOfReviews.add(reviewObj);
-				}
-				return listOfReviews;
+					flag = true;
 			}
+			
+			if(flag) {
+				return listOfReviews;
+			}				
+			
 			
 		}catch(Exception e) {
 			System.out.println(e);
 		}
 		System.out.println("Result Set received null for Reviews!!");
 		return null;
+	}
+
+	public boolean postReviewForCommunity(Review reviewObj) {
+		String sql = "INSERT INTO housingboard.review (review_target_user_id, review_reviewer_user_id,"
+				+ "review_description, review_timeStamp) values "
+				+ "("+reviewObj.getTargetUserId()+","+reviewObj.getReviewerUserId()+",'"+reviewObj.getDescription()+"',NOW())";
+		
+		
+		try {
+			conn = db.getConnection();
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			System.out.println("postReviewForCommunity : " + ps);
+			
+			return true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return false;
 	}
 
 }
