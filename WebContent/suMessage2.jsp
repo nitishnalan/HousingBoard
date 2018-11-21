@@ -7,7 +7,7 @@
 <title>Message</title>
 </head>
 <body>
-<h1>AD Updated Successfully</h1>
+<h1>AD has been Updated Successfully</h1>
 <h5>The user who deleted the ad is as follows</h5>
 <label>Update By:</label><p>${user.name}</p>
 <h5>Please Go Back to the Member Dashboard homepage/h5>

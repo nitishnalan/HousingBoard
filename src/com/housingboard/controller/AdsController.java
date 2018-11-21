@@ -102,10 +102,16 @@ public class AdsController extends HttpServlet {
 	        String preferences = "";
 	        String[] values = request.getParameterValues("preferences");
 	        System.out.println(values[0]);
+	        int i = 0;
 	        for(String p: values)
 	        {
-	        	preferences += p + ",";
-	        	
+	        	preferences += p;
+	        	if(i != values.length - 1)
+	        	{
+	        		preferences += ",";
+		        	i++;
+		        	System.out.println(i);
+	        	}
 	        }
 	        String leasingType = "";
 	        if(request.getParameter("leasingType") != null)
@@ -141,12 +147,40 @@ public class AdsController extends HttpServlet {
 	        String imageUrl = request.getParameter("imageUrl");
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
-	        String preferences = request.getParameter("preferences");
-	        String leasingtype = request.getParameter("leasingType");
+	        String preferences = "";
+	        String[] values = request.getParameterValues("preferences");
+	        System.out.println(values[0]);
+	        int i = 0;
+	        for(String p: values)
+	        {
+	        	preferences += p;
+	        	if(values.length == 1)
+	        	{
+	        	   continue;
+	        	}
+	        	else if(i != values.length - 2)
+	        	{
+	        		preferences += ",";
+		        	i++;
+		        	System.out.println(i);
+	        	}
+	        }
+	        String leasingType = "";
+	        if(request.getParameter("leasingType") != null)
+	        {
+	        	System.out.println(request.getParameter("leasingType"));
+	        	if(request.getParameter("leasingType").equals("Sub Lease"))
+	        	{
+	        		leasingType = "Sub Lease";
+	        	}else if(request.getParameter("leasingType").equals("New Lease")) {
+	        		leasingType = "New Lease";
+	        	}
+	        }
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
+	        
 	        Ads ads = new Ads(title, imageUrl, description,
-	    			          community, preferences, leasingtype, sharing, apartmentTypeId);
+	    			          community, preferences, leasingType, sharing, apartmentTypeId);
 	        boolean answer = adsDao.updateAdsFromDatabase(ads, idToUpdate);
 	        System.out.println("Updated ADS in Model");
 	        if(answer) {

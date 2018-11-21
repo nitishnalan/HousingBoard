@@ -54,8 +54,6 @@
             <tr>
                 <th>preferences </th>
                 <td>
-<!--                     <input type="text" name="preferences" size="15"
-                    /> -->
                     <label>Parking Space Included :</label><input type="checkbox" name="preferences" value="1"><br/>
     				<label>Gender Inclusive :</label><input type="checkbox" name="preferences" value="2"><br/>
     				<label>Pets Allowed :</label><input type="checkbox" name="preferences" value="3"><br/>
@@ -73,10 +71,9 @@
              <tr>
                 <th>Sharing</th>
                 <td>
-                    <select type="select" name="sharing" 
-                            value="<c:out value="${ads.sharing}" />">
-                    <option>YES</option>
-                    <option>NO</option>
+                    <select type="select" name="sharing" >
+                    <option value="<c:out value="${ads.sharing}" />" >YES</option>
+                    <option value="<c:out value="${ads.sharing}" />">NO</option>
                     </select>
                 </td>
             </tr>

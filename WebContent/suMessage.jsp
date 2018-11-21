@@ -7,8 +7,8 @@
 <title>Success</title>
 </head>
 <body>
-<h3>Successfully Inserted</h3>
+<h3>AD has been Successfully Inserted</h3>
 <h5>Please Go Back to the Member Dashboard homepage</h5>
-<a href ="memberDashboard.jsp">Ad List</a><br/><br/>
+<a href ="memberDashboard.jsp">Member HomePage</a><br/><br/>
 </body>
 </html>
