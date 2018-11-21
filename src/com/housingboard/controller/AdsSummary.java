@@ -96,6 +96,8 @@ public class AdsSummary extends HttpServlet {
 			}else {
 				request.setAttribute("summaryOfAd", adDetails);
 				request.setAttribute("userAdAssociation", userAdAssociation);
+				System.out.println("postedUserType for an Ad : " + adDetails.getPostedUserType());
+				System.out.println("userAdAssociation : " + userAdAssociation);
 				viewName = "/adsSummary.jsp";		
 
 			}
