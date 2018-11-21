@@ -33,6 +33,7 @@ public class MemberDaoImpl implements UserDao{
 			int rowCount = Integer.parseInt(rs.getString("CountRow"));
 			
 			System.out.println("rowCount : " + rs.getRow() );
+			
 			if(rowCount == 1) {
 				Member member = new Member();
 				member.setAddress(rs.getString("user_address"));
@@ -46,10 +47,12 @@ public class MemberDaoImpl implements UserDao{
 				member.setState(rs.getString("user_state"));
 				member.setUserType(rs.getInt("user_type_id"));
 				member.setZipcode(rs.getString("user_zipcode"));
+				
 				return member;
 			}else {
 				System.out.println("USERNAME and Password does not match!");
 			}
+			
 		}catch(Exception e) {
 			System.out.println(e);
 		}
@@ -74,7 +77,7 @@ public class MemberDaoImpl implements UserDao{
 					);
 			System.out.println("Connection: "+ps);
 			ps.executeUpdate();
-						
+			conn.close();			
 			return true;
 		}catch(Exception e) {
 			System.out.println(e);

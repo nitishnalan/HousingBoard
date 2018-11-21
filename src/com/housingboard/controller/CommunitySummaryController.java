@@ -56,7 +56,7 @@ public class CommunitySummaryController extends HttpServlet {
 				//			dispatcher.forward(request, response);
 			}else {
 				request.setAttribute("communityObj", communitySummObj);
-				if(session.getAttribute("userAuthToken") == null) {
+				if(session.getAttribute("userAuthToken").toString().equals("")) {
 					request.setAttribute("userCommunityPgAssoc", userCommunityPgAssoc);
 					
 					session.setAttribute("message", "Something went wrong. Please try to login again.");
@@ -73,6 +73,7 @@ public class CommunitySummaryController extends HttpServlet {
 				
 				
 				System.out.println("communityObj Reviews: " + communitySummObj.getReviewsCommunity());
+				System.out.println("communityObj Reviews Size: " + communitySummObj.getReviewsCommunity().size());
 				viewName = "/communitySummary.jsp";		
 
 			}
@@ -89,6 +90,52 @@ public class CommunitySummaryController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		HttpSession session = request.getSession(false);
+		String pathInfo = request.getPathInfo();
+		String[] pathParts = pathInfo.split("/");
+		int communityID = Integer.parseInt(pathParts[1].toString());
+		boolean userCommunityPgAssoc = false;
+		System.out.println("communityID for summary " + communityID);
+		
+		CommunitySummary communitySummObj = new CommunitySummary();
+		CommunitySummaryDaoImpl communitySummaryDaoImplObj = new CommunitySummaryDaoImpl();
+
+		if(communityID != 0) {
+			communitySummObj = communitySummaryDaoImplObj.getCommunitySummaryDetails(communityID);
+			
+			String viewName = "";
+			if(communitySummObj == null) {
+				session.setAttribute("message", "Something went wrong. Please try to login again.");
+				viewName = "/suMessage.jsp";
+				//			RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
+				//			dispatcher.forward(request, response);
+			}else {
+				request.setAttribute("communityObj", communitySummObj);
+				if(session.getAttribute("userAuthToken") == null) {
+					request.setAttribute("userCommunityPgAssoc", userCommunityPgAssoc);
+					
+					session.setAttribute("message", "Something went wrong. Please try to login again.");
+					viewName = "/suMessage.jsp";	
+				}else {
+					int userId = Integer.parseInt(session.getAttribute("userAuthToken").toString());
+					userCommunityPgAssoc = communitySummaryDaoImplObj.getUserCommunityPgAssoc(userId,communityID);
+					
+					request.setAttribute("userCommunityPgAssoc", userCommunityPgAssoc);
+				}
+//				request.setAttribute("userAdAssociation", userAdAssociation);
+//				System.out.println("postedUserType for an Ad : " + adDetails.getPostedUserType());
+//				System.out.println("userAdAssociation : " + userAdAssociation);
+				
+				
+				System.out.println("communityObj Reviews: " + communitySummObj.getReviewsCommunity().toString());
+				System.out.println("communityObj Reviews Size: " + communitySummObj.getReviewsCommunity().size());
+				viewName = "/communitySummary.jsp";		
+
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewName);
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
