@@ -7,7 +7,7 @@
 <title>Member - Home Page</title>
 <script type="text/javascript">
 function showMyInterests(){
-	alert("showMyInterests called : ");
+	//alert("showMyInterests called : ");
 	console.log("calling from showMyInterests : ");
 	document.getElementById("memberDashboard").action = "/HousingBoard/showAdInterest/myInterests";
 	document.getElementById("memberDashboard").method = "POST";
@@ -15,7 +15,7 @@ function showMyInterests(){
 }
 
 function checkRequest(){
-	alert("checkRequest called : ");
+	//alert("checkRequest called : ");
 	console.log("calling from checkRequest : ");
 	document.getElementById("memberDashboard").action = "/HousingBoard/checkAdRequest/reviewInterests";
 	document.getElementById("memberDashboard").method = "POST";
@@ -37,11 +37,11 @@ function checkRequest(){
 	
 	<br/>
 	
-	<a href="#" onclick="showMyInterests()">Show My Interest Page</a>
+	<a href="#" onclick="showMyInterests()" id="show-interest">Show My Interest Page</a>
 	
 	<br/>
 	
-	<a href="#" onclick="checkRequest()">Check Interest on my AD Request </a>
+	<a href="#" onclick="checkRequest()" id="check-interest">Check Interest on my AD Request </a>
 </form>	
 </body>
 </html>
