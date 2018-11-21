@@ -29,11 +29,11 @@ function checkRequest(){
 	Hello Member User - ${user.name},
 	
 	<br/>
-	If you would like to created an Ad please click this button: <a href="/HousingBoard/createAds.jsp">Create an AD</a>
+	If you would like to created an Ad please click this button: <a href="/HousingBoard/createAds.jsp" id="create-ad">Create an AD</a>
 	
 	<br/>
 	
-	<a href="/HousingBoard/searchAds.jsp">Search ADs</a>
+	<a href="/HousingBoard/searchAds.jsp" id="search-ads">Search ADs</a>
 	
 	<br/>
 	

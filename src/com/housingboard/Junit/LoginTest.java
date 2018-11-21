@@ -16,10 +16,10 @@ public class LoginTest {
 		WebElement radio = driver.findElement(By.id("type-member"));
 		radio.click();
 		Thread.sleep(5000);
-		WebElement email = driver.findElement(By.id("email_id"));;
+		WebElement email = driver.findElement(By.id("email_id"));
 		email.sendKeys("pra@gmail.com");
 		Thread.sleep(5000);
-		WebElement password = driver.findElement(By.id("password"));;
+		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("12");
 		Thread.sleep(5000);
 		WebElement submit = driver.findElement(By.name("submit"));

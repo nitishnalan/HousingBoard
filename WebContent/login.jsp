@@ -12,7 +12,7 @@
 	<%-- ${message} &nbsp; ${successMessage} --%>
 	<h2>Login</h2>
 	<input type="radio" name="user_type" value="member" id="type-member"/>Member
-	<input type="radio" name="user_type" value="leasing_office" />Leasing Office <br>
+	<input type="radio" name="user_type" value="leasing_office" id="type-leasingoffice"/>Leasing Office <br>
 	<input type="text" name="email_id" id="email_id" placeholder="Email-ID" required/><br>
 	
 	<input type="password" name="password" id="password" placeholder="Password" required/><br>

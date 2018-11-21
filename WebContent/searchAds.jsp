@@ -75,7 +75,7 @@ function fetchAdDetails(adID){
 	<!-- </form>
 	
 	<form name="searchResults" id="searchResults" action = "" method="get"> -->
-		<table border=1>
+		<table id="searchtable" border=1>
 			<c:forEach items="${searchResultsOfAds}" var="adPost">
 				<c:choose>
 					<c:when test="${adPost.isAvailable() eq true}">
