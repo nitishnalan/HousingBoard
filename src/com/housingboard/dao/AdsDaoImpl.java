@@ -275,8 +275,16 @@ public class AdsDaoImpl implements AdsDao {
 
 	@Override
 	public Ads getDetailsOfAd(int adID) {
-		String sql = "SELECT *,count(*) as CountRow FROM housingboard.ads T1 JOIN housingboard.apartment_type T2 WHERE T1.ads_apartment_type_id = T2.apartment_id AND "
-				+ "ads_id = " + adID;
+//		String sql = "SELECT *,count(*) as CountRow FROM housingboard.ads T1 JOIN housingboard.apartment_type T2 WHERE T1.ads_apartment_type_id = T2.apartment_id AND "
+//				+ "ads_id = " + adID;
+		
+		//Added new query to get posted user type
+		
+		String sql = "SELECT T1.*,T2.*, T4.user_type_name ,count(*) as CountRow FROM "
+				+ "housingboard.ads T1, housingboard.apartment_type T2, housingboard.user T3, "
+				+ "housingboard.user_type T4 " + 
+				"WHERE T1.ads_apartment_type_id = T2.apartment_id AND T1.ads_user_id = T3.user_id AND "
+				+ "T3.user_type_id = T4.user_type_id AND ads_id = " + adID;
 		Ads adSummaryObj = new Ads();
 		try {
 			
@@ -309,6 +317,9 @@ public class AdsDaoImpl implements AdsDao {
 				adSummaryObj.setApartmentType(rs.getString("apartment_type"));
 				
 				adSummaryObj.setSharing((rs.getString("ads_sharing")=="1" ? true : false));
+				
+				//Added to get type of the user
+				adSummaryObj.setPostedUserType(rs.getString("user_type_name"));
 				
 			}else {
 				System.out.println("COULD NOT FIND THIS AD IN THE DB : " + adID);
@@ -368,11 +379,7 @@ public class AdsDaoImpl implements AdsDao {
 			System.out.println("Connection: " +ps);
 			ResultSet rs = ps.executeQuery();
 			
-			rs.next();
-//			int rowCount = Integer.parseInt(rs.getString("CountRow"));
-//			
-//			System.out.println("rowCount : " + rs.getRow() );
-//			if(rowCount == 1) {
+			if(rs.next()) {
 				adUserSummaryObj.setId(rs.getInt("ads_id"));
 				adUserSummaryObj.setTitle(rs.getString("ads_title"));
 				adUserSummaryObj.setImageUrl(rs.getString("ads_image_url"));
@@ -396,6 +403,12 @@ public class AdsDaoImpl implements AdsDao {
 				adUserSummaryObj.setEmailId(rs.getString("user_email_id"));
 				
 				adUserSummaryObj.setPhoneNumb(rs.getString("user_phone_no"));
+			}
+//			int rowCount = Integer.parseInt(rs.getString("CountRow"));
+//			
+//			System.out.println("rowCount : " + rs.getRow() );
+//			if(rowCount == 1) {
+				
 //			}else {
 //				System.out.println("COULD NOT FIND THIS AD IN THE DB : " + adID);
 //			}

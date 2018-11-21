@@ -16,7 +16,18 @@ public class Ads {
 	private String leaseType;
 	private boolean sharing;
 	private String apartmentType;
+	private String postedUserType;
 	
+	public String getPostedUserType() {
+		return postedUserType;
+	}
+
+
+	public void setPostedUserType(String postedUserType) {
+		this.postedUserType = postedUserType;
+	}
+
+
 	public Ads(String title, String imageUrl, int userId, boolean isAvailable, String description,
 			String community) {
 		super();

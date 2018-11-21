@@ -211,7 +211,7 @@ public class InterestDaoImpl {
 	}
 
 	public boolean checkAssociationOfUserWithAd(int userId, int adID) {
-		String sql = "SELECT count(*) as row_count FROM "
+		String sql = "SELECT count(*) as row_count FROM housingboard.user_ad_interests "
 				+ "where interest_shower_id = "+userId+" AND ad_id = "+adID+" limit 1";
 		
 		try {

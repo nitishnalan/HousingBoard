@@ -16,6 +16,16 @@ function addInterest(adID){
 	document.getElementById("summary").method = "POST";
 	document.getElementById("summary").submit();
 }
+
+function goToCommunityHomePage(userID){
+	alert("goToCommunityHomePage called : " + userID);
+	console.log("calling from goToCommunityHomePage : " + userID);
+	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
+	document.getElementById("summary").action = "/HousingBoard/communitySummary/"+userID;
+	document.getElementById("summary").method = "GET";
+	document.getElementById("summary").target = "_blank";
+	document.getElementById("summary").submit();
+}
 </script>
 </head>
 <body>
@@ -28,11 +38,23 @@ This is a ADs Summary Page:
 		<c:set var = "userAdAssoc" value = "${userAdAssociation}"/>
 		<tr>
 			<td>
-				<img src="${summaryOfAd.imageUrl}" alt="Smiley face" width="500" height="500" />
+				<img src="${adSummaryModel.imageUrl}" alt="Smiley face" width="500" height="500" />
 			</td>
 		</tr>
-		<tr>
-			
+		<tr>		
+			<c:choose>
+				<c:when test="${adSummaryModel.postedUserType eq 'LeasingOffice'}">
+					<td>
+						Community HomePage:
+						<a href="#" onclick="goToCommunityHomePage(${adSummaryModel.userId})">Click here to go to Community Homepage</a>
+					</td>
+					
+				</c:when>
+				<c:otherwise>
+					
+				</c:otherwise>
+			</c:choose>	
+
 			<td>
 				Title:
 				${adSummaryModel.title}
@@ -53,14 +75,20 @@ This is a ADs Summary Page:
 				${adSummaryModel.preferences}
 			</td>
 		</tr>
-		<c:choose>
-			<c:when test="${userAdAssoc eq true}">
+<%-- 		<c:choose>
+			<c:when test="${userAdAssoc}">
 				<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
 			</c:when>
 			<c:otherwise>
 				<button disabled="disabled" class='btn'>Interest Shown Already</button>
 			</c:otherwise>
-		</c:choose>	
+		</c:choose>	 --%>
+		<c:if test="${userAdAssoc == false}">
+			<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
+		</c:if>
+		<c:if test="${userAdAssoc == true}">
+			<button disabled="disabled" class='btn'>Interest Shown Already</button>
+		</c:if>
 	</table>
 </form>	
 </body>
