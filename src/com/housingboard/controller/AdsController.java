@@ -94,17 +94,34 @@ public class AdsController extends HttpServlet {
 	 
 	    private void insertAds(HttpServletRequest request, HttpServletResponse response, int userId)
 	            throws SQLException, IOException {
-	    	System.out.println("Inside ads");
-	    	
+	    	System.out.println("Inside ads");   	
 	        String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");	        
 	        String description = request.getParameter("description");
 	        String community = request.getParameter("community");
-	        String preferences = request.getParameter("preferences");
-	        String leasingType = request.getParameter("leasingType");
+	        String preferences = "";
+	        String[] values = request.getParameterValues("preferences");
+	        System.out.println(values[0]);
+	        for(String p: values)
+	        {
+	        	preferences += p + ",";
+	        	
+	        }
+	        String leasingType = "";
+	        if(request.getParameter("leasingType") != null)
+	        {
+	        	System.out.println(request.getParameter("leasingType"));
+	        	if(request.getParameter("leasingType").equals("Sub Lease"))
+	        	{
+	        		leasingType = "Sub Lease";
+	        	}else if(request.getParameter("leasingType").equals("New Lease")) {
+	        		leasingType = "New Lease";
+	        	}
+	        }
 	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        
+	        System.out.println(leasingType);
 	        Ads ads = new Ads(title, imageUrl, userId, true, description,
 	    		community, preferences, leasingType, sharing, apartmentTypeId);
 	   

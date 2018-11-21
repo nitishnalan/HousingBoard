@@ -54,23 +54,26 @@
             <tr>
                 <th>preferences </th>
                 <td>
-                    <input type="text" name="preferences" size="15"
-                            value="<c:out value="${ad.preferences}" />"
-                    />
+<!--                     <input type="text" name="preferences" size="15"
+                    /> -->
+                    <label>Parking Space Included :</label><input type="checkbox" name="preferences" value="1"><br/>
+    				<label>Gender Inclusive :</label><input type="checkbox" name="preferences" value="2"><br/>
+    				<label>Pets Allowed :</label><input type="checkbox" name="preferences" value="3"><br/>
                 </td>
             </tr>
               <tr>
-                <th>leasing Type </th>
+                <th>Leasing Type </th>
                 <td>
-                    <input type="text" name="leasingType" size="15"
-                            value="<c:out value="${ads.leasingType}" />"
-                    />
+                 <label>New Lease :</label><input type="radio" name="leasingType" size="15"
+                            value="New Lease"/><br/><br/>
+                 <label>Sub Lease :</label><input type="radio" name="leasingType" size="15"
+                            value="Sub Lease"/><br/><br/>   
                 </td>
             </tr>
              <tr>
                 <th>Sharing</th>
                 <td>
-                    <select type="select" name="sharing" size="5"
+                    <select type="select" name="sharing" 
                             value="<c:out value="${ads.sharing}" />">
                     <option>YES</option>
                     <option>NO</option>
@@ -78,10 +81,17 @@
                 </td>
             </tr>
             <tr>
-                <th>Apartment ID</th>
+                <th>Apartment Type</th>
                 <td>
-                    <input type="text" name="apartmentTypeId" size="15"
-                            value="<c:out value="${ads.apartmentTypeId}" />" />
+                    <select type="text" name="apartmentTypeId">
+                    	<option value = "1">1BR</option>
+                    	<option value = "2">2BR</option>
+                    	<option value = "3">3BR</option>
+                    	<option value = "4">Studio</option>
+                    	<option value = "5">Duplex</option>
+                    	<option value = "6">Penthouse</option>
+                    	<option value = "7">Others</option>
+                    </select>
                 </td>
             </tr>
             <tr>

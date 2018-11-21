@@ -42,12 +42,6 @@
          		<!-- 	<input type = "button" name = "Delete" -->
          		
          		<!-- Call in Get Method  -->
-<%--          				<a href="<c:url value="/HousingBoard/ads/delete?id=${ads.id}" />">Delete</a>
-            			<a href="<c:url value="/HousingBoard/ads/update?id=${ads.id}" />">Edit</a>
- --%>               
-<%--  					<input type = "button" value = "DELETE AD"  id = "${ads.id}" onclick = "deleteAd(this.id);"/>	
- 					<input type = "button" value = "UPDATE AD" id = "${ads.id}"  onclick = "updateAd(this.id);"/>
- 				 --%>	
  					</td>
                 </tr>
             </c:forEach>

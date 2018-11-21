@@ -9,12 +9,6 @@
 <title>Search Results</title>
 </head>
 <body>
-<!-- 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get">
-		Apply Filters
-		
-		<button type ='submit' class='btn'>Apply Filters on Ads!</button>	
-	</form> -->
-
 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get"> 
 	
 		Apply Filters

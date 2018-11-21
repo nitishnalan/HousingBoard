@@ -8,7 +8,7 @@
 </head>
 <body>
 <h3>Successfully Inserted</h3>
-<h5>Please Go Back to the Member Dashboard homepage/h5>
-<h4><a href ="memberDashboard.jsp"><button>Ad List</button></a></h4><br/><br/>
+<h5>Please Go Back to the Member Dashboard homepage</h5>
+<a href ="memberDashboard.jsp">Ad List</a><br/><br/>
 </body>
 </html>
