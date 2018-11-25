@@ -38,6 +38,7 @@ public class CommunitySummaryController extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String pathInfo = request.getPathInfo();
 		String[] pathParts = pathInfo.split("/");
+		System.out.println(pathParts[1].toString());
 		int communityID = Integer.parseInt(pathParts[1].toString());
 		boolean userCommunityPgAssoc = false;
 		System.out.println("communityID for summary " + communityID);
