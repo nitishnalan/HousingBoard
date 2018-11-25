@@ -37,68 +37,6 @@ function goToCommunityHomePage(userID){
 
 </head>
 <body>
-<form name="summary" id="summary">
-
-This is a ADs Summary Page:
-
-	<table border=1>
-		<c:set var = "adSummaryModel" value = "${summaryOfAd}"/>
-		<c:set var = "userAdAssoc" value = "${userAdAssociation}"/>
-		<tr>
-			<td>
-				<img src="${adSummaryModel.imageUrl}" alt="Smiley face" width="500" height="500" />
-			</td>
-		</tr>
-		<tr>		
-			<c:choose>
-				<c:when test="${adSummaryModel.postedUserType eq 'LeasingOffice'}">
-					<td>
-						Community HomePage:
-						<a href="#" onclick="goToCommunityHomePage(${adSummaryModel.userId})">Click here to go to Community Homepage</a>
-					</td>
-					
-				</c:when>
-				<c:otherwise>
-					
-				</c:otherwise>
-			</c:choose>	
-
-			<td>
-				Title:
-				${adSummaryModel.title}
-			</td>
-			
-			<td>
-				Description:
-				${adSummaryModel.description}
-			</td>
-			
-			<td>
-				Community:
-				${adSummaryModel.community}
-			</td>
-			
-			<td>
-				Preferences:
-				${adSummaryModel.preferences}
-			</td>
-		</tr>
-<%-- 		<c:choose>
-			<c:when test="${userAdAssoc}">
-				<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
-			</c:when>
-			<c:otherwise>
-				<button disabled="disabled" class='btn'>Interest Shown Already</button>
-			</c:otherwise>
-		</c:choose>	 --%>
-		<c:if test="${userAdAssoc == false}">
-			<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
-		</c:if>
-		<c:if test="${userAdAssoc == true}">
-			<button disabled="disabled" class='btn'>Interest Shown Already</button>
-		</c:if>
-	</table>
-</form>	
 			<nav class="navbar navbar-light blue-sky">
 				<a class="navbar-brand text-white" href="#">
 						HousingBoard
@@ -113,6 +51,19 @@ This is a ADs Summary Page:
 									<c:set var = "adSummaryModel" value = "${summaryOfAd}"/>
 									<c:set var = "userAdAssoc" value = "${userAdAssociation}"/>
 									<tr>
+										<c:choose>
+											<c:when test="${adSummaryModel.postedUserType eq 'LeasingOffice'}">
+												<td>
+													Community HomePage:
+													<a href="#" onclick="goToCommunityHomePage(${adSummaryModel.userId})">Click here to go to Community Homepage</a>
+												</td>
+					
+											</c:when>
+										<c:otherwise>
+					
+										</c:otherwise>
+										</c:choose>	
+
 										<td>
 											<img src="${summaryOfAd.imageUrl}" alt="Smiley face" class="img-thumbnail" />
 										</td>
@@ -126,14 +77,12 @@ This is a ADs Summary Page:
 												<p>${adSummaryModel.preferences}</p>
 										</td>
 									</tr>    
-									<c:choose>
-										<c:when test="${userAdAssoc eq true}">
-											<button type ='submit' class='btn blue-sky' onclick="addInterest(${adSummaryModel.id})">Interested</button>
-										</c:when>
-										<c:otherwise>
-											<button disabled="disabled" class='btn blue-sky'>Interested</button>
-										</c:otherwise>
-									</c:choose>	
+									<c:if test="${userAdAssoc == false}">
+										<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
+									</c:if>
+									<c:if test="${userAdAssoc == true}">
+										<button disabled="disabled" class='btn'>Interest Shown Already</button>
+									</c:if>
 								</table>
 							</form>
 						</div>
