@@ -7,9 +7,5 @@
 <title>Welcome Page</title>
 </head>
 <body>
-<h1> ${message} !!! </h1>
-
-	<a href="logout.jsp">logout</a>
-
 </body>
 </html>
