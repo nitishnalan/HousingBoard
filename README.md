@@ -1,3 +1,4 @@
+
 # HousingBoard
 
 Please make sure you follow the code structure 
@@ -16,4 +17,5 @@ The src folder consists of Controller, DAOs, and Models which can be found in co
 The WebContent folder consists of all the JSPs files. The Web-Inf folder inside the this folder has a lib folder which consists of all the required jar files required to execute this folder.
 
 Also the dynamic project in which you shall be importing this project should have the name as HousingBoard. 
+
 

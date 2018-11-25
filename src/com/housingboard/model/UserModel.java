@@ -34,8 +34,6 @@ public class UserModel {
 		this.password = password;
 	}
 	
-	
-	
 	public UserModel() {
 		super();
 		// TODO Auto-generated constructor stub

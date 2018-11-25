@@ -7,6 +7,5 @@
 <title>Housing Board Homepage</title>
 </head>
 <body>
-
 </body>
 </html>

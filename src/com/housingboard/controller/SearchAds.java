@@ -145,3 +145,4 @@ public class SearchAds extends HttpServlet {
 	}
 
 }
+

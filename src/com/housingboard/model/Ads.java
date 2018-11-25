@@ -15,6 +15,18 @@ public class Ads {
 	private String leasingType;
 	private boolean sharing;
 	private int apartmentTypeId;
+	private String apartmentType;
+	private String postedUserType;
+	
+	public String getPostedUserType() {
+		return postedUserType;
+	}
+
+
+	public void setPostedUserType(String postedUserType) {
+		this.postedUserType = postedUserType;
+	}
+
 	
     public Ads() {
     }
@@ -161,5 +173,12 @@ public class Ads {
 	public void setApartmentTypeId(int apartmentTypeId) {
 		this.apartmentTypeId = apartmentTypeId;
 	}
+	public String getApartmentType() {
+		return apartmentType;
+	}
 
+	public void setApartmentType(String apartmentType) {
+		this.apartmentType = apartmentType;
+	}
 }
+

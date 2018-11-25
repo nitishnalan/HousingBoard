@@ -3,8 +3,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>HousingBoard</title>
-
+<title>HousingBoard Registration</title>
 </head>
 <body>
 <form name="regform" action="/HousingBoard/registerUser" method="post" onsubmit="return regValidate()">
@@ -38,7 +37,7 @@
 	<input type="submit" name="submit" value="Register" >
 	<input type="reset" name="Reset">
 	
-	</form>
+</form>
 	
 </body>
 </html>

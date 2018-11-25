@@ -6,9 +6,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript">
+function fetchAdDetails(adID){
+	alert("fetchAdDetails called@ : " + adID);
+	console.log("calling from fetchAdDetails : " + adID);
+	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
+	document.getElementById("search").action = "/HousingBoard/adDetails/"+adID;
+	document.getElementById("search").method = "POST";
+	document.getElementById("search").submit();
+}
+</script>
 <title>Search Results</title>
 </head>
 <body>
+<!-- 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get">
+		Apply Filters
+		
+		<button type ='submit' class='btn'>Apply Filters on Ads!</button>	
+	</form> -->
+
 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get"> 
 	
 		Apply Filters
@@ -72,6 +88,7 @@
 							<td> ${adPost.userId}</td>
 							<td> ${adPost.description}</td>
 							<td> ${adPost.community}</td>
+							<td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
 						</tr>
 					</c:when>
 					
@@ -83,6 +100,7 @@
 							<td> ${adPost.userId}</td>
 							<td> ${adPost.description}</td>
 							<td> ${adPost.community}</td>
+							<td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
@@ -98,6 +116,9 @@
 					int pageNo = 1;
 					
 					while(pageCounter!=0){
+						//strBuild.append("<li><a href='/apnidukaan/product/search/"+pageNo+"?categoryId="+searchFieldValue+"&searchfield="+searchFieldValue+"' class='btn btn-warning'>	"+pageNo+"</a></li> &nbsp");
+						//strBuild.append("<li><a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a></li> &nbsp");
+						
 						strBuild.append("<a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a> &nbsp");
 						++pageNo;
 						--pageCounter;

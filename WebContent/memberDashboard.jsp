@@ -5,11 +5,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member - Home Page</title>
+<script type="text/javascript">
+function showMyInterests(){
+	alert("showMyInterests called : ");
+	console.log("calling from showMyInterests : ");
+	document.getElementById("memberDashboard").action = "/HousingBoard/showAdInterest/myInterests";
+	document.getElementById("memberDashboard").method = "POST";
+	document.getElementById("memberDashboard").submit();
+}
+
+function checkRequest(){
+	alert("checkRequest called : ");
+	console.log("calling from checkRequest : ");
+	document.getElementById("memberDashboard").action = "/HousingBoard/checkAdRequest/reviewInterests";
+	document.getElementById("memberDashboard").method = "POST";
+	document.getElementById("memberDashboard").submit();
+}
+</script>
 </head>
 <body>
-<br/><br/><br/><br/>
-<h2>Welcome ${user.name}</h2>
-<h3>You can manage your account and ads using the link below</h3>
+
 <table>
 <tr>
 <td>
@@ -20,6 +35,21 @@
 </td>
 </tr>
 </table>
-</form>
+
+<form id="memberDashboard" name="memberDashboard">
+
+	Hello Member User - ${user.name},
+
+	
+	<a href="/HousingBoard/searchAds.jsp">Search ADs</a>
+	
+	<br/>
+	
+	<a href="#" onclick="showMyInterests()">Show My Interest Page</a>
+	
+	<br/>
+	
+	<a href="#" onclick="checkRequest()">Check Interest on my AD Request </a>
+</form>	
 </body>
 </html>
