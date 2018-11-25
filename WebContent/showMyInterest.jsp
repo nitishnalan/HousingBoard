@@ -44,7 +44,5 @@ function getDetails(adID){
 				<td hidden id="tdHide"></td>
 			</tr>
 		</c:forEach>
-	</table>			
-</form>
 </body>
 </html>
