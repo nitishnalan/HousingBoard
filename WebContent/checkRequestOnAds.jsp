@@ -35,30 +35,6 @@ function approveInterest(usrID,inteID){
 </script>
 </head>
 <body>
-<form id="reviewInterests">
-	<table border=1>
-		<c:forEach items="${checkAdUserInterests}" var="checkUsrAdInt">
-			<tr>
-				<td>${checkUsrAdInt.userName}</td>
-				<td>${checkUsrAdInt.userEmailId}</td>
-				<td>${checkUsrAdInt.userPhoneNo}</td>
-				<td>${checkUsrAdInt.statusValue}</td>
-				<td>
-				<c:choose>
-					<c:when test="${checkUsrAdInt.statusValue eq 'Approved'}">
-						<button type ='button' class='btn' onclick="declineInterest(${checkUsrAdInt.interestShowerUserId},${checkUsrAdInt.interestID})">Decline</button>
-						
-					</c:when>
-					<c:otherwise>
-						<button type ='button' class='btn' onclick="approveInterest(${checkUsrAdInt.interestShowerUserId},${checkUsrAdInt.interestID});">Approve</button>
-						<button type ='button' class='btn' onclick="declineInterest(${checkUsrAdInt.interestShowerUserId},${checkUsrAdInt.interestID})">Decline</button>
-					</c:otherwise>
-				</c:choose>
-				</td>	
-			</tr>
-		</c:forEach>
-	</table>			
-</form>
 <nav class="navbar navbar-light blue-sky">
     	<a class="navbar-brand text-white" href="#">
       		HousingBoard
