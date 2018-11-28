@@ -8,9 +8,9 @@ import com.housingboard.model.UserModel;
 /**
  * @author nitish
  */
-public interface UserDao {
-	
+public  interface UserDao {
 	public UserModel loginUser(Login login);
 	public boolean register(UserModel leasingOffice);
-		
+	public boolean updateMember(UserModel memberReigster);
+	public UserModel getRecordByName(String name);
 }
