@@ -53,28 +53,31 @@ public class LoginController extends HttpServlet {
 //			Member
 			System.out.println("Member User");
 			UserDao memberUser = new MemberDaoImpl();
-			if(memberUser == null) {
-				//createNewUser
-				viewUrl = "/register.jsp";
-			}else {
-				Member memberModel = (Member) memberUser.loginUser(loginModel);
-				
+			Member memberModel = (Member) memberUser.loginUser(loginModel);
+			if(memberModel != null) {
 				viewUrl = "/memberDashboard.jsp";
 				session.setAttribute("user", memberModel);
-			    session.setAttribute("userAuthToken",memberModel.getId());
-			    session.setAttribute("userType", memberModel.getUserType());
+				session.setAttribute("userAuthToken",memberModel.getId());
+			}else {
+				viewUrl = "/suMessage.jsp";
+				session.setAttribute("message", "Invalid login details! Please try again or create a new account!");
 			}
-			
 			
 		}else {
 //			Leasing Office 
 			System.out.println("Leasing Office User");
 			UserDao loUser = new LeasingOfficeDaoImpl();
 			LeasingOffice loModel = (LeasingOffice) loUser.loginUser(loginModel);
-			viewUrl = "/loDashboard.jsp";
-			session.setAttribute("user", loModel);
-			session.setAttribute("userAuthToken",loModel.getId());
-			session.setAttribute("userType", loModel.getUserType());
+
+			if(loModel != null) {
+				viewUrl = "/loDashboard.jsp";
+				session.setAttribute("user", loModel);
+				session.setAttribute("userAuthToken",loModel.getId());
+			}
+			else {
+				viewUrl = "/suMessage.jsp";
+				session.setAttribute("message", "Invalid login details! Please try again or create a new account!");
+			}
 		}
 				
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewUrl);

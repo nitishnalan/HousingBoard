@@ -22,22 +22,22 @@
 	  <div class="container">
 	    <div class="row">
 	      <div class="col-md-12">
-		<form name="loginform" action="/HousingBoard/login" method="post">
-        		<%-- ${message} &nbsp; ${successMessage} --%>
-        		<h2 class="text-center">Login</h2>
-        		<div class="form-group">
-        	  		<div class="form-check form-check-inline">
-              				<input type="radio" name="user_type" value="member" />
-             		 		<label class="form-check-label">Member</label>
-            			</div>
-          			<div class="form-check form-check-inline">
-              				<input type="radio" name="user_type" value="leasing_office" />
-              				<label class="form-check-label">Leasing Office</label>
-            			</div>
-        		</div>
-        		<div class="form-group">
-           			 <input class="form-control" type="text" name="email_id" id="email_id" placeholder="Email-ID" required/>
-          		</div>
+	        <form name="loginform" action="/HousingBoard/login" method="post">
+        	<%-- ${message} &nbsp; ${successMessage} --%>
+        	<h2 class="text-center">Login</h2>
+        	<div class="form-group">
+        	  <div class="form-check form-check-inline">
+              <input type="radio" name="user_type" value="member" required/>
+              <label class="form-check-label">Member</label>
+            </div>
+          	<div class="form-check form-check-inline">
+              <input type="radio" name="user_type" value="leasing_office" />
+              <label class="form-check-label">Leasing Office</label>
+            </div>
+        	</div>
+        	<div class="form-group">
+            <input class="form-control" type="text" name="email_id" id="email_id" placeholder="Email-ID" required/>
+          </div>
         	
         		<div class="form-group">
             			<input class="form-control" type="password" name="password" id="password" placeholder="Password" required/>

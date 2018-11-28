@@ -25,7 +25,7 @@ public class LeasingOfficeDaoImpl implements UserDao{
 		try {
 			conn = db.getConnection();
 			ps = conn.prepareStatement("Select *,count(*) as CountRow from user where user_email_id = '"+
-			login.getEmailId() + "' and password = '" + login.getPassword() +"'");
+			login.getEmailId() + "' and user_type_id = 2 and password = '" + login.getPassword() +"'");
 			System.out.println("Connection: " +ps);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -87,6 +87,31 @@ public class LeasingOfficeDaoImpl implements UserDao{
 		return false;
 	}
 
+	public boolean checkIfUserIsLeasingOffice(int userId) {
+		String sql = "	SELECT count(*) as count1 FROM housingboard.user " + 
+				"	where (user_id = "+userId+" AND user_type_id = 2) " + 
+				"	limit 1";
+		
+		try {
+			conn = db.getConnection();
+			ps = conn.prepareStatement(sql);
+			System.out.println("Connection: " +ps);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			int isLeasingOffice = Integer.parseInt(rs.getString("count1"));
+					
+			if(isLeasingOffice == 1) {
+				return true;
+			}else {
+				System.out.println("Application Warning : user is not a leasing office type");
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return false;
+	}
 	@Override
 	public boolean updateMember(UserModel leasingoffice) {
 		// TODO Auto-generated method stub

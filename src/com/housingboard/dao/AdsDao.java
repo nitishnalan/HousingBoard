@@ -40,5 +40,8 @@ public interface AdsDao {
 	public Ads getAd(int i);
 
 	public List<Ads> AdminlistAllAds();
+
+	public List<Ads> getSearchTotalResultsByPageByFilter(String searchFieldController, int total, Filters filterObj);
 }
+
 

@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<h1>Your User Details are as follows:-</h1>
  <!--  StyleSheet -->
 <link rel="stylesheet" href="/HousingBoard/css/style.css"></link>
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-${user.name}
- <script type="text/javascript">
+<script type="text/javascript">
 function showMyInterests(){
 	alert("showMyInterests called : ");
 	console.log("calling from showMyInterests : ");
@@ -18,11 +16,7 @@ function showMyInterests(){
 	document.getElementById("memberDashboard").method = "POST";
 	document.getElementById("memberDashboard").submit();
 }
-<a href="${user}"></a>
-<br/><br/><br/><br/>
-<form action="/HousingBoard/updateprofile/dataretrieve" method="post">
-     			<input type="submit" value="Update details" />
-            </form>
+
  function checkRequest(){
 	alert("checkRequest called : ");
 	console.log("calling from checkRequest : ");
@@ -53,6 +47,9 @@ function showMyInterests(){
 	              <div class="col-md-3"><button class="btn blue-sky" onclick="showMyInterests()">Interests</button></div>
 	              
 	              <div class="col-md-3"><button class="btn blue-sky" onclick="checkRequest()">Requests</button></div>
+	              <form action="/HousingBoard/updateprofile/dataretrieve" method="post">
+     					<input type="submit" value="Update details" />
+            	</form>
 	            </div>
 	          </form>	
 	        </div>
@@ -63,7 +60,7 @@ function showMyInterests(){
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<a href ="AdForm.jsp">Manage Ads</a><br/><br/><br/>s
+<a href ="AdForm.jsp">Manage Ads</a><br/><br/><br/>
 </form>
 </body>
 </html>

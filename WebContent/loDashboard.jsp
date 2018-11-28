@@ -12,8 +12,26 @@
  <!--  StyleSheet -->
 <link rel="stylesheet" href="/HousingBoard/css/style.css"></link>
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+<script type="text/javascript">
+function showMyInterests(){
+	alert("showMyInterests called : ");
+	console.log("calling from showMyInterests : ");
+	document.getElementById("loDashboard").action = "/HousingBoard/showAdInterest/myInterests";
+	document.getElementById("loDashboard").method = "POST";
+	document.getElementById("loDashboard").submit();
+}
+
+function checkRequest(){
+	alert("checkRequest called : ");
+	console.log("calling from checkRequest : ");
+	document.getElementById("loDashboard").action = "/HousingBoard/checkAdRequest/reviewInterests";
+	document.getElementById("loDashboard").method = "POST";
+	document.getElementById("loDashboard").submit();
+}
+</script>
 </head>
 <body>
+<form id="loDashboard" name="loDashboard">
 	<nav class="navbar navbar-light blue-sky">
     	<a class="navbar-brand text-white" href="#">
       		HousingBoard
@@ -25,10 +43,13 @@
 	      <div class="col-md-12">
 	        <h2 class="text-center">Hello Leasing Office User - ${user.name},</h2>
         	<a class="btn blue-sky text-center" href="/HousingBoard/createAds.jsp">Create an AD</a>
+        	<div class="col-md-3"><a class="btn blue-sky" href="/HousingBoard/searchAds.jsp">Search</a></div>
+        	<div class="col-md-3"><button class="btn blue-sky" onclick="checkRequest()">Requests</button></div>
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	</form>
 	<!-- Bootstrap JS  -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

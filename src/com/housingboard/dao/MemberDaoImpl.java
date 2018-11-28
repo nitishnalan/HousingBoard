@@ -28,6 +28,9 @@ public class MemberDaoImpl implements UserDao{
 		// TODO Auto-generated method stub
 		try {
 			conn = db.getConnection();
+
+//			ps = conn.prepareStatement("Select *,count(*) as CountRow from user where user_email_id = '"+
+//					login.getEmailId() + "' and user_type_id = 1 and password = '" + login.getPassword() +"'");
 			ps = conn.prepareStatement(
 					"SELECT user_id,user_name,user_email_id,user_phone_no,user_address,user_city,user_state,user_country,user_zipcode, user_type_id " + 
 					"FROM user " + 

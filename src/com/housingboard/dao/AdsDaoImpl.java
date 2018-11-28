@@ -285,16 +285,16 @@ public class AdsDaoImpl implements AdsDao {
 			Filters filterObj) {
 		String searchField = searchKey;
 		List<Ads> listOfAds = new ArrayList<>();
-		String sql = "select * from Ads";
+		String sql = "select T1.*, T2.apartment_type from Ads T1, apartment_type T2";
 		
 		String filterApplied = getFilterApplied(filterObj);
 		
 		System.out.println("filterApplied : " + filterApplied);
 		  if(searchField.equals("*")) {
 			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
-			  sql = "select * from Ads";
+			  sql = "select T1.*, T2.apartment_type from Ads T1, apartment_type T2";
 		  }else if(!searchField.equals("")){
-			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
+			  sql = sql + " WHERE T1.ads_apartment_type_id = T2.apartment_id AND (ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%')";
 		  }
 		  
 		  if(!filterApplied.equals("")) {
@@ -327,6 +327,13 @@ public class AdsDaoImpl implements AdsDao {
 					adsModel.setDescription(rs.getString("ads_description"));
 					adsModel.setCommunity(rs.getString("ads_community"));
 					
+					adsModel.setApartmentType(rs.getString("apartment_type"));
+					adsModel.setSharing(rs.getBoolean("ads_sharing"));
+					
+					String preferences = getValuesForEachPreferences(rs.getString("ads_preferences"));
+					
+					adsModel.setPreferences(preferences);
+					adsModel.setLeaseType(rs.getString("ads_leasing_type"));
 					System.out.println("ADSMODEL : " + adsModel.isAvailable());
 					
 					listOfAds.add(adsModel);
@@ -560,7 +567,63 @@ public class AdsDaoImpl implements AdsDao {
 			System.out.println(e);
 		}
 		return adUserSummaryObj;
-	}	
+	}
+	
+	public List<Ads> getSearchTotalResultsByPageByFilter(String searchKey, int total, Filters filterObj){
+		String searchField = searchKey;
+		List<Ads> listOfAds = new ArrayList<>();
+		String sql = "select * from Ads";
+		
+		String filterApplied = getFilterApplied(filterObj);
+		
+		System.out.println("filterApplied : " + filterApplied);
+		  if(searchField.equals("*")) {
+			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
+			  sql = "select * from Ads";
+		  }else if(!searchField.equals("")){
+			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
+		  }
+		  
+		  if(!filterApplied.equals("")) {
+			  sql += " AND " + filterApplied;
+		  }
+		  
+		
+		  System.out.println("SQL inside getResults page : " + sql);
+
+			try {
+				conn = db.getConnection();
+				//ToDO: Make changes for better search Results
+//				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+//						+ "%' OR  ads_description like '%" +searchField+ "%';");
+				
+				ps = conn.prepareStatement(sql);
+				
+				System.out.println("Conn : " + ps);
+				
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					Ads adsModel = new Ads();
+					adsModel.setId(Integer.parseInt(rs.getString("ads_id")));
+					adsModel.setTitle(rs.getString("ads_title"));
+					adsModel.setImageUrl(rs.getString("ads_image_url"));
+					adsModel.setUserId(Integer.parseInt(rs.getString("ads_user_id")));
+					adsModel.setAvailable(rs.getBoolean("ads_is_available"));
+					adsModel.setDescription(rs.getString("ads_description"));
+					adsModel.setCommunity(rs.getString("ads_community"));
+					
+					System.out.println("ADSMODEL : " + adsModel.isAvailable());
+					
+					listOfAds.add(adsModel);
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			return listOfAds;
+		
+	}
 
 	public List<Ads> AdminlistAllAds() {
         List<Ads> adslist = new ArrayList<>();
@@ -593,5 +656,6 @@ public class AdsDaoImpl implements AdsDao {
               
         return adslist;
     }
+
 }
 

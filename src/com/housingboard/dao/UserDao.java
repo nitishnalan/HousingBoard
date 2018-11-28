@@ -18,4 +18,5 @@ public  interface UserDao {
 	public UserModel getRecordByName(String name);
 	public List<UserModel> dataretrieve(int id);
 	public boolean createPage(String description, String url,int id);
+
 }
