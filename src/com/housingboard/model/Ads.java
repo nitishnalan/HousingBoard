@@ -12,9 +12,21 @@ public class Ads {
 	private String description;
 	private String community;
 	private String preferences;
-	private String leasingType;
+	private String leaseType;
 	private boolean sharing;
 	private int apartmentTypeId;
+	private String apartmentType;
+	private String postedUserType;
+	
+	public String getPostedUserType() {
+		return postedUserType;
+	}
+
+
+	public void setPostedUserType(String postedUserType) {
+		this.postedUserType = postedUserType;
+	}
+
 	
     public Ads() {
     }
@@ -34,13 +46,28 @@ public class Ads {
 		this.description = description;
 		this.community = community;
 		this.preferences = preferences;
-		this.leasingType = leasingType;
+		this.leaseType = leasingType;
 		this.sharing = sharing;
 		this.apartmentTypeId = apartmentTypeId;
 		
 	}
 	
-	public Ads(int id, String title, String imageUrl, int userId,String description,
+	public Ads(String title, String imageUrl, String description,
+			String community, String preferences, String leasingType, boolean sharing, int apartmentTypeId) {
+		super();
+		//this.id = id;
+		this.title = title;
+		this.imageUrl = imageUrl;
+		this.description = description;
+		this.community = community;
+		this.preferences = preferences;
+		this.leaseType = leasingType;
+		this.sharing = sharing;
+		this.apartmentTypeId = apartmentTypeId;
+		
+	}
+	
+	public Ads(int id, String title, String imageUrl, int userId, boolean isAvailable,String description,
 			String community, String preferences, String leasingType, boolean sharing, int apartmentTypeId) {
 		super();
 		this.id = id;
@@ -50,7 +77,7 @@ public class Ads {
 		this.description = description;
 		this.community = community;
 		this.preferences = preferences;
-		this.leasingType = leasingType;
+		this.leaseType = leasingType;
 		this.sharing = sharing;
 		this.apartmentTypeId = apartmentTypeId;
 		
@@ -66,7 +93,7 @@ public class Ads {
 		this.description = description;
 		this.community = community;
 		this.preferences = preferences;
-		this.leasingType = leasingType;
+		this.leaseType = leasingType;
 		this.sharing = sharing;
 		this.apartmentTypeId = apartmentTypeId;
 		
@@ -121,11 +148,11 @@ public class Ads {
 	public void setPreferences(String preferences) {
 		this.preferences = preferences;
 	}
-	public String getLeasingType() {
-		return leasingType;
+	public String getLeaseType() {
+		return leaseType;
 	}
-	public void setLeasingType(String leasingType) {
-		this.leasingType = leasingType;
+	public void setLeaseType(String leasingType) {
+		this.leaseType = leasingType;
 	}
 	
 	public int getApartmentTypeID() {
@@ -146,5 +173,11 @@ public class Ads {
 	public void setApartmentTypeId(int apartmentTypeId) {
 		this.apartmentTypeId = apartmentTypeId;
 	}
+	public String getApartmentType() {
+		return apartmentType;
+	}
 
+	public void setApartmentType(String apartmentType) {
+		this.apartmentType = apartmentType;
+	}
 }

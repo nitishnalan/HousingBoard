@@ -86,7 +86,7 @@ public class AdsSummary extends HttpServlet {
 			Ads adDetails = summaryOfAd.getDetailsOfAd(adID); 
 			boolean userAdAssociation = interestForAd.checkAssociationOfUserWithAd(userId, adID);	
 
-				
+				 
 			String viewName = "";
 			if(adDetails == null) {
 				session.setAttribute("message", "Something went wrong. Please try to login again.");
