@@ -560,9 +560,9 @@ public class AdsDaoImpl implements AdsDao {
 			System.out.println(e);
 		}
 		return adUserSummaryObj;
-	}
-	
-	    public List<Ads> AdminlistAllAds() {
+	}	
+
+	public List<Ads> AdminlistAllAds() {
         List<Ads> adslist = new ArrayList<>();
         try {
         	String sql = "SELECT * FROM ads";
@@ -594,3 +594,4 @@ public class AdsDaoImpl implements AdsDao {
         return adslist;
     }
 }
+

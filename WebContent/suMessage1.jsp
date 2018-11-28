@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update Message</title>
+
 </head>
 <body>
-Update Successfully
+<h1>Deleted The Ad Successfully</h1>
+
 </body>
 </html>

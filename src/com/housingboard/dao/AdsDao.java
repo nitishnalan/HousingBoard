@@ -7,9 +7,10 @@ import com.housingboard.model.Filters;
 import com.housingboard.model.SearchFilters;
 import com.housingboard.model.UserAdDetails;
 
- /*
+/**
  * @author nitish
  */
+//Ads Dao Interface
 public interface AdsDao {
 	
 	
@@ -19,27 +20,25 @@ public interface AdsDao {
 
 	public List<Ads> getSearchResultsByPage(String searchFieldController, int pageid, int total);
 
-	//public boolean createNewAd(Ads adModel);
-	
+	public boolean createNewAd(Ads adModel);
+
 	public List<Ads> getSearchResultsByPageByFilter(String searchFieldController, int pageid, int total,
 			Filters filterObj);
 
+	public Ads getDetailsOfAd(int adID);
+
+	public UserAdDetails getDetailsOfUserAndAd(int adID);
+	
 	public boolean insertAds(Ads adModel);
 	
-	public boolean updateAds(Ads adModel, int usId);
+	public boolean updateAdsFromDatabase(Ads adModel, int usId);
 	
-	public boolean deleteAds(Ads adModel,int usId);
+	public boolean deleteAdsFromDatabase(Ads adModel,int usId);
 	
 	public List<Ads> listAllAds(int userId);
 
-	public Ads getAd(int id);
-	
+	public Ads getAd(int i);
+
 	public List<Ads> AdminlistAllAds();
-
-	public UserAdDetails getDetailsOfUserAndAd(int adID);
-
-	public Ads getDetailsOfAd(int adID);
-
-	
 }
 

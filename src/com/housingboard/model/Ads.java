@@ -181,3 +181,4 @@ public class Ads {
 		this.apartmentType = apartmentType;
 	}
 }
+
