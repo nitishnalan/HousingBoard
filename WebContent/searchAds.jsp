@@ -142,6 +142,13 @@ function fetchAdDetails(adID){
                         <td> ${adPost.description}</td>
                         <td> ${adPost.community}</td>
                         <td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
+                        <td> 
+                        	ApartmentType : ${adPost.apartmentType} <br/>
+                        	Preferences : ${adPost.preferences} <br/>
+                        	Leasing Type : ${adPost.leaseType} <br/>
+                        	Saring : ${adPost.sharing} <br/>
+                        	
+                        </td>
                       </tr>
                     </c:when>
                     
@@ -149,11 +156,16 @@ function fetchAdDetails(adID){
                       <tr>
                         <td> ${adPost.id}</td>
                         <td> ${adPost.title}</td>
-                        <td> <img src="${adPost.imageUrl}" alt="Smiley face" width="500" height="500" /></td>
+                        <td> <img src="${adPost.imageUrl}" alt="Smiley face" width="42" height="42"/></td>
                         <td> ${adPost.userId}</td>
                         <td> ${adPost.description}</td>
                         <td> ${adPost.community}</td>
                         <td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
+                        <td> 
+                        	ApartmentType : ${adPost.apartmentType}<br/>
+                        	Preferences : ${adPost.preferences}<br/>
+                        	Leasing Type : ${adPost.leaseType}<br/>
+                        </td>
                       </tr>
                     </c:otherwise>
                   </c:choose>
@@ -167,14 +179,16 @@ function fetchAdDetails(adID){
                     StringBuilder strBuild = new StringBuilder();
                     
                     int pageNo = 1;
-                    
-                    while(pageCounter!=0){
+                    System.out.println("pageCounter from SEARCH ADS JSP : " + pageCounter);
+                    if(pageCounter!=0){
                       //strBuild.append("<li><a href='/apnidukaan/product/search/"+pageNo+"?categoryId="+searchFieldValue+"&searchfield="+searchFieldValue+"' class='btn btn-warning'>	"+pageNo+"</a></li> &nbsp");
                       //strBuild.append("<li><a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a></li> &nbsp");
                       
                       strBuild.append("<a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a> &nbsp");
                       ++pageNo;
                       --pageCounter;
+                    }else{
+                    	strBuild.append("<b> No search results available! </b>");
                     }
                     
                     //out.print("<ul class='pagination'>");

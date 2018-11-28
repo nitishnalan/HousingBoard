@@ -50,6 +50,8 @@ function goToCommunityHomePage(userID){
 								<table border=1 class="table table-responsive table-bordered">
 									<c:set var = "adSummaryModel" value = "${summaryOfAd}"/>
 									<c:set var = "userAdAssoc" value = "${userAdAssociation}"/>
+									<c:set var = "userIsNotLeasingOffice" value = "${userIsNotLeasingOffice}"/>
+									
 									<tr>
 										<c:choose>
 											<c:when test="${adSummaryModel.postedUserType eq 'LeasingOffice'}">
@@ -76,12 +78,15 @@ function goToCommunityHomePage(userID){
 												<h5>Preferences:</h5>
 												<p>${adSummaryModel.preferences}</p>
 										</td>
-									</tr>    
+									</tr>
+									<c:if test="${userIsNotLeasingOffice == true}">    
 									<c:if test="${userAdAssoc == false}">
 										<button type ='submit' class='btn' onclick="addInterest(${adSummaryModel.id})">I am Interested</button>
+									
 									</c:if>
 									<c:if test="${userAdAssoc == true}">
 										<button disabled="disabled" class='btn'>Interest Shown Already</button>
+									</c:if>
 									</c:if>
 								</table>
 							</form>

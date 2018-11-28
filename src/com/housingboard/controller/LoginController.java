@@ -58,18 +58,29 @@ public class LoginController extends HttpServlet {
 			System.out.println("Member User");
 			UserDao memberUser = new MemberDaoImpl();
 			Member memberModel = (Member) memberUser.loginUser(loginModel);
-			viewUrl = "/memberDashboard.jsp";
-			session.setAttribute("user", memberModel);
-			session.setAttribute("userAuthToken",memberModel.getId());
+			if(memberModel != null) {
+				viewUrl = "/memberDashboard.jsp";
+				session.setAttribute("user", memberModel);
+				session.setAttribute("userAuthToken",memberModel.getId());
+			}else {
+				viewUrl = "/suMessage.jsp";
+				session.setAttribute("message", "Invalid login details! Please try again or create a new account!");
+			}
 			
 		}else {
 //			Leasing Office 
 			System.out.println("Leasing Office User");
 			UserDao loUser = new LeasingOfficeDaoImpl();
 			LeasingOffice loModel = (LeasingOffice) loUser.loginUser(loginModel);
-			viewUrl = "/loDashboard.jsp";
-			session.setAttribute("user", loModel);
-			session.setAttribute("userAuthToken",loModel.getId());
+			if(loModel != null) {
+				viewUrl = "/loDashboard.jsp";
+				session.setAttribute("user", loModel);
+				session.setAttribute("userAuthToken",loModel.getId());
+			}
+			else {
+				viewUrl = "/suMessage.jsp";
+				session.setAttribute("message", "Invalid login details! Please try again or create a new account!");
+			}
 		}
 		
 		

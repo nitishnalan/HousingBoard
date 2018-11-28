@@ -12,5 +12,6 @@ public interface UserDao {
 	
 	public UserModel loginUser(Login login);
 	public boolean register(UserModel leasingOffice);
+	
 		
 }

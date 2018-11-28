@@ -211,8 +211,19 @@ public class InterestDaoImpl {
 	}
 
 	public boolean checkAssociationOfUserWithAd(int userId, int adID) {
-		String sql = "SELECT count(*) as row_count FROM housingboard.user_ad_interests "
-				+ "where interest_shower_id = "+userId+" AND ad_id = "+adID+" limit 1";
+//		String sql = "SELECT count(*) as row_count FROM housingboard.user_ad_interests "
+//				+ "where interest_shower_id = "+userId+" AND ad_id = "+adID+" limit 1";
+		
+		String sql = "SELECT ( " + 
+				"	SELECT count(*) FROM housingboard.user_ad_interests T1 " + 
+				"	where (interest_shower_id = "+userId+" AND ad_id = "+adID+") " + 
+				"	limit 1) as count1," + 
+				"    (" + 
+				"		SELECT count(*) as row_count FROM housingboard.ads T2 " + 
+				"		where (ads_id = "+adID+"  AND ads_user_id = "+userId+") " + 
+				"		limit 1" + 
+				"    ) as count2 " + 
+				"FROM dual";
 		
 		try {
 			conn = db.getConnection();
@@ -221,12 +232,13 @@ public class InterestDaoImpl {
 			ResultSet rs = ps.executeQuery();
 			
 			rs.next();
-			int userAdAssoc = Integer.parseInt(rs.getString("row_count"));
+			int userAdAssoc = Integer.parseInt(rs.getString("count1"));
+			int userAdAssoc2 = Integer.parseInt(rs.getString("count2"));
 			
-			if(userAdAssoc == 1) {
+			if(userAdAssoc == 1 || userAdAssoc2 ==1) {
 				return true;
 			}else {
-				System.out.println("ERROR : Association between user and Ads is NOT 1");
+				System.out.println("Application Warning : Association between user and Ads is NOT 1");
 			}
 		}catch(Exception e) {
 			System.out.println(e);

@@ -28,5 +28,7 @@ public interface AdsDao {
 
 	public UserAdDetails getDetailsOfUserAndAd(int adID);
 
+	public List<Ads> getSearchTotalResultsByPageByFilter(String searchFieldController, int total, Filters filterObj);
+
 
 }

@@ -136,10 +136,18 @@ public class CheckInterestRequestController extends HttpServlet {
 			InterestDaoImpl myAdInterestCheckObj  = new InterestDaoImpl();
 			List<CheckAdInterest> allUsersInterests = new ArrayList<>(); 
 			allUsersInterests = myAdInterestCheckObj.getAllShowInterestsForAdBySingleUser(userId);
+			String viewName = "";
+			if(allUsersInterests.size() == 0) {
+				request.setAttribute("message", "You do not have active pending requests to be shown!");
+				viewName = "/suMessage.jsp";
+			}else {
+				request.setAttribute("checkAdUserInterests", allUsersInterests);
+				System.out.println("calling checkRequestOnAds.jsp for user : "+ userId);
+				System.out.println("calling checkRequestOnAds.jsp for request size : "+ allUsersInterests.size());
+				viewName = "/checkRequestOnAds.jsp";
+			}
 			
-			request.setAttribute("checkAdUserInterests", allUsersInterests);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/checkRequestOnAds.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewName);
 			dispatcher.forward(request, response);
 		}
 		

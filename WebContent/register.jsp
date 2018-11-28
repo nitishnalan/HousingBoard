@@ -29,7 +29,7 @@
 	            <div class="form-group">
 	              <label>Select user type:</label>
 	              <div class="form-check form-check-inline">
-	                <input type="radio" name="user_type" value="member" />
+	                <input type="radio" name="user_type" value="member" required/>
 	                <label class="form-check-label">
 	                  &nbsp;Member
 	                </label>

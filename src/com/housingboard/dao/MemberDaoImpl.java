@@ -25,7 +25,7 @@ public class MemberDaoImpl implements UserDao{
 		try {
 			conn = db.getConnection();
 			ps = conn.prepareStatement("Select *,count(*) as CountRow from user where user_email_id = '"+
-					login.getEmailId() + "' and password = '" + login.getPassword() +"'");
+					login.getEmailId() + "' and user_type_id = 1 and password = '" + login.getPassword() +"'");
 			System.out.println("Connection: " +ps);
 			ResultSet rs = ps.executeQuery();
 			

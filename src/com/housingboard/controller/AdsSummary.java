@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.housingboard.dao.AdsDao;
 import com.housingboard.dao.AdsDaoImpl;
 import com.housingboard.dao.InterestDaoImpl;
+import com.housingboard.dao.LeasingOfficeDaoImpl;
+import com.housingboard.dao.UserDao;
 import com.housingboard.model.Ads;
 import com.housingboard.model.UserAdDetails;
 
@@ -84,8 +86,9 @@ public class AdsSummary extends HttpServlet {
 			
 			int userId= Integer.parseInt(session.getAttribute("userAuthToken").toString());
 			Ads adDetails = summaryOfAd.getDetailsOfAd(adID); 
-			boolean userAdAssociation = interestForAd.checkAssociationOfUserWithAd(userId, adID);	
-
+			boolean userAdAssociation = interestForAd.checkAssociationOfUserWithAd(userId, adID);
+			LeasingOfficeDaoImpl leasingOfficeUser = new LeasingOfficeDaoImpl();
+			boolean userIsLeasingOffice = leasingOfficeUser.checkIfUserIsLeasingOffice(userId);
 				
 			String viewName = "";
 			if(adDetails == null) {
@@ -96,6 +99,7 @@ public class AdsSummary extends HttpServlet {
 			}else {
 				request.setAttribute("summaryOfAd", adDetails);
 				request.setAttribute("userAdAssociation", userAdAssociation);
+				request.setAttribute("userIsNotLeasingOffice", !userIsLeasingOffice);
 				System.out.println("postedUserType for an Ad : " + adDetails.getPostedUserType());
 				System.out.println("userAdAssociation : " + userAdAssociation);
 				viewName = "/adsSummary.jsp";		

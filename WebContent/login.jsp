@@ -29,7 +29,7 @@
         	<h2 class="text-center">Login</h2>
         	<div class="form-group">
         	  <div class="form-check form-check-inline">
-              <input type="radio" name="user_type" value="member" />
+              <input type="radio" name="user_type" value="member" required/>
               <label class="form-check-label">Member</label>
             </div>
           	<div class="form-check form-check-inline">

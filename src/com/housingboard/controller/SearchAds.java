@@ -116,7 +116,8 @@ public class SearchAds extends HttpServlet {
 		
 //		listOfAds = searchResultsOfAds.getSearchResultsByPage(searchFieldController, pageid, total);
 			
-		totalListOfAds = searchResultsOfAds.getSearchResults(searchFieldController);
+		//totalListOfAds = searchResultsOfAds.getSearchResults(searchFieldController);
+		totalListOfAds = searchResultsOfAds.getSearchTotalResultsByPageByFilter(searchFieldController,  total, filterObj);
 		request.setAttribute("searchResultsOfAds", listOfAds);
 		
 		HttpSession session = request.getSession(false);
