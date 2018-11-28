@@ -12,6 +12,7 @@
 			<input type="submit" value="List of ADS" />
          </form>
     </center>
+    <br/><br/>
     <div align="center">
     	<form action="/HousingBoard/ads/insert" method="post">
 
@@ -72,8 +73,8 @@
                 <th>Sharing</th>
                 <td>
                     <select type="select" name="sharing" >
-                    <option value="<c:out value="${ads.sharing}" />" >YES</option>
-                    <option value="<c:out value="${ads.sharing}" />">NO</option>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
                     </select>
                 </td>
             </tr>

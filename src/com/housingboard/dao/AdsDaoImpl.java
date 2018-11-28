@@ -72,10 +72,11 @@ public class AdsDaoImpl implements AdsDao {
 	@Override
 	public boolean insertAds(Ads adModel) {
 		System.out.println("Inside insert adsdaoImpl");
+		System.out.println(adModel.isSharing());
 		try {
 			conn = db.getConnection();					
 			ps = conn.prepareStatement("insert into ads (ads_title, ads_image_url,ads_user_id,ads_is_available, ads_description,ads_community,ads_preferences,ads_leasing_type,ads_sharing,ads_apartment_type_id ) "
-					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"','"+adModel.getPreferences()+"','"+adModel.getLeasingType()+"',"+(adModel.isSharing() ? 1 :0)+",'"+adModel.getApartmentTypeID()+"')");
+					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"','"+adModel.getPreferences()+"','"+adModel.getLeasingType()+"',"+(adModel.isSharing() ? true : false)+",'"+adModel.getApartmentTypeID()+"')");
 			System.out.println("Connection: "+ps);
 			ps.executeUpdate();
 			conn.close();						
@@ -152,6 +153,7 @@ public class AdsDaoImpl implements AdsDao {
 			ps.setInt(8, adModel.getApartmentTypeId());
 			System.out.println("Connection: "+ps);
 			boolean rowUpdated = ps.executeUpdate() > 0;
+			System.out.println("updateAdsFromDatabase : " + rowUpdated);
 			conn.close();			
 			return rowUpdated;
 		} catch (Exception e) {
@@ -186,11 +188,9 @@ public class AdsDaoImpl implements AdsDao {
                 String community = resultSet.getString("ads_community");
                 String preferences = resultSet.getString("ads_preferences");
                 String leasingType = resultSet.getString("ads_leasing_type");
-                boolean sharing = resultSet.getString("ads_sharing") != null;
+                boolean sharing = resultSet.getBoolean("ads_sharing") ;
+                System.out.println(sharing);
                 int apartmentTypeId = resultSet.getInt("ads_apartment_type_id"); 
-                System.out.println(title);
-                System.out.println(imageUrl);
-                System.out.println(apartmentTypeId);
                  ads = new Ads(title, imageUrl, userId,  description,
      	    			community, preferences, leasingType, sharing, apartmentTypeId);
             }

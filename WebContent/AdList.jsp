@@ -8,12 +8,12 @@
 <body>
 	<h1>All Ads Have Been Updated and New Ads Have been Posted</h1>
 	<h5>If you want to add some more adds please click the back button</h5><br/>
+	 <br/><br/>
 <form name="search" id="search" action = "/HousingBoard/ads/*" method="get"> 
     <div align="center">
         <table border="1" cellpadding="5">
          <caption><h2>List of Ads</h2></caption>
             <tr>
-            	<th>Id</th>
                 <th>Title</th>
                 <th>Image</th>
                 <th>Description</th>
@@ -22,7 +22,6 @@
             </tr>
             <c:forEach var="ads" items="${listAds}">
                 <tr>
-                    <td><c:out value="${ads.id}" /></td>
                     <td><c:out value="${ads.title}" /></td>
                     <td><img src="<c:out value="${ads.imageUrl}" />" alt="Showing Apartment" height="150" width="150"></td>                    
                     <td><c:out value="${ads.description}" /></td>
@@ -51,7 +50,7 @@
 </body>
 <script type="text/javascript">
 function deleteAds(adID){
-	alert("Delete Ads is called by the AD with the id: " + adID);
+	alert("AD is Deleted");
 	console.log("calling from Delete Ad : " + adID);
 	document.getElementById("search").action = "/HousingBoard/ads/delete?id="+adID;
 	document.getElementById("search").method = "POST";
@@ -59,7 +58,7 @@ function deleteAds(adID){
 }
 
 function updateAds(adID){
-	alert("Update Ads is called by the ADs with the id: " +adID);
+	alert("AD is Updated");
 	console.log("calling from Update Ad : " + adID);
 	document.getElementById("search").action = "/HousingBoard/ads/edit?id="+adID;
 	document.getElementById("search").method = "POST";

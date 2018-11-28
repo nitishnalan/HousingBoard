@@ -10,6 +10,7 @@ import com.housingboard.model.UserAdDetails;
 /**
  * @author nitish
  */
+//Ads Dao Interface
 public interface AdsDao {
 	
 	
@@ -36,7 +37,7 @@ public interface AdsDao {
 	
 	public List<Ads> listAllAds(int userId);
 
-	public Ads getAd(int id);
+	public Ads getAd(int i);
 
 
 }

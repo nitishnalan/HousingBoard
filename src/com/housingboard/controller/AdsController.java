@@ -14,7 +14,7 @@ import com.housingboard.dao.AdsDao;
 import com.housingboard.dao.AdsDaoImpl;
 import com.housingboard.model.Ads;
 
-
+//Class for Ads Controller
 @WebServlet(urlPatterns = "/ads/*")
 public class AdsController extends HttpServlet {
 	
@@ -75,8 +75,16 @@ public class AdsController extends HttpServlet {
 	        HttpSession session = request.getSession(false);
 	    	List<Ads> listAds = adsDao.listAllAds(userId);
 	        session.setAttribute("listAds", listAds);
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
-	        dispatcher.forward(request, response);
+	        //check if the list is null 
+	        if(listAds != null)
+	        {	        	
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
+		        dispatcher.forward(request, response);
+	        }else {
+	        	session.setAttribute("message", "The List is Null Dude");
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
+		        dispatcher.forward(request, response);
+	        }
 	    }
 	 
 	    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
@@ -88,13 +96,13 @@ public class AdsController extends HttpServlet {
 	        request.setAttribute("ads", ads);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/AdUpdateForm.jsp");
 	        dispatcher.forward(request, response);
-	        System.out.println("Hello");
 	 
 	    }
-	 
+
+	    
 	    private void insertAds(HttpServletRequest request, HttpServletResponse response, int userId)
 	            throws SQLException, IOException {
-	    	System.out.println("Inside ads");   	
+	    	HttpSession session = request.getSession(false);	
 	        String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");	        
 	        String description = request.getParameter("description");
@@ -124,7 +132,14 @@ public class AdsController extends HttpServlet {
 	        		leasingType = "New Lease";
 	        	}
 	        }
-	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
+	       /* boolean sharing = (request.getParameter("sharing").equals("YES") ? true : false);*/
+	        boolean sharing;
+	        if(request.getParameter("sharing").equals("YES"))
+	        {
+	        	sharing = true;
+	        }else {
+	        	sharing = false;
+	        }
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        
 	        System.out.println(leasingType);
@@ -132,9 +147,10 @@ public class AdsController extends HttpServlet {
 	    		community, preferences, leasingType, sharing, apartmentTypeId);
 	   
 	        if(adsDao.insertAds(ads)) {
-		        String redirectURL = "http://localhost:8080/HousingBoard/suMessage.jsp";
-		        response.sendRedirect(redirectURL);
+	        	session.setAttribute("message", "Successfully Inserted");
 	        }
+	        String redirectURL = "http://localhost:8080/HousingBoard/suMessage.jsp";
+	        response.sendRedirect(redirectURL);
 	        
 	    }
 	 
@@ -176,31 +192,35 @@ public class AdsController extends HttpServlet {
 	        		leasingType = "New Lease";
 	        	}
 	        }
-	        boolean sharing = (request.getParameter("sharing").toString().equals("YES") ? true : false);
+	       /* boolean sharing = (request.getParameter("sharing").equals("YES") ? true : false);*/
+	        boolean sharing;
+	        if(request.getParameter("sharing").equals("YES"))
+	        {
+	        	sharing = true;
+	        }else {
+	        	sharing = false;
+	        }
 	        int apartmentTypeId =  Integer.parseInt(request.getParameter("apartmentTypeId"));
 	        
 	        Ads ads = new Ads(title, imageUrl, description,
 	    			          community, preferences, leasingType, sharing, apartmentTypeId);
 	        boolean answer = adsDao.updateAdsFromDatabase(ads, idToUpdate);
+	        System.out.print(sharing);
 	        System.out.println("Updated ADS in Model");
 	        if(answer) {
-	        	System.out.print("Reached");
-/*	        	String redirectURL = "http://localhost:8080/HousingBoard/suMessage2.jsp";
-		        response.sendRedirect(redirectURL);*/
 	        }
 	    }
 	    	    
 	    private void deleteAds(HttpServletRequest request, HttpServletResponse response, int id)
 	            throws SQLException, IOException, ServletException {
-	    	System.out.println("in delete");
 	    	String viewUrl = "/suMessage1.jsp";
 	        Ads ads = new Ads(id);
 	        boolean value = adsDao.deleteAdsFromDatabase(ads, id);
 	        HttpSession session = request.getSession(false);
 	        if(value) {        	 	        	
-	        	session.setAttribute("message", "Deleted Successfully");
+	        	session.setAttribute("message1", "Deleted Successfully");
 	        }else {
-	        	session.setAttribute("message", "Something went wrong while deleting the Ad!");
+	        	session.setAttribute("message1", "Something went wrong while deleting the Ad!");
 	        }	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher(viewUrl);
 			dispatcher.forward(request, response);

@@ -11,6 +11,7 @@
     <center>
         <h1>Update Ads here</h1><br/><br/>
         <h3>Please make sure to enter all fields</h3><br/><br/>
+         <br/><br/>
     </center>
     <div align="center">
         <form action="/HousingBoard/ads/update" method="post" required>
