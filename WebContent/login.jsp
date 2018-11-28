@@ -23,20 +23,33 @@
 	    <div class="row">
 	      <div class="col-md-12">
 		<form name="loginform" action="/HousingBoard/login" method="post">
-		<%-- ${message} &nbsp; ${successMessage} --%>
-		<h2>Login</h2>
-		<input type="radio" name="user_type" value="member" />Member
-		<input type="radio" name="user_type" value="leasing_office" />Leasing Office <br>
-		<input type="text" name="email_id" id="email_id" placeholder="Email-ID" required/><br>
-	
-		<input type="password" name="password" id="password" placeholder="Password" required/><br>
-	
-		<input type="submit" name="submit" value="Login"><br>
-		<p>Login<a href="adminLogin.jsp"> Admin Login Here !</a></p>
-		<p>Not a User ?<a href="register.jsp"> Register Here !</a></p>
-	
-		</form>
-	
+        		<%-- ${message} &nbsp; ${successMessage} --%>
+        		<h2 class="text-center">Login</h2>
+        		<div class="form-group">
+        	  		<div class="form-check form-check-inline">
+              				<input type="radio" name="user_type" value="member" />
+             		 		<label class="form-check-label">Member</label>
+            			</div>
+          			<div class="form-check form-check-inline">
+              				<input type="radio" name="user_type" value="leasing_office" />
+              				<label class="form-check-label">Leasing Office</label>
+            			</div>
+        		</div>
+        		<div class="form-group">
+           			 <input class="form-control" type="text" name="email_id" id="email_id" placeholder="Email-ID" required/>
+          		</div>
+        	
+        		<div class="form-group">
+            			<input class="form-control" type="password" name="password" id="password" placeholder="Password" required/>
+          		</div>
+        			<input class="btn blue-sky btn-block" type="submit" name="submit" value="Login"/>
+        			<p class="text-center">Not a User ?<br><a class="btn blue-sky" id="register" href="register.jsp"> Register Here !</a></p>
+        			<br/>
+				<p>Login<a href="adminLogin.jsp"> Admin Login Here !</a></p>
+        	</form>
+		      
+		      
+		
 		</div>
 	    </div>
 	  </div>
