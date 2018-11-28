@@ -16,22 +16,18 @@ import com.housingboard.dao.UserDao;
 import com.housingboard.model.LeasingOffice;
 import com.housingboard.model.Login;
 import com.housingboard.model.Member;
-
-
 /**
  * Servlet implementation class Login
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
     /**
      * Default constructor. 
      */
     public LoginController() {
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -72,6 +68,7 @@ public class LoginController extends HttpServlet {
 			System.out.println("Leasing Office User");
 			UserDao loUser = new LeasingOfficeDaoImpl();
 			LeasingOffice loModel = (LeasingOffice) loUser.loginUser(loginModel);
+
 			if(loModel != null) {
 				viewUrl = "/loDashboard.jsp";
 				session.setAttribute("user", loModel);
@@ -82,11 +79,11 @@ public class LoginController extends HttpServlet {
 				session.setAttribute("message", "Invalid login details! Please try again or create a new account!");
 			}
 		}
-		
-		
+				
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewUrl);
 		dispatcher.forward(request, response);	
 		
 	}
 
+	
 }
