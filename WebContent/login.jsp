@@ -15,7 +15,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-light blue-sky">
+   <nav class="navbar navbar-light blue-sky">
         <a class="navbar-brand text-white" href="#">
             HousingBoard
         </a>

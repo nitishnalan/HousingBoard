@@ -84,4 +84,16 @@ public class LeasingOfficeDaoImpl implements UserDao{
 		return false;
 	}
 
+	@Override
+	public UserModel getRecordByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateMember(UserModel memberReigster) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
