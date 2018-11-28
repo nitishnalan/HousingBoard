@@ -39,15 +39,11 @@ public class SearchAds extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("INSIDE GET method of SearchAds");
+		System.out.println("INSIDE GET mthod of SearchAds");
 		
-//		String pathInfo = request.getPathInfo();
-		String pathInfo = request.getRequestURI();
-		System.out.println(pathInfo);
+		String pathInfo = request.getPathInfo();
 		String[] pathParts = pathInfo.split("/");
-		
-		System.out.println(pathParts[3].toString());
-		int pageid = Integer.parseInt(pathParts[3].toString());
+		int pageid = Integer.parseInt(pathParts[1].toString());
 		System.out.println("pageid " + pageid);
 		
 		

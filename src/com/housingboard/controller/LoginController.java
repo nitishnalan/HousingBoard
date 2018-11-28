@@ -16,22 +16,18 @@ import com.housingboard.dao.UserDao;
 import com.housingboard.model.LeasingOffice;
 import com.housingboard.model.Login;
 import com.housingboard.model.Member;
-
-
 /**
  * Servlet implementation class Login
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
     /**
      * Default constructor. 
      */
     public LoginController() {
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -57,10 +53,18 @@ public class LoginController extends HttpServlet {
 //			Member
 			System.out.println("Member User");
 			UserDao memberUser = new MemberDaoImpl();
-			Member memberModel = (Member) memberUser.loginUser(loginModel);
-			viewUrl = "/memberDashboard.jsp";
-			session.setAttribute("user", memberModel);
-			session.setAttribute("userAuthToken",memberModel.getId());
+			if(memberUser == null) {
+				//createNewUser
+				viewUrl = "/register.jsp";
+			}else {
+				Member memberModel = (Member) memberUser.loginUser(loginModel);
+				
+				viewUrl = "/memberDashboard.jsp";
+				session.setAttribute("user", memberModel);
+			    session.setAttribute("userAuthToken",memberModel.getId());
+			    session.setAttribute("userType", memberModel.getUserType());
+			}
+			
 			
 		}else {
 //			Leasing Office 
@@ -70,12 +74,13 @@ public class LoginController extends HttpServlet {
 			viewUrl = "/loDashboard.jsp";
 			session.setAttribute("user", loModel);
 			session.setAttribute("userAuthToken",loModel.getId());
+			session.setAttribute("userType", loModel.getUserType());
 		}
-		
-		
+				
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewUrl);
 		dispatcher.forward(request, response);	
 		
 	}
 
+	
 }
