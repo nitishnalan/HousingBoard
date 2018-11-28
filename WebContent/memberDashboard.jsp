@@ -31,17 +31,6 @@ function checkRequest(){
 </script>
 </head>
 <body>
-<!-- <table>
-<tr>
-<td>
-<h4><a href="editform.jsp"><button>Update Details</button></a></h4><br/><br/>
-</td>
-<td>
-<h4><a href ="AdForm.jsp"><button>Manage Ads</button></a></h4><br/><br/>
-</td>
-</tr>
-</table>
- -->
 	<nav class="navbar navbar-light blue-sky">
     	<a class="navbar-brand text-white" href="#">
       		HousingBoard
