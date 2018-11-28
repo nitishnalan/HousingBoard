@@ -12,14 +12,6 @@
 <title>HousingBoard Registration</title>
 </head>
 <body>
-	<input type="text" name="state" placeholder="State" required/><br>	
-	
-	<input type="text" name="country" placeholder="Country" required/><br>
-	
-	<input type="submit" name="submit" value="Register" >
-	<input type="reset" name="Reset">
-	
-</form>
 	<nav class="navbar navbar-light blue-sky">
 	  <a class="navbar-brand text-white" href="#">
 	    HousingBoard
