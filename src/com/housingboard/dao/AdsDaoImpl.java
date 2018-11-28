@@ -16,10 +16,9 @@ import com.housingboard.model.Ads;
 import com.housingboard.model.Filters;
 import com.housingboard.model.SearchFilters;
 import com.housingboard.model.UserAdDetails;
+
 /**
- * AbstractDAO.java
- * This DAO class provides CRUD database operations for the table book
- * in the database.
+ * @author nitish
  */
 public class AdsDaoImpl implements AdsDao {
 
@@ -66,12 +65,159 @@ public class AdsDaoImpl implements AdsDao {
 		return null;
 	}
 
+	
+	//CRUD Ads
+	
+	//CREATE
+	@Override
+	public boolean insertAds(Ads adModel) {
+		System.out.println("Inside insert adsdaoImpl");
+		System.out.println(adModel.isSharing());
+		try {
+			conn = db.getConnection();					
+			ps = conn.prepareStatement("insert into ads (ads_title, ads_image_url,ads_user_id,ads_is_available, ads_description,ads_community,ads_preferences,ads_leasing_type,ads_sharing,ads_apartment_type_id ) "
+					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"','"+adModel.getPreferences()+"','"+adModel.getLeaseType()+"',"+(adModel.isSharing() ? true : false)+",'"+adModel.getApartmentTypeID()+"')");
+			System.out.println("Connection: "+ps);
+			ps.executeUpdate();
+			conn.close();						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return true;
+    }
+    
+	
+	@Override
+    public List<Ads> listAllAds(int userId) {
+        List<Ads> ads_list = new ArrayList<>();
+        try {
+        	
+        	String sql = "SELECT ads_id, ads_title, ads_image_url, ads_description, ads_community  FROM ads where ads_user_id="+userId+" and ads_is_available=1;";
+        	
+            conn = db.getConnection();					
+    		ps =   conn.prepareStatement(sql);
+    		ResultSet resultSet = ps.executeQuery(sql);   		
+    		System.out.println("Connection: "+ps);
+    		
+    		while (resultSet.next()) {
+        
+                Ads adsModel = new Ads();
+				adsModel.setId(Integer.parseInt(resultSet.getString("ads_id")));
+				adsModel.setTitle(resultSet.getString("ads_title"));
+				adsModel.setImageUrl(resultSet.getString("ads_image_url"));
+				adsModel.setDescription(resultSet.getString("ads_description"));
+				adsModel.setCommunity(resultSet.getString("ads_community"));
+				ads_list.add(adsModel);
+            }
+             
+            resultSet.close();
+            ps.close();
+        }catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
+              
+        return ads_list;
+    }
+     
+	@Override
+    public boolean deleteAdsFromDatabase(Ads adsModel,int adID) {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println("IN DELETE");
+			conn = db.getConnection();	
+			ps = conn.prepareStatement("update ads SET ads_is_available=0 where ads_id = "+adID+";");
+			System.out.println("Connection: "+ps);
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return true;   
+    }
+     
+    public boolean updateAdsFromDatabase(Ads adModel, int usId) {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println("In update");
+			conn = db.getConnection();
+					
+			ps = conn.prepareStatement("update ads SET ads_title = ?, ads_image_url=?, ads_description = ? ,ads_community = ?,ads_preferences = ? ,ads_leasing_type= ? ,ads_sharing= ? ,ads_apartment_type_id=? where ads_id = "+usId+";");
+			ps.setString(1, adModel.getTitle());
+			ps.setString(2, adModel.getImageUrl());
+			ps.setString(3, adModel.getDescription());
+			ps.setString(4, adModel.getCommunity());
+			ps.setString(5, adModel.getPreferences());
+			ps.setString(6, adModel.getLeaseType());
+			ps.setBoolean(7, adModel.isSharing());
+			ps.setInt(8, adModel.getApartmentTypeId());
+			System.out.println("Connection: "+ps);
+			boolean rowUpdated = ps.executeUpdate() > 0;
+			System.out.println("updateAdsFromDatabase : " + rowUpdated);
+			conn.close();			
+			return rowUpdated;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false; 
+    }
+     
+    public Ads getAd(int id){
+        Ads ads = new Ads();
+        try {
+            
+        	
+        	String sql = "SELECT ads_title, ads_image_url, ads_user_id, ads_description, ads_community, ads_preferences, ads_leasing_type, ads_sharing, ads_apartment_type_id FROM ads WHERE ads_id ="+id+" and ads_is_available=1;";
+
+                	
+            conn = db.getConnection();
+            
+            System.out.println(conn + " " + sql);
+            
+            ps = conn.prepareStatement(sql);
+            
+             
+            ResultSet resultSet = ps.executeQuery();
+             
+            if (resultSet.next()) {            	
+                String title = resultSet.getString("ads_title");
+                String imageUrl = resultSet.getString("ads_image_url");
+                int userId = resultSet.getInt("ads_user_id"); 
+                String description = resultSet.getString("ads_description");
+                String community = resultSet.getString("ads_community");
+                String preferences = resultSet.getString("ads_preferences");
+                String leasingType = resultSet.getString("ads_leasing_type");
+                boolean sharing = resultSet.getBoolean("ads_sharing") ;
+                System.out.println(sharing);
+                int apartmentTypeId = resultSet.getInt("ads_apartment_type_id"); 
+                 ads = new Ads(title, imageUrl, userId,  description,
+     	    			community, preferences, leasingType, sharing, apartmentTypeId);
+            }
+            resultSet.close();
+            ps.close();
+        }catch(SQLException e)
+        {
+        	e.printStackTrace();
+        }
+         
+        return ads;
+    }
+	
+	
+	
 	@Override
 	public List<Ads> getSearchResultsByPage(String searchFieldController, int pageid, int total) {
 		String searchField = searchFieldController;
 		List<Ads> listOfAds = new ArrayList<>();
 		String sql = "select * from Ads";
+		 // String sql="select * from product_details";
+		/*  if(searchField.equals("")){
+			//  sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
+		  }
+		  else*/ 
 		  if(searchField.equals("*")) {
+			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
 			  sql = "select * from Ads";
 		  }else if(!searchField.equals("")){
 			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
@@ -82,6 +228,10 @@ public class AdsDaoImpl implements AdsDao {
 
 			try {
 				conn = db.getConnection();
+				//ToDO: Make changes for better search Results
+//				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+//						+ "%' OR  ads_description like '%" +searchField+ "%';");
+				
 				ps = conn.prepareStatement(sql);
 				
 				System.out.println("Conn : " + ps);
@@ -109,125 +259,15 @@ public class AdsDaoImpl implements AdsDao {
 			return listOfAds;
 		}
 
-	
-	//Crud Ads
-	
-	//CREATE
 	@Override
-	public boolean insertAds(Ads adModel) {
-		System.out.println("Inside insert adsdaoImpl");
-		try {
-			conn = db.getConnection();					
-			ps = conn.prepareStatement("insert into ads (ads_title, ads_image_url,ads_user_id,ads_is_available, ads_description,ads_community,ads_preferences,ads_leasing_type,ads_sharing,ads_apartment_type_id ) "
-					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"','"+adModel.getPreferences()+"','"+adModel.getLeaseType()+"',"+(adModel.isSharing() ? 1 :0)+",'"+adModel.getApartmentTypeID()+"')");
-			System.out.println("Connection: "+ps);
-			ps.executeUpdate();
-			conn.close();			
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-		return false;
-    }
-    
-	
-	@Override
-    public List<Ads> listAllAds(int userId) {
-        List<Ads> ads_list = new ArrayList<>();
-        try {
-        	String sql = "SELECT * FROM ads where ads_user_id="+userId+" and ads_is_available=1";
-        	
-            conn = db.getConnection();					
-    		ps =   conn.prepareStatement(sql);
-    		
-//    		HttpSession session = request.getSession(false);
-//    		
-//    		int x=(int) session.getAttribute("userAuthToken");
-    		ResultSet resultSet = ps.executeQuery(sql);
-    		
-    		System.out.println("Connection: "+ps);
-    		
-    		while (resultSet.next()) {          
-                Ads adsModel = new Ads();
-				adsModel.setId(Integer.parseInt(resultSet.getString("ads_id")));
-				adsModel.setTitle(resultSet.getString("ads_title"));
-				adsModel.setImageUrl(resultSet.getString("ads_image_url"));
-				//adsModel.setUserId(Integer.parseInt(resultSet.getString("ads_user_id")));
-				//adsModel.setAvailable(resultSet.getBoolean("ads_is_available"));
-				adsModel.setDescription(resultSet.getString("ads_description"));
-				adsModel.setCommunity(resultSet.getString("ads_community"));
-               
-                 ads_list.add(adsModel);
-            }
-             
-            resultSet.close();
-            ps.close();
-        }catch(Exception e)
-        {
-        	e.printStackTrace();
-        }
-              
-        return ads_list;
-    }
-    
-	@Override
-    public List<Ads> AdminlistAllAds() {
-        List<Ads> adslist = new ArrayList<>();
-        try {
-        	String sql = "SELECT * FROM ads";
-        	
-            conn = db.getConnection();					
-    		ps =   conn.prepareStatement(sql);
-    		ResultSet resultSet = ps.executeQuery(sql);
-    		
-    		System.out.println("Connection: "+ps);
-    		
-    		while (resultSet.next()) {          
-                Ads adsModel = new Ads();
-				adsModel.setId(Integer.parseInt(resultSet.getString("ads_id")));
-				adsModel.setTitle(resultSet.getString("ads_title"));
-				adsModel.setImageUrl(resultSet.getString("ads_image_url"));
-				adsModel.setDescription(resultSet.getString("ads_description"));
-				adsModel.setCommunity(resultSet.getString("ads_community"));
-               
-                 adslist.add(adsModel);
-            }
-             
-            resultSet.close();
-            ps.close();
-        }catch(Exception e)
-        {
-        	e.printStackTrace();
-        }
-              
-        return adslist;
-    }
-    
-	
-	@Override
-    public boolean deleteAds(Ads adsModel,int adID) {
+	public boolean createNewAd(Ads adModel) {
 		// TODO Auto-generated method stub
 		try {
-			System.out.println("IN DELETE");
 			conn = db.getConnection();
-			ps = conn.prepareStatement("update ads SET ads_is_available=0 where ads_id = "+adID);
-			System.out.println("Connection: "+ps);
-			ps.executeUpdate();
-			conn.close();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-		return false;   
-    }
-     
-    public boolean updateAds(Ads adModel, int usId) {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println("In update");
-			conn = db.getConnection();
-					
-			ps = conn.prepareStatement("update ads SET ads_title = ?,ads_image_url=? ,ads_user_id= ? ,ads_is_available= ? , ads_description = ? ,ads_community = ?,ads_preferences = ? ,ads_leasing_type= ? ,ads_sharing= ? ,ads_apartment_type_id=? where where ads_id = "+usId);
+				
+			ps = conn.prepareStatement("insert into ads (ads_title, ads_image_url,ads_user_id,ads_is_available, ads_description,ads_community) "
+					+ "values ('"+adModel.getTitle()+"' , '"+adModel.getImageUrl()+"' ,"+adModel.getUserId()+","+(adModel.isAvailable() ? 1 :0)+",'"+adModel.getDescription()+"','"+adModel.getCommunity()+"')");
+			
 			System.out.println("Connection: "+ps);
 			ps.executeUpdate();
 			conn.close();
@@ -237,48 +277,8 @@ public class AdsDaoImpl implements AdsDao {
 			e.printStackTrace();
 		}
 		
-		return false; 
-    }
-     
-    public Ads getAd(int id){
-        Ads ads = null;
-
-        try {
-        	String sql = "SELECT * FROM ads WHERE ads_id = ?";
-
-            conn = db.getConnection();
-            
-            ps = conn.prepareStatement(sql);
-            
-            ps.setInt(1, id);
-             
-            ResultSet resultSet = ps.executeQuery();
-             
-            if (resultSet.next()) {
-                String title = resultSet.getString("title");
-                String imageUrl = resultSet.getString("imageUrl");
-                int userId = resultSet.getInt("userId"); 
-                String description = resultSet.getString("description");
-                String community = resultSet.getString("community");
-                String preferences = resultSet.getString("preferences");
-                String leasingType = resultSet.getString("leasingType");
-                boolean sharing = resultSet.getString("sharing") != null;
-                int apartmentTypeId = resultSet.getInt("apartmentTypeId"); 
-                
-                 ads = new Ads(title, imageUrl, userId,  description,
-     	    			community, preferences, leasingType, sharing, apartmentTypeId);
-            }
-            resultSet.close();
-            ps.close();
-        }catch(Exception e)
-        {
-        	e.printStackTrace();
-        }
-         
-        return ads;
-    }
-	
-	
+		return false;
+	}
 
 	@Override
 	public List<Ads> getSearchResultsByPageByFilter(String searchKey, int pageid, int total,
@@ -288,13 +288,16 @@ public class AdsDaoImpl implements AdsDao {
 		String sql = "select * from Ads";
 		
 		String filterApplied = getFilterApplied(filterObj);
+		
+		System.out.println("filterApplied : " + filterApplied);
 		  if(searchField.equals("*")) {
+			 // sql = sql + " WHERE id like'%"+searchField+"%' OR product_name like '%"+searchField+"%'";
 			  sql = "select * from Ads";
 		  }else if(!searchField.equals("")){
 			  sql = sql + " WHERE ads_title like '%"+searchField+"%' OR ads_description like '%"+searchField+"%'";
 		  }
 		  
-		  if(filterApplied != "") {
+		  if(!filterApplied.equals("")) {
 			  sql += " AND " + filterApplied;
 		  }
 		  
@@ -304,6 +307,9 @@ public class AdsDaoImpl implements AdsDao {
 
 			try {
 				conn = db.getConnection();
+				//ToDO: Make changes for better search Results
+//				ps = conn.prepareStatement("Select * from Ads where ads_title like '%" + searchField +""
+//						+ "%' OR  ads_description like '%" +searchField+ "%';");
 				
 				ps = conn.prepareStatement(sql);
 				
@@ -410,10 +416,7 @@ public class AdsDaoImpl implements AdsDao {
 		return filterSql.toString();
 	}
 
-//	public List<Ads> listAllAds(int userId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
 	public Ads getDetailsOfAd(int adID) {
 //		String sql = "SELECT *,count(*) as CountRow FROM housingboard.ads T1 JOIN housingboard.apartment_type T2 WHERE T1.ads_apartment_type_id = T2.apartment_id AND "
 //				+ "ads_id = " + adID;
@@ -470,11 +473,12 @@ public class AdsDaoImpl implements AdsDao {
 		}
 		return adSummaryObj;
 	}
-private String getValuesForEachPreferences(String resultSetStr) {
+
+	private String getValuesForEachPreferences(String resultSetStr) {
 		
 		StringBuilder adPrefStr = new StringBuilder(""); 
 		String[] tempStr = resultSetStr.split(",");
-			
+		
 		try {
 			Properties propFile = new Properties();
 			InputStream input = null;
@@ -505,8 +509,7 @@ private String getValuesForEachPreferences(String resultSetStr) {
 
 	}
 
-
-
+	@Override
 	public UserAdDetails getDetailsOfUserAndAd(int adID) {
 		String sql = "SELECT * FROM housingboard.ads T1, housingboard.apartment_type T2, housingboard.user T3 " + 
 				"WHERE T1.ads_apartment_type_id = T2.apartment_id AND T1.ads_user_id = T3.user_id AND "
@@ -558,4 +561,36 @@ private String getValuesForEachPreferences(String resultSetStr) {
 		}
 		return adUserSummaryObj;
 	}
+	
+	    public List<Ads> AdminlistAllAds() {
+        List<Ads> adslist = new ArrayList<>();
+        try {
+        	String sql = "SELECT * FROM ads";
+        	
+            conn = db.getConnection();					
+    		ps =   conn.prepareStatement(sql);
+    		ResultSet resultSet = ps.executeQuery(sql);
+    		
+    		System.out.println("Connection: "+ps);
+    		
+    		while (resultSet.next()) {          
+                Ads adsModel = new Ads();
+				adsModel.setId(Integer.parseInt(resultSet.getString("ads_id")));
+				adsModel.setTitle(resultSet.getString("ads_title"));
+				adsModel.setImageUrl(resultSet.getString("ads_image_url"));
+				adsModel.setDescription(resultSet.getString("ads_description"));
+				adsModel.setCommunity(resultSet.getString("ads_community"));
+               
+                 adslist.add(adsModel);
+            }
+             
+            resultSet.close();
+            ps.close();
+        }catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
+              
+        return adslist;
+    }
 }
