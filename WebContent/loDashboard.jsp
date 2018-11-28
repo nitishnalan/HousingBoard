@@ -9,8 +9,7 @@
 <title>Leasing Office - Home page</title>
 <!-- Bootstrap CSS  -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-<!--  StyleSheet -->
+ <!--  StyleSheet -->
 <link rel="stylesheet" href="/HousingBoard/css/style.css"></link>
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 </head>
@@ -34,7 +33,22 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		
+	Hello Leasing Office User - ${user.name},
+	<br>
+ 	<c:if test="${user.pageFlag==0}">
+	<a href="/HousingBoard/createPage.jsp">Create Leasing Office Page</a>
+	<form action="/HousingBoard/updateprofile/dataretrieve" method="post">
+     			<input type="submit" value="Update details" />
+            </form>
+	</c:if>
+	<br/>	
+	<c:if test="${user.pageFlag==1}">
+	
+	<a href="/HousingBoard/createAds.jsp">Create an AD</a>
+	<form action="/HousingBoard/updateprofile/dataretrieve" method="post">
+     			<input type="submit" value="Update details" />
+            </form>
+	</c:if>
 </body>
 </html>
-
-<!-- 0987 -->

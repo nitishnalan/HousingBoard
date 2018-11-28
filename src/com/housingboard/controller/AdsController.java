@@ -227,4 +227,3 @@ public class AdsController extends HttpServlet {
 	    }
 }
 
-

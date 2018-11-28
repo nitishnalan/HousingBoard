@@ -39,5 +39,6 @@ public interface AdsDao {
 
 	public Ads getAd(int i);
 
-
+	public List<Ads> AdminlistAllAds();
 }
+

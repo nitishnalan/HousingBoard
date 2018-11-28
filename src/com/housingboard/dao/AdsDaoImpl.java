@@ -561,5 +561,37 @@ public class AdsDaoImpl implements AdsDao {
 		}
 		return adUserSummaryObj;
 	}	
+
+	public List<Ads> AdminlistAllAds() {
+        List<Ads> adslist = new ArrayList<>();
+        try {
+        	String sql = "SELECT * FROM ads";
+        	
+            conn = db.getConnection();					
+    		ps =   conn.prepareStatement(sql);
+    		ResultSet resultSet = ps.executeQuery(sql);
+    		
+    		System.out.println("Connection: "+ps);
+    		
+    		while (resultSet.next()) {          
+                Ads adsModel = new Ads();
+				adsModel.setId(Integer.parseInt(resultSet.getString("ads_id")));
+				adsModel.setTitle(resultSet.getString("ads_title"));
+				adsModel.setImageUrl(resultSet.getString("ads_image_url"));
+				adsModel.setDescription(resultSet.getString("ads_description"));
+				adsModel.setCommunity(resultSet.getString("ads_community"));
+               
+                 adslist.add(adsModel);
+            }
+             
+            resultSet.close();
+            ps.close();
+        }catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
+              
+        return adslist;
+    }
 }
 

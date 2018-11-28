@@ -15,11 +15,12 @@ public class UserModel {
 	private int userType;
 	private boolean isActive;
 	private String password;
+	private int pageFlag;
 	
 	public UserModel(String name, String phoneNumb, String address, String emailId, String city, String state,
-			String country, String zipcode, int userType, boolean isActive, String password) {
+			String country, String zipcode, int userType, boolean isActive, String password, int id, int pageFlag) {
 		super();
-		//this.id = id;
+		this.id = id;
 		this.name = name;
 		this.phoneNumb = phoneNumb;
 		this.address = address;
@@ -32,13 +33,37 @@ public class UserModel {
 		this.userType = userType;
 		this.isActive = isActive;
 		this.password = password;
+		this.pageFlag=pageFlag;
 	}
 	
+	
+	
+	public UserModel(String name, String phoneNumb, String address, String emailId, 
+			String city, String state, String country, String zipcode, int id) {
+		super();
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+		this.phoneNumb = phoneNumb;
+		this.address = address;
+		this.emailId = emailId;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zipcode = zipcode;
+	}
 	public UserModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	public int getPageFlag() {
+		return pageFlag;
+	}
+	public void setPageFlag(int pageFlag) {
+		this.pageFlag = pageFlag;
+	}
+	
 	public int getId() {
 		return id;
 	}
