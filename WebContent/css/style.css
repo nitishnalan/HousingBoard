@@ -1,0 +1,28 @@
+.blue-sky {
+	background-color: #4cb5f5;
+	color:white;
+}
+
+.granite {
+	background-color: #b7b8b6;
+	color:white;
+}
+
+.pine {
+	background-color: #34675c;
+	color:white;
+}
+
+.fields {
+	background-color: #b3c100;
+}
+
+.container{
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+body{
+	font-family: 'Titillium Web', sans-serif;
+	height: 100%;
+}
