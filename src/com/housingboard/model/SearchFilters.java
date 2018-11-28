@@ -1,7 +1,5 @@
 package com.housingboard.model;
-/**
- * @author nitish
- */
+
 public class SearchFilters {
 	
 	private String adsLeasingType;
@@ -49,7 +47,4 @@ public class SearchFilters {
 	public void setAdsSharing(boolean adsSharing) {
 		this.adsSharing = adsSharing;
 	}
-	
-	
-	
 }
