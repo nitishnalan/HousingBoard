@@ -25,15 +25,68 @@ function fetchAdDetails(adID){
 	document.getElementById("search").submit();
 }
 </script>
+<script type="text/javascript">
+
+ function checkRequest(){
+	//alert("checkRequest called : ");
+	console.log("calling from checkRequest : ");
+	document.getElementById("search").action = "/HousingBoard/checkAdRequest/reviewInterests";
+	document.getElementById("search").method = "POST";
+	document.getElementById("search").submit();
+}
+ 
+ function updateProfile(){
+		//alert("updateProfile called : ");
+		console.log("calling from checkRequest : ");
+		document.getElementById("memberDashboard").action = "/HousingBoard/updateprofile/dataretrieve";
+		document.getElementById("memberDashboard").method = "POST";
+		document.getElementById("memberDashboard").submit();
+}
+ 
+function redirectToDashBoard(){
+		//alert("updateProfile called : ");
+		console.log("calling from redirectToDashBoard : ");
+		document.getElementById("search").action = "/HousingBoard/redirect/dashBoard";
+		document.getElementById("search").method = "POST";
+		document.getElementById("search").submit();
+}
+
+function logOut(){
+	//alert("updateProfile called : ");
+	console.log("calling from logOut : ");
+	document.getElementById("memberDashboard").action = "/HousingBoard/logOut";
+	document.getElementById("memberDashboard").method = "POST";
+	document.getElementById("memberDashboard").submit();
+}
+</script>
 <title>Search Results</title>
 </head>
 <body>
 
-  <nav class="navbar navbar-light blue-sky">
-    <a class="navbar-brand text-white" href="#">
-      HousingBoard
-    </a>
-  </nav>
+  <nav class="navbar navbar-expand navbar-light blue-sky">
+		<a class="navbar-brand text-white" href="#"> HousingBoard </a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+		 </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav">
+		      <li class="nav-item active">
+		        <a class="nav-link text-white" href="#" onclick="redirectToDashBoard()"> Dashboard </a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" id="search-ads" href="/HousingBoard/searchAds.jsp">Search</a>
+		      </li>
+		      <li class="nav-item">
+				<a class="nav-link text-white" id="request" onclick="checkRequest()">Requests</a>
+		      </li>		
+		      <li class="nav-item">
+		  		<a class="nav-link text-white" href="AdForm.jsp">Manage Ads</a>
+		      </li>						
+		    </ul>
+		  </div>
+		  <button class="btn blue-sky" onclick="updateProfile()">Update Details</button>
+		<a class="navbar-brand text-white" href="#" onclick="logOut()"> Logout </a>
+	</nav>
 <!-- 	<form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get">
 		Apply Filters
 		
@@ -44,6 +97,7 @@ function fetchAdDetails(adID){
       <div class="row">
         <div class="col-md-12">
           <h2>Search Ads</h2>
+          <!-- <form name="memberDashboard"></form> -->
             <form name="search" id="search" action = "/HousingBoard/searchAds/1" method="get">
               <div class="form-row">
 
@@ -128,8 +182,25 @@ function fetchAdDetails(adID){
               </div>
               
               
-              <table class="table table-bordered table-responsive" border=1>
-                <c:forEach items="${searchResultsOfAds}" var="adPost">
+              <table class="table table-bordered table-responsive">
+              <thead>
+              	<tr>
+              		<th>
+              			Title
+              		</th>
+              		<th>
+              			Images
+              		</th>
+              		<th>
+              			Quantity
+              		</th>
+              		<th>Community</th>
+              		<th>Description</th>
+              		<th>Details</th>
+              	</tr>
+              </thead>
+              <tbody>
+             	 <c:forEach items="${searchResultsOfAds}" var="adPost">
                   <c:choose>
                     <c:when test="${adPost.isAvailable() eq true}">
                       <tr>
@@ -138,17 +209,16 @@ function fetchAdDetails(adID){
                       <%-- 	<td> <img width=src="${adPost.imageUrl}"></td> --%>
                         
                         <td> <img src="${adPost.imageUrl}" alt="Smiley face" width="42" height="42" /></td>
-                        <td> ${adPost.userId}</td>
+                        <!--<td> ${adPost.userId}</td>-->
                         <td> ${adPost.description}</td>
                         <td> ${adPost.community}</td>
-                        <td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
                         <td> 
                         	ApartmentType : ${adPost.apartmentType} <br/>
                         	Preferences : ${adPost.preferences} <br/>
                         	Leasing Type : ${adPost.leaseType} <br/>
                         	Sharing : ${adPost.sharing} <br/>
-                        	
                         </td>
+                        <td> <a href='#' onclick="fetchAdDetails(${adPost.id});"> Click here for Details </a> </td>
                       </tr>
                     </c:when>
                     
@@ -171,6 +241,7 @@ function fetchAdDetails(adID){
                   </c:choose>
                   
                 </c:forEach>
+              </tbody>
               </table>
                 <%
                   if(session.getAttribute("searchField") != null){

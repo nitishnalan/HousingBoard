@@ -55,11 +55,32 @@ function logOut(){
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-light blue-sky">
+	<nav class="navbar navbar-expand navbar-light blue-sky">
 		<a class="navbar-brand text-white" href="#"> HousingBoard </a>
-		
-		<a class="navbar-brand text-white" href="#" onclick="redirectToDashBoard()"> Dashboard </a>
-		<a class="navbar-brand text-white" href="#" onclick="logOut()"> LogOut </a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+		 </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav">
+		      <li class="nav-item active">
+		        <a class="nav-link text-white" href="#" onclick="redirectToDashBoard()">Dashboard</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" id="search-ads" href="/HousingBoard/searchAds.jsp">Search</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link text-white" id="show-interest" onclick="showMyInterests()">Interests</a>
+		      </li>
+		      <li class="nav-item">
+				<a class="nav-link text-white" id="request" onclick="checkRequest()">Requests</a>
+		      </li>		
+		      <li class="nav-item">
+		  		<a class="nav-link text-white" href="/HousingBoard/AdForm.jsp">Manage Ads</a>
+		      </li>						
+		    </ul>
+		  </div>
+		  <button class="btn blue-sky" onclick="updateProfile()">Update Details</button>
+		<a class="navbar-brand text-white" href="#" onclick="logOut()"> Logout </a>
 	</nav>
 	<div class="container-fluid granite">
 		<div class="container">
@@ -67,30 +88,19 @@ function logOut(){
 				<div class="col-md-12">
 					<form id="memberDashboard" name="memberDashboard">
 						<h2>Hello Member User - ${user.name}</h2>
-						<p>If you would like to created an Ad please click this
-							button:</p>
 						<div class="row">
-							<div class="col-md-3">
-								<a class="btn blue-sky" id="create-ad" href="/HousingBoard/AdForm.jsp">Create
-									Ad</a>
+							<div class="col-md-6">
+								If you would like to created an Ad please click this button:&nbsp;<a class="btn blue-sky" id="create-ad" href="/HousingBoard/AdForm.jsp">Create Ad</a>
 							</div>
-
-							<div class="col-md-3">
-								<a class="btn blue-sky" id="search-ads" href="/HousingBoard/searchAds.jsp">Search</a>
-							</div>
-
-							<div class="col-md-3">
+							<!--<div class="col-md-3">
 								<button class="btn blue-sky" id="show-interest" onclick="showMyInterests()">Interests</button>
-							</div>
-
-							<div class="col-md-3">
+							</div>-->
+							<!-- <div class="col-md-3">
 								<button class="btn blue-sky" id="request" onclick="checkRequest()">Requests</button>
-							</div>
-							<div class="col-md-3">
-								<button class="btn blue-sky" onclick="updateProfile()">Update
-									Details</button>
-							</div>
-
+							</div> -->
+							<!--<div class="col-md-6">
+								<button class="btn blue-sky" onclick="updateProfile()">Update Details</button>
+							</div> -->
 						</div>
 					</form>
 				</div>
@@ -109,7 +119,7 @@ function logOut(){
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-	<a href="AdForm.jsp">Manage Ads</a>
+	
 	<br />
 	<br />
 	<br />

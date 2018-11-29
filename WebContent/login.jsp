@@ -43,13 +43,12 @@
             			<input class="form-control" type="password" name="password" id="password" placeholder="Password" required/>
           		</div>
         			<input class="btn blue-sky btn-block" type="submit" name="submit" value="Login"/>
-        			<p class="text-center">Not a User ?<br><a class="btn blue-sky" id="register" href="register.jsp"> Register Here !</a></p>
         			<br/>
-				<p>Login<a href="adminLogin.jsp"> Admin Login Here !</a></p>
+        			<p class="text-center">Not a User ?<br><a class="btn blue-sky" id="register" href="register.jsp"> Register</a></p>
+        			<br/>
+				<p class="text-center"><a class="btn blue-sky" href="adminLogin.jsp">Admin</a></p>
         	</form>
-		      
-		      
-		
+
 		</div>
 	    </div>
 	  </div>
