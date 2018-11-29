@@ -15,13 +15,13 @@ public class LoginTest {
 	public void checkLogin() throws InterruptedException{
 		WebElement radio = driver.findElement(By.id("type-member"));
 		radio.click();
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		WebElement email = driver.findElement(By.id("email_id"));
 		email.sendKeys("pra@gmail.com");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("12");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		WebElement submit = driver.findElement(By.name("submit"));
 		submit.click();
 		Assert.assertEquals("Member - Home Page", driver.getTitle());

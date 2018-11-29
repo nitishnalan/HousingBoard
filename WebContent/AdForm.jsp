@@ -55,15 +55,15 @@
             <tr>
                 <th>preferences </th>
                 <td>
-                    <label>Parking Space Included :</label><input type="checkbox" name="preferences" value="1"><br/>
+                    <label>Parking Space Included :</label><input type="checkbox" id="parking-Space" name="preferences" value="1"><br/>
     				<label>Gender Inclusive :</label><input type="checkbox" name="preferences" value="2"><br/>
-    				<label>Pets Allowed :</label><input type="checkbox" name="preferences" value="3"><br/>
+    				<label>Pets Allowed :</label><input type="checkbox" id="pets" name="preferences" value="3"><br/>
                 </td>
             </tr>
               <tr>
                 <th>Leasing Type </th>
                 <td>
-                 <label>New Lease :</label><input type="radio" name="leasingType" size="15"
+                 <label>New Lease :</label><input type="radio" id="new-lease" name="leasingType" size="15"
                             value="New Lease"/><br/><br/>
                  <label>Sub Lease :</label><input type="radio" name="leasingType" size="15"
                             value="Sub Lease"/><br/><br/>   
@@ -73,7 +73,7 @@
                 <th>Sharing</th>
                 <td>
                     <select type="select" name="sharing" >
-                    <option value="YES">YES</option>
+                    <option id="shared"value="YES">YES</option>
                     <option value="NO">NO</option>
                     </select>
                 </td>
@@ -83,7 +83,7 @@
                 <td>
                     <select type="text" name="apartmentTypeId">
                     	<option value = "1">1BR</option>
-                    	<option value = "2">2BR</option>
+                    	<option id="2br" value = "2">2BR</option>
                     	<option value = "3">3BR</option>
                     	<option value = "4">Studio</option>
                     	<option value = "5">Duplex</option>
@@ -94,7 +94,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="Add an AD" />
+                    <input type="submit" id="submit-button" value="Add an AD" />
                 </td>
             </tr>
         </table>
