@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 function fetchAdDetails(adID){
-	alert("fetchAdDetails called@ : " + adID);
+	//alert("fetchAdDetails called@ : " + adID);
 	console.log("calling from fetchAdDetails : " + adID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("search").action = "/HousingBoard/adDetails/"+adID;
