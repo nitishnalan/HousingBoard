@@ -93,7 +93,7 @@ public class CommunitySummaryController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		doGet(request, response);
 		
 		HttpSession session = request.getSession(false);
 		String pathInfo = request.getPathInfo();
@@ -132,8 +132,8 @@ public class CommunitySummaryController extends HttpServlet {
 //				System.out.println("userAdAssociation : " + userAdAssociation);
 				
 				
-				System.out.println("communityObj Reviews: " + communitySummObj.getReviewsCommunity().toString());
-				System.out.println("communityObj Reviews Size: " + communitySummObj.getReviewsCommunity().size());
+//				System.out.println("communityObj Reviews: " + communitySummObj.getReviewsCommunity().toString());
+//				System.out.println("communityObj Reviews Size: " + communitySummObj.getReviewsCommunity().size());
 				viewName = "/communitySummary.jsp";		
 
 			}
