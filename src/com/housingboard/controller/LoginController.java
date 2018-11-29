@@ -58,6 +58,7 @@ public class LoginController extends HttpServlet {
 				viewUrl = "/memberDashboard.jsp";
 				session.setAttribute("user", memberModel);
 				session.setAttribute("userAuthToken",memberModel.getId());
+				session.setAttribute("userType", memberModel.getUserType());
 			}else {
 				viewUrl = "/suMessage.jsp";
 				session.setAttribute("message", "Invalid login details! Please try again or create a new account!");
@@ -73,6 +74,7 @@ public class LoginController extends HttpServlet {
 				viewUrl = "/loDashboard.jsp";
 				session.setAttribute("user", loModel);
 				session.setAttribute("userAuthToken",loModel.getId());
+				session.setAttribute("userType", loModel.getUserType());
 			}
 			else {
 				viewUrl = "/suMessage.jsp";
