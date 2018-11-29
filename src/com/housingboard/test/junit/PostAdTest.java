@@ -31,7 +31,7 @@ public class PostAdTest {
 		WebElement createAdLink = driver.findElement(By.id("create-ad"));
 		createAdLink.click();
 		Thread.sleep(500);
-		Assert.assertEquals("Post ADs", driver.getTitle());
+		Assert.assertEquals("Ads Application", driver.getTitle());
 		WebElement title = driver.findElement(By.name("title"));
 		title.sendKeys("Test Title");
 		WebElement image = driver.findElement(By.name("imageUrl"));
@@ -40,7 +40,17 @@ public class PostAdTest {
 		desc.sendKeys("This is test description");
 		WebElement community = driver.findElement(By.name("community"));
 		community.sendKeys("Test community");
-		WebElement submit = driver.findElement(By.name("submit"));
+		WebElement parking = driver.findElement(By.id("parking-Space"));
+		parking.click();
+		WebElement pet = driver.findElement(By.id("pets"));
+		pet.click();
+		WebElement newLease = driver.findElement(By.id("new-lease"));
+		newLease.click();
+		WebElement shared = driver.findElement(By.id("shared"));
+		shared.click();
+		WebElement br = driver.findElement(By.id("2br"));
+		br.click();
+		WebElement submit = driver.findElement(By.id("submit-button"));
 		submit.click();
 		Thread.sleep(2000);		
 		Assert.assertEquals("Success", driver.getTitle());
