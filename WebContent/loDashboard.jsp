@@ -28,6 +28,24 @@ function checkRequest(){
 	document.getElementById("loDashboard").method = "POST";
 	document.getElementById("loDashboard").submit();
 }
+
+function goToCommunityHomePage(userID){
+	alert("goToCommunityHomePage called : " + userID);
+	console.log("calling from goToCommunityHomePage : " + userID);
+	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
+	document.getElementById("loDashboard").action = "/HousingBoard/communitySummary/"+userID;
+	document.getElementById("loDashboard").method = "GET";
+	document.getElementById("loDashboard").target = "_blank";
+	document.getElementById("loDashboard").submit();
+}
+
+function updateProfile(){
+	alert("updateProfile called : ");
+	console.log("calling from checkRequest : ");
+	document.getElementById("loDashboard").action = "/HousingBoard/updateprofile/dataretrieve";
+	document.getElementById("loDashboard").method = "POST";
+	document.getElementById("loDashboard").submit();
+}
 </script>
 </head>
 <body>
@@ -66,10 +84,12 @@ function checkRequest(){
 	<br/>	
 	<c:if test="${user.pageFlag==1}">
 	
-	<a href="/HousingBoard/createAds.jsp">Create an AD</a>
-	<form action="/HousingBoard/updateprofile/dataretrieve" method="post">
+	<a href="#" onclick="goToCommunityHomePage(${user.id})">View my Community Page</a>
+	<br/>
+	<a href="#" onclick="updateProfile()">Update Profile Information</a>
+	<!-- <form action="/HousingBoard/updateprofile/dataretrieve" method="post">
      			<input type="submit" value="Update details" />
-            </form>
+            </form> -->
 	</c:if>
 </body>
 </html>

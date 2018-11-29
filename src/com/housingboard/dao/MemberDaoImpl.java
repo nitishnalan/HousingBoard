@@ -153,7 +153,7 @@ public class MemberDaoImpl implements UserDao{
     public List<UserModel> dataretrieve(int id) {
         List<UserModel> userdata = new ArrayList<>();
         try {
-        	String sql = "SELECT * FROM user where user_id="+id;
+        	String sql = "SELECT * FROM user where user_id="+id+" limit 1";
         	
             conn = db.getConnection();					
     		ps =   conn.prepareStatement(sql);
@@ -190,6 +190,41 @@ public class MemberDaoImpl implements UserDao{
 	 public boolean createPage(String description, String url,int id) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public UserModel retrieveData(int userId) {
+		UserModel data = new UserModel();
+		try {
+        	String sql = "SELECT * FROM user where user_id="+userId+" limit 1";
+        	
+            conn = db.getConnection();					
+    		ps =   conn.prepareStatement(sql);
+    		ResultSet resultSet = ps.executeQuery(sql);
+    		
+    		System.out.println("Connection: "+ps);
+    		
+    		while (resultSet.next()) {          
+                
+                data.setEmailId(resultSet.getString("user_email_id"));
+                data.setName(resultSet.getString("user_name"));
+                data.setAddress(resultSet.getString("user_address"));
+                data.setPhoneNumb(resultSet.getString("user_phone_no"));
+				data.setPassword(resultSet.getString("password"));
+				data.setCity(resultSet.getString("user_city"));
+				data.setState(resultSet.getString("user_state"));
+				data.setCountry(resultSet.getString("user_country"));
+				data.setZipcode(resultSet.getString("user_zipcode"));
+               
+            }
+             
+            resultSet.close();
+            ps.close();
+        }catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
+              
+        return data;
 	}
 	
 }

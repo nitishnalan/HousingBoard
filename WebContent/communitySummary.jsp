@@ -32,7 +32,8 @@ function addReviewForCommunity(communityPgID){
 	
 	<table border=1>
 		<c:set var = "communityPg" value = "${communityObj}"/>
-		<c:set var = "userCommunityPgAssoc" value = "${userCommunityPgAssoc}"/>
+		<c:set var = "userCommunityPgAssoc" value = "${userCommunityPgAssoc}"/>		
+		<c:set var = "userCommunityPgOwner" value = "${userCommunityPgOwner}"/>
 		<tr>
 			<td>
 				<img src="${communityPg.imageUrl}" alt="Smiley face" width="500" height="500" />
@@ -51,7 +52,15 @@ function addReviewForCommunity(communityPgID){
 				${communityPg.pageDescription}
 			</td>			
 		</tr>
-		
+		<c:if test="${userCommunityPgOwner == true}">
+		<tr>
+			<td>
+				<button type ='submit' class='btn' onclick="addReviewForCommunity(${communityPg.id})">
+					Edit My Profile Page
+				</button>
+			</td>
+		</tr>
+		</c:if>
 	</table>
 	
 	<c:set var = "reviews" value = "${communityObj.getReviewsCommunity()}"/>
@@ -67,6 +76,7 @@ function addReviewForCommunity(communityPgID){
 				</table> --%>
 			</td>
 		</tr>
+		<c:if test="${userCommunityPgOwner == false}">
 		<c:if test="${userCommunityPgAssoc != true}">
 		<tr>
 			<td>
@@ -75,6 +85,7 @@ function addReviewForCommunity(communityPgID){
 				</button>
 			</td>
 		</tr>
+		</c:if>
 		</c:if>
 		<c:if test="${reviews != null}">
 		<tr>

@@ -41,6 +41,7 @@ public class CommunitySummaryController extends HttpServlet {
 		System.out.println(pathParts[1].toString());
 		int communityID = Integer.parseInt(pathParts[1].toString());
 		boolean userCommunityPgAssoc = false;
+		boolean userCommunityPgOwner = false;
 		System.out.println("communityID for summary " + communityID);
 		
 		CommunitySummary communitySummObj = new CommunitySummary();
@@ -65,8 +66,10 @@ public class CommunitySummaryController extends HttpServlet {
 				}else {
 					int userId = Integer.parseInt(session.getAttribute("userAuthToken").toString());
 					userCommunityPgAssoc = communitySummaryDaoImplObj.getUserCommunityPgAssoc(userId,communityID);
+					userCommunityPgOwner = (userId == communityID)? true : false;
 					
 					request.setAttribute("userCommunityPgAssoc", userCommunityPgAssoc);
+					request.setAttribute("userCommunityPgOwner", userCommunityPgOwner);
 				}
 //				request.setAttribute("userAdAssociation", userAdAssociation);
 //				System.out.println("postedUserType for an Ad : " + adDetails.getPostedUserType());

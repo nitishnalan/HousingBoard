@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
 function addInterest(adID){
-	alert("addInterest called : " + adID);
+	//alert("addInterest called : " + adID);
 	console.log("calling from addInterest : " + adID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("summary").action = "/HousingBoard/showAdInterest/"+adID;
@@ -25,7 +25,7 @@ function addInterest(adID){
 }
 
 function goToCommunityHomePage(userID){
-	alert("goToCommunityHomePage called : " + userID);
+	//alert("goToCommunityHomePage called : " + userID);
 	console.log("calling from goToCommunityHomePage : " + userID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("summary").action = "/HousingBoard/communitySummary/"+userID;
