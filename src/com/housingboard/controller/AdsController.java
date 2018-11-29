@@ -81,7 +81,7 @@ public class AdsController extends HttpServlet {
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/AdList.jsp");
 		        dispatcher.forward(request, response);
 	        }else {
-	        	session.setAttribute("message", "The List is Null Dude");
+	        	session.setAttribute("message", "There is no list of ADs available for you! Please create and AD first to view the list!");
 	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
 		        dispatcher.forward(request, response);
 	        }
@@ -147,7 +147,7 @@ public class AdsController extends HttpServlet {
 	    		community, preferences, leasingType, sharing, apartmentTypeId);
 	   
 	        if(adsDao.insertAds(ads)) {
-	        	session.setAttribute("message", "Successfully Inserted");
+	        	session.setAttribute("message", "The ADs has been successfully inserted!");
 	        }
 //	        String redirectURL = "/suMessage.jsp";
 //	        response.sendRedirect(redirectURL);
@@ -220,7 +220,7 @@ public class AdsController extends HttpServlet {
 	        boolean value = adsDao.deleteAdsFromDatabase(ads, id);
 	        HttpSession session = request.getSession(false);
 	        if(value) {        	 	        	
-	        	session.setAttribute("message1", "Deleted Successfully");
+	        	session.setAttribute("message1", "The ADs has been deleted  successfully!");
 	        }else {
 	        	session.setAttribute("message1", "Something went wrong while deleting the Ad!");
 	        }	        
