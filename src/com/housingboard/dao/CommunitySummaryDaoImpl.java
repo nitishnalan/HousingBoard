@@ -86,4 +86,32 @@ public class CommunitySummaryDaoImpl {
 		return false;
 	}
 
+	public boolean updateCommunityPageData(CommunitySummary communitySummObj) {
+		String sql = "";
+		try {
+			if(communitySummObj.isImgUrlSet()) {
+				sql = "UPDATE USER SET user_name = '"+communitySummObj.getName()+"', "
+						+ "community_page_description = '"+communitySummObj.getPageDescription()+"', "
+								+ "community_image_url = '"+communitySummObj.getImageUrl()+"'"
+								+ " where user_id = "+communitySummObj.getId()+"";
+			}else {
+				sql = "UPDATE USER SET user_name = '"+communitySummObj.getName()+"', "
+						+ "community_page_description = '"+communitySummObj.getPageDescription()+"'"
+								+ " where user_id = "+communitySummObj.getId()+"";
+			}
+			conn = db.getConnection();	
+			ps = conn.prepareStatement(sql);
+			System.out.println("Connection updateCommunityPageData: "+ps);
+			ps.executeUpdate();
+			conn.close();
+			
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
+
 }

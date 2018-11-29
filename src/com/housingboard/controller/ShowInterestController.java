@@ -78,10 +78,16 @@ public class ShowInterestController extends HttpServlet {
 			InterestDaoImpl myInterestObj  = new InterestDaoImpl();
 			List<UserAdInterest> eachUsersInterests = new ArrayList<>(); 
 			eachUsersInterests = myInterestObj.getEachUserInterest(userId);
+			String viewName = "";
+			if(eachUsersInterests.size() != 0) {
+				request.setAttribute("userInterests", eachUsersInterests);
+				viewName = "/showMyInterest.jsp";
+			}else {
+				request.setAttribute("message", "There is no Interest posted by a you for any ADs");
+				viewName = "/suMessage.jsp";
+			}			
 			
-			request.setAttribute("userInterests", eachUsersInterests);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/showMyInterest.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewName);
 			dispatcher.forward(request, response);
 		}
 		

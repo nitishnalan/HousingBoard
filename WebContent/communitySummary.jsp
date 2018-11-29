@@ -24,6 +24,14 @@ function addReviewForCommunity(communityPgID){
 	document.getElementById("communitySummary").submit();
 }
 
+function editCommunityPage(communityPgID){
+	//alert("addReviewForCommunity called : " + communityPgID);
+	console.log("addReviewForCommunity from communityPgID : " + communityPgID);
+	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
+	document.getElementById("communitySummary").action = "/HousingBoard/editCommunityPage/fetchData/"+communityPgID;
+	document.getElementById("communitySummary").method = "POST";
+	document.getElementById("communitySummary").submit();
+}
 </script>
 </head>
 <body>
@@ -55,7 +63,7 @@ function addReviewForCommunity(communityPgID){
 		<c:if test="${userCommunityPgOwner == true}">
 		<tr>
 			<td>
-				<button type ='submit' class='btn' onclick="addReviewForCommunity(${communityPg.id})">
+				<button type ='submit' class='btn' onclick="editCommunityPage(${communityPg.id})">
 					Edit My Profile Page
 				</button>
 			</td>
