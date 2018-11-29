@@ -58,7 +58,7 @@ function fetchAdDetails(adID){
                     }
                   %>
                 </div>
-                <div class="form-group col-md-1"><button type ='submit' class='btn blue-sky'>Search</button></div>
+                <div class="form-group col-md-1"><button type ='submit' id="submit-button" class='btn blue-sky'>Search</button></div>
               </div>
               
               <div class="form-row">
@@ -146,7 +146,7 @@ function fetchAdDetails(adID){
                         	ApartmentType : ${adPost.apartmentType} <br/>
                         	Preferences : ${adPost.preferences} <br/>
                         	Leasing Type : ${adPost.leaseType} <br/>
-                        	Saring : ${adPost.sharing} <br/>
+                        	Sharing : ${adPost.sharing} <br/>
                         	
                         </td>
                       </tr>

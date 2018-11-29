@@ -57,15 +57,15 @@ function showMyInterests(){
 							</div>
 
 							<div class="col-md-3">
-								<a class="btn blue-sky" href="/HousingBoard/searchAds.jsp">Search</a>
+								<a class="btn blue-sky" id="search-ads" href="/HousingBoard/searchAds.jsp">Search</a>
 							</div>
 
 							<div class="col-md-3">
-								<button class="btn blue-sky" onclick="showMyInterests()">Interests</button>
+								<button class="btn blue-sky" id="show-interest" onclick="showMyInterests()">Interests</button>
 							</div>
 
 							<div class="col-md-3">
-								<button class="btn blue-sky" onclick="checkRequest()">Requests</button>
+								<button class="btn blue-sky" id="request" onclick="checkRequest()">Requests</button>
 							</div>
 							<div class="col-md-3">
 								<button class="btn blue-sky" onclick="updateProfile()">Update

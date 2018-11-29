@@ -11,7 +11,7 @@
 
 <!--  StyleSheet -->
 <link rel="stylesheet" href="/HousingBoard/css/style.css"></link>
-<title>HousingBoard Registration</title>
+<title>My Interests</title>
 
 <script type="text/javascript">
 function getDetails(adID){
