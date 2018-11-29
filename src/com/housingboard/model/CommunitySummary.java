@@ -18,6 +18,13 @@ public class CommunitySummary {
 	private String country;
 	private String zip;
 	private String imageUrl;
+	private boolean isImgUrlSet;
+	public boolean isImgUrlSet() {
+		return isImgUrlSet;
+	}
+	public void setImgUrlSet(boolean isImgUrlSet) {
+		this.isImgUrlSet = isImgUrlSet;
+	}
 	private String pageDescription;
 	private List<Review> reviewsCommunity;
 	

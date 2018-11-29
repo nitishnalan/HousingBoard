@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <script type="text/javascript">
 function showMyInterests(){
-	alert("showMyInterests called : ");
+	//alert("showMyInterests called : ");
 	console.log("calling from showMyInterests : ");
 	document.getElementById("loDashboard").action = "/HousingBoard/showAdInterest/myInterests";
 	document.getElementById("loDashboard").method = "POST";
@@ -22,7 +22,7 @@ function showMyInterests(){
 }
 
 function checkRequest(){
-	alert("checkRequest called : ");
+	//alert("checkRequest called : ");
 	console.log("calling from checkRequest : ");
 	document.getElementById("loDashboard").action = "/HousingBoard/checkAdRequest/reviewInterests";
 	document.getElementById("loDashboard").method = "POST";
@@ -30,7 +30,7 @@ function checkRequest(){
 }
 
 function goToCommunityHomePage(userID){
-	alert("goToCommunityHomePage called : " + userID);
+	//alert("goToCommunityHomePage called : " + userID);
 	console.log("calling from goToCommunityHomePage : " + userID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("loDashboard").action = "/HousingBoard/communitySummary/"+userID;
@@ -40,7 +40,7 @@ function goToCommunityHomePage(userID){
 }
 
 function updateProfile(){
-	alert("updateProfile called : ");
+	//alert("updateProfile called : ");
 	console.log("calling from checkRequest : ");
 	document.getElementById("loDashboard").action = "/HousingBoard/updateprofile/dataretrieve";
 	document.getElementById("loDashboard").method = "POST";
