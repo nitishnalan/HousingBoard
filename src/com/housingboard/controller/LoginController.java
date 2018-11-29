@@ -46,7 +46,7 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		Login loginModel = new Login(email_id, password);
 		String viewUrl;
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		String userType = request.getParameter("user_type");
 		System.out.println("USER-Type : " + userType);
 		if(userType.equals("member")) {

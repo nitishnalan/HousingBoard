@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
 function declineInterest(usrID,inteID){
-	alert("declineInterest called@ : " + usrID);
+	//alert("declineInterest called@ : " + usrID);
 	console.log("calling from declineInterest : " + usrID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("reviewInterests").action = "/HousingBoard/checkAdRequest/decline/"+usrID+"/"+inteID;
@@ -25,13 +25,23 @@ function declineInterest(usrID,inteID){
 }
 
 function approveInterest(usrID,inteID){
-	alert("approveInterest called : " + usrID);
+	//alert("approveInterest called : " + usrID);
 	console.log("calling from approveInterest : " + usrID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("reviewInterests").action = "/HousingBoard/checkAdRequest/approve/"+usrID+"/"+inteID;
 	document.getElementById("reviewInterests").method = "POST";
 	document.getElementById("reviewInterests").submit();
 }
+function showDetailsOfADs(adId){
+	//alert("declineInterest called@ : " + usrID);
+	console.log("calling from declineInterest : " + adId);
+
+	document.getElementById("reviewInterests").action = "/HousingBoard/adDetails/"+adId;
+	document.getElementById("reviewInterests").method = "POST";
+	document.getElementById("reviewInterests").target = "_blank";
+	document.getElementById("reviewInterests").submit();
+}
+
 </script>
 </head>
 <body>
@@ -45,7 +55,9 @@ function approveInterest(usrID,inteID){
     <div class="row">
       <div class="col-md-12">
         <form id="reviewInterests">
+        	Requests received on the ADs posted by you:
         	<table border=1 class="table table-responsive table-bordered">
+        	
         		<c:forEach items="${checkAdUserInterests}" var="checkUsrAdInt">
         			<tr>
         				<td>${checkUsrAdInt.userName}</td>
@@ -56,11 +68,12 @@ function approveInterest(usrID,inteID){
         				<c:choose>
         					<c:when test="${checkUsrAdInt.statusValue eq 'Approved'}">
         						<button type ='button' class='btn blue-sky' onclick="declineInterest(${checkUsrAdInt.interestShowerUserId},${checkUsrAdInt.interestID})">Decline</button>
-        						
+        						<button type ='button' class='btn blue-sky' onclick="showDetailsOfADs(${checkUsrAdInt.ad_id})">Show details of ADs</button>
         					</c:when>
         					<c:otherwise>
         						<button type ='button' class='btn blue-sky' onclick="approveInterest(${checkUsrAdInt.interestShowerUserId},${checkUsrAdInt.interestID});">Approve</button>
         						<button type ='button' class='btn blue-sky' onclick="declineInterest(${checkUsrAdInt.interestShowerUserId},${checkUsrAdInt.interestID})">Decline</button>
+        						<button type ='button' class='btn blue-sky' onclick="showDetailsOfADs(${checkUsrAdInt.ad_id})">Show details of ADs</button>
         					</c:otherwise>
         				</c:choose>
         				</td>	
