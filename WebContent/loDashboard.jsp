@@ -60,7 +60,7 @@ function updateProfile(){
 	    <div class="row">
 	      <div class="col-md-12">
 	        <h2 class="text-center">Hello Leasing Office User - ${user.name},</h2>
-        	<a class="btn blue-sky text-center" href="/HousingBoard/createAds.jsp">Create an AD</a>
+        	<a class="btn blue-sky text-center" href="/HousingBoard/AdForm.jsp">Create an AD</a>
         	<div class="col-md-3"><a class="btn blue-sky" href="/HousingBoard/searchAds.jsp">Search</a></div>
         	<div class="col-md-3"><button class="btn blue-sky" onclick="checkRequest()">Requests</button></div>
 	      </div>

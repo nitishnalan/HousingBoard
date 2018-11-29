@@ -101,7 +101,7 @@ public class AdsController extends HttpServlet {
 
 	    
 	    private void insertAds(HttpServletRequest request, HttpServletResponse response, int userId)
-	            throws SQLException, IOException {
+	            throws SQLException, IOException, ServletException {
 	    	HttpSession session = request.getSession(false);	
 	        String title = request.getParameter("title");
 	        String imageUrl = request.getParameter("imageUrl");	        
@@ -149,8 +149,10 @@ public class AdsController extends HttpServlet {
 	        if(adsDao.insertAds(ads)) {
 	        	session.setAttribute("message", "Successfully Inserted");
 	        }
-	        String redirectURL = "http://localhost:8080/HousingBoard/suMessage.jsp";
-	        response.sendRedirect(redirectURL);
+//	        String redirectURL = "/suMessage.jsp";
+//	        response.sendRedirect(redirectURL);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/suMessage.jsp");
+			dispatcher.forward(request, response);
 	        
 	    }
 	 

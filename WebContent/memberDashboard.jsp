@@ -52,7 +52,7 @@ function showMyInterests(){
 							button:</p>
 						<div class="row">
 							<div class="col-md-3">
-								<a class="btn blue-sky" href="/HousingBoard/createAds.jsp">Create
+								<a class="btn blue-sky" href="/HousingBoard/AdForm.jsp">Create
 									Ad</a>
 							</div>
 
