@@ -29,7 +29,7 @@ function goToCommunityHomePage(userID){
 	console.log("calling from goToCommunityHomePage : " + userID);
 	//console.log("/apnidukaan/product/search/1?categoryId="+categoryRequestedHome+"&searchfield="+searchCriteriaHome);
 	document.getElementById("summary").action = "/HousingBoard/communitySummary/"+userID;
-	document.getElementById("summary").method = "GET";
+	document.getElementById("summary").method = "POST";
 	document.getElementById("summary").target = "_blank";
 	document.getElementById("summary").submit();
 }
