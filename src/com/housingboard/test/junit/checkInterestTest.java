@@ -28,10 +28,10 @@ public class checkInterestTest {
 	}
 	@Test
 	public void checkInterest() throws InterruptedException{
-		WebElement checkInterest = driver.findElement(By.id("check-interest"));
+		WebElement checkInterest = driver.findElement(By.id("request"));
 		checkInterest.click();
 		Thread.sleep(500);
-		Assert.assertEquals("Request On ADs", driver.getTitle());
+		Assert.assertEquals("Success", driver.getTitle());
 	}
 
 	@After

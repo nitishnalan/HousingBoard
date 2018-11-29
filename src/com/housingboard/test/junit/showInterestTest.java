@@ -31,7 +31,7 @@ public class showInterestTest {
 		WebElement showInterest = driver.findElement(By.id("show-interest"));
 		showInterest.click();
 		Thread.sleep(500);
-		Assert.assertEquals("Show My Interest Page", driver.getTitle());
+		Assert.assertEquals("My Interests", driver.getTitle());
 	}
 
 	@After

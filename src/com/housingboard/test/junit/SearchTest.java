@@ -34,12 +34,13 @@ public class SearchTest {
 		WebElement searchLink = driver.findElement(By.id("search-ads"));
 		searchLink.click();
 		Thread.sleep(500);
-		Assert.assertEquals("Search Results", driver.getTitle());
 		WebElement searchbox = driver.findElement(By.name("searchfield"));
-		searchbox.sendKeys("420");
-		Thread.sleep(3000);
-		String adTitle = driver.findElement(By.xpath("//table[@id='searchtable']/tbody/tr[1]/td[2]")).getText();
-		Assert.assertTrue(adTitle.contains("420"));
+		searchbox.sendKeys("402");	
+		WebElement searchButton = driver.findElement(By.id("submit-button"));
+		searchButton.click();
+		Thread.sleep(2000);
+		String searchText = driver.findElement(By.xpath("//*[@id=\"search\"]/table/tbody/tr[1]/td[1]")).getText();
+		Assert.assertTrue(searchText.contains("402"));
 	}
 
 	@After
