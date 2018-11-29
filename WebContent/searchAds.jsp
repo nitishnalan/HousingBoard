@@ -133,7 +133,7 @@ function fetchAdDetails(adID){
                   <c:choose>
                     <c:when test="${adPost.isAvailable() eq true}">
                       <tr>
-                        <td> ${adPost.id}</td>
+                        <%-- <td> ${adPost.id}</td> --%>
                         <td> ${adPost.title}</td>
                       <%-- 	<td> <img width=src="${adPost.imageUrl}"></td> --%>
                         
@@ -154,7 +154,7 @@ function fetchAdDetails(adID){
                     
                     <c:otherwise>
                       <tr>
-                        <td> ${adPost.id}</td>
+                        <%-- <td> ${adPost.id}</td> --%>
                         <td> ${adPost.title}</td>
                         <td> <img src="${adPost.imageUrl}" alt="Smiley face" width="42" height="42"/></td>
                         <td> ${adPost.userId}</td>
@@ -180,14 +180,16 @@ function fetchAdDetails(adID){
                     
                     int pageNo = 1;
                     System.out.println("pageCounter from SEARCH ADS JSP : " + pageCounter);
-                    if(pageCounter!=0){
+                    while(pageCounter!=0){
                       //strBuild.append("<li><a href='/apnidukaan/product/search/"+pageNo+"?categoryId="+searchFieldValue+"&searchfield="+searchFieldValue+"' class='btn btn-warning'>	"+pageNo+"</a></li> &nbsp");
                       //strBuild.append("<li><a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a></li> &nbsp");
                       
                       strBuild.append("<a href='/HousingBoard/searchAds/"+pageNo+"?searchfield="+searchFieldValue+"'> "+pageNo+"</a> &nbsp");
                       ++pageNo;
                       --pageCounter;
-                    }else{
+                    }
+                    
+                    if(pageCounter!=0){
                     	strBuild.append("<b> No search results available! </b>");
                     }
                     
