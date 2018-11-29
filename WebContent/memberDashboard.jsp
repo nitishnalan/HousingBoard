@@ -35,12 +35,31 @@ function showMyInterests(){
 		document.getElementById("memberDashboard").action = "/HousingBoard/updateprofile/dataretrieve";
 		document.getElementById("memberDashboard").method = "POST";
 		document.getElementById("memberDashboard").submit();
-	}
+}
+ 
+function redirectToDashBoard(){
+		//alert("updateProfile called : ");
+		console.log("calling from redirectToDashBoard : ");
+		document.getElementById("memberDashboard").action = "/HousingBoard/redirect/dashBoard";
+		document.getElementById("memberDashboard").method = "POST";
+		document.getElementById("memberDashboard").submit();
+}
+
+function logOut(){
+	//alert("updateProfile called : ");
+	console.log("calling from logOut : ");
+	document.getElementById("memberDashboard").action = "/HousingBoard/logOut";
+	document.getElementById("memberDashboard").method = "POST";
+	document.getElementById("memberDashboard").submit();
+}
 </script>
 </head>
 <body>
 	<nav class="navbar navbar-light blue-sky">
 		<a class="navbar-brand text-white" href="#"> HousingBoard </a>
+		
+		<a class="navbar-brand text-white" href="#" onclick="redirectToDashBoard()"> Dashboard </a>
+		<a class="navbar-brand text-white" href="#" onclick="logOut()"> LogOut </a>
 	</nav>
 	<div class="container-fluid granite">
 		<div class="container">

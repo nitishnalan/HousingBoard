@@ -34,7 +34,7 @@ public class MemberDaoImpl implements UserDao{
 			ps = conn.prepareStatement(
 					"SELECT user_id,user_name,user_email_id,user_phone_no,user_address,user_city,user_state,user_country,user_zipcode, user_type_id " + 
 					"FROM user " + 
-					"WHERE user_type_id = 2 and user_email_id='" + login.getEmailId()  +"' AND password='"  + login.getPassword() 
+					"WHERE user_type_id = 1 and user_email_id='" + login.getEmailId()  +"' AND password='"  + login.getPassword() 
 					+ "' AND isActive=1 LIMIT 1;");
 			
 			
